@@ -2,6 +2,7 @@ package com.hlysine.create_power_loader;
 
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -42,5 +43,9 @@ public class CreatePowerLoader
 
     public static CreateRegistrate getRegistrate() {
         return REGISTRATE;
+    }
+
+    public static ResourceLocation asResource(String path) {
+        return new ResourceLocation(MODID, path);
     }
 }

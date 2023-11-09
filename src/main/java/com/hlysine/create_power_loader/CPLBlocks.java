@@ -16,8 +16,12 @@ public class CPLBlocks {
     private static final CreateRegistrate REGISTRATE = CreatePowerLoader.getRegistrate();
 
     public static final BlockEntry<MechanicalChunkLoaderBlock> MECHANICAL_CHUNK_LOADER = REGISTRATE.block("mechanical_chunk_loader", MechanicalChunkLoaderBlock::new)
-            .initialProperties(SharedProperties::stone)
-            .properties(p -> p.mapColor(MapColor.PODZOL))
+            .initialProperties(SharedProperties::softMetal)
+            .properties(p -> p
+                    .mapColor(MapColor.TERRACOTTA_YELLOW)
+                    .isRedstoneConductor((state, getter, pos) -> false)
+                    .noOcclusion()
+            )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
