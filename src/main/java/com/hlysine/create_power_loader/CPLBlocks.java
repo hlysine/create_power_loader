@@ -21,11 +21,12 @@ public class CPLBlocks {
                     .mapColor(MapColor.TERRACOTTA_YELLOW)
                     .isRedstoneConductor((state, getter, pos) -> false)
                     .noOcclusion()
+                    .lightLevel((state) -> 6)
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
-            .transform(BlockStressDefaults.setImpact(2.0))
+            .transform(BlockStressDefaults.setImpact(4.0))
             .item()
             .transform(customItemModel())
             .register();

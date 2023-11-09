@@ -35,6 +35,7 @@ public class CreatePowerLoader
         REGISTRATE.setCreativeTab(CPLCreativeTabs.MAIN);
         CPLBlocks.register();
         CPLBlockEntityTypes.register();
+        CPLPartialModels.register();
         CPLCreativeTabs.register(modEventBus);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us

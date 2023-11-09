@@ -27,6 +27,11 @@ public class MechanicalChunkLoaderBlock extends DirectionalKineticBlock implemen
     }
 
     @Override
+    public SpeedLevel getMinimumRequiredSpeedLevel() {
+        return SpeedLevel.FAST;
+    }
+
+    @Override
     public Class<MechanicalChunkLoaderBlockEntity> getBlockEntityClass() {
         return MechanicalChunkLoaderBlockEntity.class;
     }
