@@ -31,9 +31,10 @@ public class CreatePowerLoader
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
-        REGISTRATE.setCreativeTab(CPLCreativeTab.MAIN);
+        REGISTRATE.setCreativeTab(CPLCreativeTabs.MAIN);
         CPLBlocks.register();
         CPLBlockEntityTypes.register();
+        CPLCreativeTabs.register(modEventBus);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
