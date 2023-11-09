@@ -1,0 +1,5 @@
+{
+  "block.create_power_loader.mechanical_chunk_loader": "Mechanical Chunk Loader",
+  "block.create_power_loader.mechanical_chunk_loader.tooltip.summary": "Uses _Rotational Force_ to keep the current chunk loaded.",
+  "itemGroup.create_power_loader.main": "Create: Power Loader"
+}

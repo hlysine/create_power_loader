@@ -28,7 +28,7 @@ public class MechanicalChunkLoaderBlock extends DirectionalKineticBlock implemen
 
     @Override
     public SpeedLevel getMinimumRequiredSpeedLevel() {
-        return SpeedLevel.FAST;
+        return SpeedLevel.MEDIUM;
     }
 
     @Override

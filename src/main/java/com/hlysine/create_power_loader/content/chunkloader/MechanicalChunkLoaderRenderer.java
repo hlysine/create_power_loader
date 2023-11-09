@@ -2,20 +2,18 @@ package com.hlysine.create_power_loader.content.chunkloader;
 
 
 import com.hlysine.create_power_loader.CPLPartialModels;
-import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
+import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import net.minecraft.util.Mth;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
@@ -49,11 +47,11 @@ public class MechanicalChunkLoaderRenderer extends KineticBlockEntityRenderer<Me
         float time = AnimationTickHolder.getRenderTime(be.getLevel());
         float speed = be.getSpeed() / 16f;
         if (!be.isSpeedRequirementFulfilled())
-            speed = 1;
+            speed = Mth.clamp(speed, -0.5f, 0.5f);
         if (speed > 0)
-            speed = Mth.clamp(speed, 1, 8);
+            speed = Mth.clamp(speed, 0.1f, 8);
         if (speed < 0)
-            speed = Mth.clamp(speed, -8, -1);
+            speed = Mth.clamp(speed, -8, 0.1f);
         float angle = (time * speed * 3 / 10f) % 360;
         angle = angle / 180f * (float) Math.PI;
 
