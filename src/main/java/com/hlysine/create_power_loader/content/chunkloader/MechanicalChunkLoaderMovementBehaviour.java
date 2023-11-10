@@ -1,8 +1,11 @@
 package com.hlysine.create_power_loader.content.chunkloader;
 
+import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
+import com.simibubi.create.content.contraptions.render.ContraptionMatrices;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
@@ -88,6 +91,11 @@ public class MechanicalChunkLoaderMovementBehaviour implements MovementBehaviour
         ChunkLoadingUtils.unforceAllChunks((ServerLevel) context.world, context.contraption.entity.getUUID(), savedState.forcedChunks);
 
         context.temporaryData = null;
+    }
+
+    @Override
+    public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld, ContraptionMatrices matrices, MultiBufferSource buffer) {
+        MechanicalChunkLoaderRenderer.renderInContraption(context, renderWorld, matrices, buffer);
     }
 
     static class SavedState {
