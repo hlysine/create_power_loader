@@ -3,7 +3,9 @@ package com.hlysine.create_power_loader.content.andesitechunkloader;
 
 import com.hlysine.create_power_loader.CPLIcons;
 import com.hlysine.create_power_loader.CreatePowerLoader;
+import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.brasschunkloader.ChunkLoadingUtils;
+import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.CenteredSideValueBoxTransform;
@@ -46,7 +48,7 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
     public void tick() {
         super.tick();
 
-        boolean server = !level.isClientSide || isVirtual();
+        boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
 
         if (!server) {
             spawnParticles();
@@ -60,6 +62,22 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
                 updateForcedChunks();
             }
         }
+    }
+
+    @Override
+    public boolean isSpeedRequirementFulfilled() {
+        if (!super.isSpeedRequirementFulfilled())
+            return false;
+
+        BlockState state = getBlockState();
+        if (!(getBlockState().getBlock() instanceof IRotate))
+            return true;
+        IRotate def = (IRotate) state.getBlock();
+        IRotate.SpeedLevel minimumRequiredSpeedLevel = def.getMinimumRequiredSpeedLevel();
+        float minSpeed = minimumRequiredSpeedLevel.getSpeedValue();
+
+        double requirement = minSpeed * 2 * CPLConfigs.server().andesiteSpeedMultiplier.get();
+        return Math.abs(getSpeed()) >= requirement;
     }
 
     public int getLoadingRange() {
@@ -82,7 +100,7 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
     @Override
     public void destroy() {
         super.destroy();
-        boolean server = !level.isClientSide || isVirtual();
+        boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
         if (server)
             ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
     }
@@ -90,7 +108,7 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
     @Override
     public void remove() {
         super.remove();
-        boolean server = !level.isClientSide || isVirtual();
+        boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
         if (server)
             ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
     }

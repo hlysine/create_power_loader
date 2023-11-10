@@ -19,7 +19,7 @@ public class BrassChunkLoaderMovementBehaviour implements MovementBehaviour {
 
     @Override
     public void visitNewPosition(MovementContext context, BlockPos pos) {
-        if (context.world.isClientSide)
+        if (context.world.isClientSide || !(context.world instanceof ServerLevel))
             return;
         if (context.contraption.entity == null)
             return;
@@ -46,7 +46,7 @@ public class BrassChunkLoaderMovementBehaviour implements MovementBehaviour {
 
     @Override
     public void tick(MovementContext context) {
-        if (context.world.isClientSide)
+        if (context.world.isClientSide || !(context.world instanceof ServerLevel))
             return;
         if (context.contraption.entity == null)
             return;
@@ -75,7 +75,7 @@ public class BrassChunkLoaderMovementBehaviour implements MovementBehaviour {
 
     @Override
     public void stopMoving(MovementContext context) {
-        if (context.world.isClientSide)
+        if (context.world.isClientSide || !(context.world instanceof ServerLevel))
             return;
         if (context.contraption.entity == null)
             return;

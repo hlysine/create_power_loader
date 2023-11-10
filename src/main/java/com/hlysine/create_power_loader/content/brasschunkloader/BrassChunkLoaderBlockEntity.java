@@ -60,7 +60,7 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
     public void tick() {
         super.tick();
 
-        boolean server = !level.isClientSide || isVirtual();
+        boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
 
         if (!server) {
             spawnParticles();
@@ -113,7 +113,7 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
     @Override
     public void destroy() {
         super.destroy();
-        boolean server = !level.isClientSide || isVirtual();
+        boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
         if (server)
             ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
     }
@@ -121,7 +121,7 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
     @Override
     public void remove() {
         super.remove();
-        boolean server = !level.isClientSide || isVirtual();
+        boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
         if (server)
             ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
     }

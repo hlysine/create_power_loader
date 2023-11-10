@@ -9,9 +9,11 @@ import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.ForgeChunkManager;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -50,10 +52,11 @@ public class CreatePowerLoader {
         REGISTRATE.setCreativeTab(CPLCreativeTabs.MAIN);
         CPLBlocks.register();
         CPLBlockEntityTypes.register();
-        CPLPartialModels.register();
         CPLCreativeTabs.register(modEventBus);
 
         CPLConfigs.register(ModLoadingContext.get());
+
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreatePowerLoaderClient.onCtorClient(modEventBus, modEventBus));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
