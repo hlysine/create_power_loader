@@ -3,6 +3,7 @@ package com.hlysine.create_power_loader.content.brasschunkloader;
 
 import com.hlysine.create_power_loader.CPLIcons;
 import com.hlysine.create_power_loader.CreatePowerLoader;
+import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -88,7 +89,7 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
         IRotate.SpeedLevel minimumRequiredSpeedLevel = def.getMinimumRequiredSpeedLevel();
         float minSpeed = minimumRequiredSpeedLevel.getSpeedValue();
 
-        float requirement = minSpeed * (float)Math.pow(2, getLoadingRange());
+        double requirement = minSpeed * (float) Math.pow(2, getLoadingRange()) * CPLConfigs.server().brassSpeedMultiplier.get();
         return Math.abs(getSpeed()) >= requirement;
     }
 

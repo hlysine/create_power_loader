@@ -1,5 +1,6 @@
 package com.hlysine.create_power_loader;
 
+import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.brasschunkloader.ChunkLoadingUtils;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -52,8 +53,7 @@ public class CreatePowerLoader {
         CPLPartialModels.register();
         CPLCreativeTabs.register(modEventBus);
 
-        // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        CPLConfigs.register(ModLoadingContext.get());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

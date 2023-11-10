@@ -9,5 +9,7 @@
   "create_power_loader.brass_chunk_loader.loading_range": "Chunk Loading Radius",
   "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1 Square",
   "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3 Square",
-  "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5 Square"
+  "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5 Square",
+
+  "create_power_loader.config.brass_speed_requirement_multiplier": "Brass Chunk Loader Speed Requirement Multiplier"
 }
