@@ -31,7 +31,7 @@ public class CPLBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .onRegister(movementBehaviour(new AndesiteChunkLoaderMovementBehaviour()))
             .transform(axeOrPickaxe())
-            .transform(BlockStressDefaults.setImpact(4.0))
+            .transform(BlockStressDefaults.setImpact(16.0))
             .item()
             .transform(customItemModel())
             .register();
@@ -48,7 +48,7 @@ public class CPLBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .onRegister(movementBehaviour(new BrassChunkLoaderMovementBehaviour()))
             .transform(axeOrPickaxe())
-            .transform(BlockStressDefaults.setImpact(4.0))
+            .transform(BlockStressDefaults.setImpact(16.0))
             .item()
             .transform(customItemModel())
             .register();

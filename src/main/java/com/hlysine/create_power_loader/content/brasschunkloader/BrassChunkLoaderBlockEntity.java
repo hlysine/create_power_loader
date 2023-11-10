@@ -3,6 +3,7 @@ package com.hlysine.create_power_loader.content.brasschunkloader;
 
 import com.hlysine.create_power_loader.CPLIcons;
 import com.hlysine.create_power_loader.CreatePowerLoader;
+import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.CenteredSideValueBoxTransform;
@@ -73,6 +74,22 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
                 updateForcedChunks();
             }
         }
+    }
+
+    @Override
+    public boolean isSpeedRequirementFulfilled() {
+        if (!super.isSpeedRequirementFulfilled())
+            return false;
+
+        BlockState state = getBlockState();
+        if (!(getBlockState().getBlock() instanceof IRotate))
+            return true;
+        IRotate def = (IRotate) state.getBlock();
+        IRotate.SpeedLevel minimumRequiredSpeedLevel = def.getMinimumRequiredSpeedLevel();
+        float minSpeed = minimumRequiredSpeedLevel.getSpeedValue();
+
+        float requirement = minSpeed * (float)Math.pow(2, getLoadingRange());
+        return Math.abs(getSpeed()) >= requirement;
     }
 
     public int getLoadingRange() {

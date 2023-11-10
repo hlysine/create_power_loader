@@ -1,8 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "GGG",
     "GRG",
+    "GFG",
     "CSC"
   ],
   "key": {
@@ -17,6 +17,9 @@
     },
     "C": {
       "item": "create:brass_casing"
+    },
+    "F": {
+      "item": "create:precision_mechanism"
     }
   },
   "result": {
