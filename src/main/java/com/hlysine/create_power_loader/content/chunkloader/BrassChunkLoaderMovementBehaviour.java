@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import java.util.HashSet;
 import java.util.Set;
 
-public class MechanicalChunkLoaderMovementBehaviour implements MovementBehaviour {
+public class BrassChunkLoaderMovementBehaviour implements MovementBehaviour {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     @Override
@@ -95,7 +95,7 @@ public class MechanicalChunkLoaderMovementBehaviour implements MovementBehaviour
 
     @Override
     public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld, ContraptionMatrices matrices, MultiBufferSource buffer) {
-        MechanicalChunkLoaderRenderer.renderInContraption(context, renderWorld, matrices, buffer);
+        BrassChunkLoaderRenderer.renderInContraption(context, renderWorld, matrices, buffer);
     }
 
     static class SavedState {

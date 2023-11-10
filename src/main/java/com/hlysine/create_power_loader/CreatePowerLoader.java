@@ -1,18 +1,13 @@
 package com.hlysine.create_power_loader;
 
 import com.hlysine.create_power_loader.content.chunkloader.ChunkLoadingUtils;
-import com.hlysine.create_power_loader.content.chunkloader.MechanicalChunkLoaderBlockEntity;
 import com.mojang.logging.LogUtils;
-import com.simibubi.create.content.fluids.FlowSource;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.ForgeChunkManager;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -21,10 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
-
-import java.util.Optional;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(CreatePowerLoader.MODID)

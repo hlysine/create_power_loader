@@ -14,7 +14,6 @@ import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
 import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
-import com.simibubi.create.foundation.utility.VecHelper;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -25,14 +24,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
-public class MechanicalChunkLoaderRenderer extends KineticBlockEntityRenderer<MechanicalChunkLoaderBlockEntity> {
+public class BrassChunkLoaderRenderer extends KineticBlockEntityRenderer<BrassChunkLoaderBlockEntity> {
 
-    public MechanicalChunkLoaderRenderer(BlockEntityRendererProvider.Context context) {
+    public BrassChunkLoaderRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    protected void renderSafe(MechanicalChunkLoaderBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+    protected void renderSafe(BrassChunkLoaderBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
                               int light, int overlay) {
 
         Direction direction = be.getBlockState()
@@ -69,7 +68,7 @@ public class MechanicalChunkLoaderRenderer extends KineticBlockEntityRenderer<Me
     public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
                                            ContraptionMatrices matrices, MultiBufferSource buffer) {
         BlockState state = context.state;
-        Direction direction = state.getValue(MechanicalChunkLoaderBlock.FACING);
+        Direction direction = state.getValue(BrassChunkLoaderBlock.FACING);
         int light = ContraptionRenderDispatcher.getContraptionWorldLight(context, renderWorld);
 
         SuperByteBuffer core =

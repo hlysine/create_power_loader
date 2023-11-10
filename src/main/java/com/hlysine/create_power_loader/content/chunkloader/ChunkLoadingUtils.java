@@ -45,7 +45,7 @@ public class ChunkLoadingUtils {
         for (ChunkPos chunk : forcedChunks) {
             forceChunk(level, owner, chunk.x, chunk.z, false);
         }
-        LOGGER.debug("Mechanical chunk loader destroyed, unloaded {} chunks.", forcedChunks.size());
+        LOGGER.debug("Brass chunk loader destroyed, unloaded {} chunks.", forcedChunks.size());
         forcedChunks.clear();
     }
 
@@ -75,7 +75,7 @@ public class ChunkLoadingUtils {
                     blockPos.toShortString(),
                     tickets.getFirst().size(),
                     tickets.getSecond().size());
-            Optional<MechanicalChunkLoaderBlockEntity> blockEntity = level.getBlockEntity(blockPos, CPLBlockEntityTypes.MECHANICAL_CHUNK_LOADER.get());
+            Optional<BrassChunkLoaderBlockEntity> blockEntity = level.getBlockEntity(blockPos, CPLBlockEntityTypes.BRASS_CHUNK_LOADER.get());
             if (blockEntity.isEmpty()) {
                 helper.removeAllTickets(blockPos);
                 LOGGER.debug("Block position {} unforced: Cannot find block entity.", blockPos.toShortString());

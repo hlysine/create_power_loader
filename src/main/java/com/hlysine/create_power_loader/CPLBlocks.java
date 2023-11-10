@@ -1,7 +1,7 @@
 package com.hlysine.create_power_loader;
 
-import com.hlysine.create_power_loader.content.chunkloader.MechanicalChunkLoaderBlock;
-import com.hlysine.create_power_loader.content.chunkloader.MechanicalChunkLoaderMovementBehaviour;
+import com.hlysine.create_power_loader.content.chunkloader.BrassChunkLoaderBlock;
+import com.hlysine.create_power_loader.content.chunkloader.BrassChunkLoaderMovementBehaviour;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -17,7 +17,7 @@ import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 public class CPLBlocks {
     private static final CreateRegistrate REGISTRATE = CreatePowerLoader.getRegistrate();
 
-    public static final BlockEntry<MechanicalChunkLoaderBlock> MECHANICAL_CHUNK_LOADER = REGISTRATE.block("mechanical_chunk_loader", MechanicalChunkLoaderBlock::new)
+    public static final BlockEntry<BrassChunkLoaderBlock> BRASS_CHUNK_LOADER = REGISTRATE.block("brass_chunk_loader", BrassChunkLoaderBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .properties(p -> p
                     .mapColor(MapColor.TERRACOTTA_YELLOW)
@@ -27,7 +27,7 @@ public class CPLBlocks {
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
             .addLayer(() -> RenderType::cutoutMipped)
-            .onRegister(movementBehaviour(new MechanicalChunkLoaderMovementBehaviour()))
+            .onRegister(movementBehaviour(new BrassChunkLoaderMovementBehaviour()))
             .transform(axeOrPickaxe())
             .transform(BlockStressDefaults.setImpact(4.0))
             .item()

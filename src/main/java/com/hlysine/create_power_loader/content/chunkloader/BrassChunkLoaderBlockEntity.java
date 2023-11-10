@@ -3,14 +3,12 @@ package com.hlysine.create_power_loader.content.chunkloader;
 
 import com.hlysine.create_power_loader.CPLIcons;
 import com.hlysine.create_power_loader.CreatePowerLoader;
-import com.mojang.logging.LogUtils;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.CenteredSideValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.INamedIconOptions;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollOptionBehaviour;
 import com.simibubi.create.foundation.gui.AllIcons;
-import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.VecHelper;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -24,15 +22,13 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.world.ForgeChunkManager;
-import org.slf4j.Logger;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @MethodsReturnNonnullByDefault
-public class MechanicalChunkLoaderBlockEntity extends KineticBlockEntity {
+public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
 
     protected int chunkUpdateCooldown;
     protected BlockPos lastBlockPos;
@@ -43,7 +39,7 @@ public class MechanicalChunkLoaderBlockEntity extends KineticBlockEntity {
 
     protected ScrollOptionBehaviour<LoadingRange> loadingRange;
 
-    public MechanicalChunkLoaderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public BrassChunkLoaderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
@@ -52,7 +48,7 @@ public class MechanicalChunkLoaderBlockEntity extends KineticBlockEntity {
         super.addBehaviours(behaviours);
 
         loadingRange = new ScrollOptionBehaviour<>(LoadingRange.class,
-                Component.translatable(CreatePowerLoader.MODID + ".mechanical_chunk_loader.loading_range"), this, new LoadingRangeValueBox());
+                Component.translatable(CreatePowerLoader.MODID + ".brass_chunk_loader.loading_range"), this, new LoadingRangeValueBox());
         loadingRange.value = 0;
         loadingRange.withCallback(i -> updateForcedChunks());
         behaviours.add(loadingRange);
@@ -126,7 +122,7 @@ public class MechanicalChunkLoaderBlockEntity extends KineticBlockEntity {
             return;
 
         double speed = .0625f;
-        Vec3 normal = Vec3.atLowerCornerOf(getBlockState().getValue(MechanicalChunkLoaderBlock.FACING).getNormal());
+        Vec3 normal = Vec3.atLowerCornerOf(getBlockState().getValue(BrassChunkLoaderBlock.FACING).getNormal());
         Vec3 v2 = c.add(VecHelper.offsetRandomly(Vec3.ZERO, r, .5f)
                         .multiply(1, 1, 1)
                         .normalize()
@@ -140,7 +136,7 @@ public class MechanicalChunkLoaderBlockEntity extends KineticBlockEntity {
     private static class LoadingRangeValueBox extends CenteredSideValueBoxTransform {
         public LoadingRangeValueBox() {
             super((blockState, direction) -> {
-                Direction facing = blockState.getValue(MechanicalChunkLoaderBlock.FACING);
+                Direction facing = blockState.getValue(BrassChunkLoaderBlock.FACING);
                 return facing.getAxis() != direction.getAxis();
             });
         }
@@ -152,7 +148,7 @@ public class MechanicalChunkLoaderBlockEntity extends KineticBlockEntity {
 
         @Override
         public Vec3 getLocalOffset(BlockState state) {
-            Direction facing = state.getValue(MechanicalChunkLoaderBlock.FACING);
+            Direction facing = state.getValue(BrassChunkLoaderBlock.FACING);
             return super.getLocalOffset(state).add(Vec3.atLowerCornerOf(facing.getNormal())
                     .scale(-4 / 16f));
         }
@@ -175,7 +171,7 @@ public class MechanicalChunkLoaderBlockEntity extends KineticBlockEntity {
 
         LoadingRange(AllIcons icon) {
             this.icon = icon;
-            this.translationKey = CreatePowerLoader.MODID + ".mechanical_chunk_loader." + Lang.asId(name());
+            this.translationKey = CreatePowerLoader.MODID + ".brass_chunk_loader." + Lang.asId(name());
         }
 
         @Override

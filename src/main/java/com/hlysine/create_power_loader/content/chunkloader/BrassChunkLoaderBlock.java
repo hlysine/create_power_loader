@@ -10,9 +10,9 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class MechanicalChunkLoaderBlock extends DirectionalKineticBlock implements IBE<MechanicalChunkLoaderBlockEntity> {
+public class BrassChunkLoaderBlock extends DirectionalKineticBlock implements IBE<BrassChunkLoaderBlockEntity> {
 
-    public MechanicalChunkLoaderBlock(Properties properties) {
+    public BrassChunkLoaderBlock(Properties properties) {
         super(properties);
     }
 
@@ -32,13 +32,13 @@ public class MechanicalChunkLoaderBlock extends DirectionalKineticBlock implemen
     }
 
     @Override
-    public Class<MechanicalChunkLoaderBlockEntity> getBlockEntityClass() {
-        return MechanicalChunkLoaderBlockEntity.class;
+    public Class<BrassChunkLoaderBlockEntity> getBlockEntityClass() {
+        return BrassChunkLoaderBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends MechanicalChunkLoaderBlockEntity> getBlockEntityType() {
-        return CPLBlockEntityTypes.MECHANICAL_CHUNK_LOADER.get();
+    public BlockEntityType<? extends BrassChunkLoaderBlockEntity> getBlockEntityType() {
+        return CPLBlockEntityTypes.BRASS_CHUNK_LOADER.get();
     }
 
 }
