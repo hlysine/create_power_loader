@@ -1,12 +1,23 @@
 package com.hlysine.create_power_loader.content.chunkloader;
 
 
+import com.hlysine.create_power_loader.CPLIcons;
 import com.hlysine.create_power_loader.CreatePowerLoader;
+import com.mojang.logging.LogUtils;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.CenteredSideValueBoxTransform;
+import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.INamedIconOptions;
+import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollOptionBehaviour;
+import com.simibubi.create.foundation.gui.AllIcons;
+import com.simibubi.create.foundation.utility.AngleHelper;
+import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.VecHelper;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
@@ -14,14 +25,37 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.world.ForgeChunkManager;
+import org.slf4j.Logger;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @MethodsReturnNonnullByDefault
 public class MechanicalChunkLoaderBlockEntity extends KineticBlockEntity {
 
     protected int chunkUpdateCooldown;
+    protected BlockPos lastBlockPos;
+    protected boolean lastSpeedRequirement;
+    protected int lastRange;
+
+    protected Set<ChunkPos> forcedChunks = new HashSet<>();
+
+    protected ScrollOptionBehaviour<LoadingRange> loadingRange;
 
     public MechanicalChunkLoaderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+    }
+
+    @Override
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+        super.addBehaviours(behaviours);
+
+        loadingRange = new ScrollOptionBehaviour<>(LoadingRange.class,
+                Component.translatable(CreatePowerLoader.MODID + ".mechanical_chunk_loader.loading_range"), this, new LoadingRangeValueBox());
+        loadingRange.value = 0;
+        loadingRange.withCallback(i -> updateForcedChunks());
+        behaviours.add(loadingRange);
     }
 
     @Override
@@ -36,20 +70,46 @@ public class MechanicalChunkLoaderBlockEntity extends KineticBlockEntity {
 
         if (server && chunkUpdateCooldown-- <= 0) {
             chunkUpdateCooldown = 10;
-            ChunkPos chunkPos = new ChunkPos(getBlockPos());
-            if (isSpeedRequirementFulfilled()) {
-                ForgeChunkManager.forceChunk((ServerLevel) level, CreatePowerLoader.MODID, getBlockPos(), chunkPos.x, chunkPos.z, true, true);
-            } else {
-                ForgeChunkManager.forceChunk((ServerLevel) level, CreatePowerLoader.MODID, getBlockPos(), chunkPos.x, chunkPos.z, false, true);
+            if (needsUpdate()) {
+                lastBlockPos = getBlockPos().immutable();
+                lastSpeedRequirement = isSpeedRequirementFulfilled();
+                lastRange = getLoadingRange();
+                updateForcedChunks();
             }
+        }
+    }
+
+    public int getLoadingRange() {
+        return loadingRange.getValue() + 1;
+    }
+
+    private boolean needsUpdate() {
+        if (lastBlockPos == null) return true;
+        return !lastBlockPos.equals(getBlockPos()) || lastSpeedRequirement != isSpeedRequirementFulfilled() || lastRange != getLoadingRange();
+    }
+
+    private void updateForcedChunks() {
+        if (isSpeedRequirementFulfilled()) {
+            ChunkLoadingUtils.updateForcedChunks((ServerLevel) level, new ChunkPos(getBlockPos()), getBlockPos(), getLoadingRange(), forcedChunks);
+        } else {
+            ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
         }
     }
 
     @Override
     public void destroy() {
         super.destroy();
-        ChunkPos chunkPos = new ChunkPos(getBlockPos());
-        ForgeChunkManager.forceChunk((ServerLevel) level, CreatePowerLoader.MODID, getBlockPos(), chunkPos.x, chunkPos.z, false, true);
+        boolean server = !level.isClientSide || isVirtual();
+        if (server)
+            ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
+    }
+
+    @Override
+    public void remove() {
+        super.remove();
+        boolean server = !level.isClientSide || isVirtual();
+        if (server)
+            ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
     }
 
     protected void spawnParticles() {
@@ -61,20 +121,71 @@ public class MechanicalChunkLoaderBlockEntity extends KineticBlockEntity {
         RandomSource r = level.getRandom();
 
         Vec3 c = VecHelper.getCenterOf(worldPosition);
-        Vec3 v = c.add(VecHelper.offsetRandomly(Vec3.ZERO, r, .125f)
-                .multiply(1, 0, 1));
 
         if (r.nextInt(4) != 0)
             return;
 
-        double yMotion = .0625f;
+        double speed = .0625f;
+        Vec3 normal = Vec3.atLowerCornerOf(getBlockState().getValue(MechanicalChunkLoaderBlock.FACING).getNormal());
         Vec3 v2 = c.add(VecHelper.offsetRandomly(Vec3.ZERO, r, .5f)
-                        .multiply(1, .25f, 1)
+                        .multiply(1, 1, 1)
                         .normalize()
                         .scale((.25f) + r.nextDouble() * .125f))
-                .add(0, .5, 0);
+                .add(normal.scale(0.5f));
 
-        level.addParticle(ParticleTypes.PORTAL, v2.x, v2.y, v2.z, 0, yMotion, 0);
+        Vec3 motion = normal.scale(speed);
+        level.addParticle(ParticleTypes.PORTAL, v2.x, v2.y, v2.z, motion.x, motion.y, motion.z);
     }
 
+    private static class LoadingRangeValueBox extends CenteredSideValueBoxTransform {
+        public LoadingRangeValueBox() {
+            super((blockState, direction) -> {
+                Direction facing = blockState.getValue(MechanicalChunkLoaderBlock.FACING);
+                return facing.getAxis() != direction.getAxis();
+            });
+        }
+
+        @Override
+        protected Vec3 getSouthLocation() {
+            return VecHelper.voxelSpace(8, 8, 15.5);
+        }
+
+        @Override
+        public Vec3 getLocalOffset(BlockState state) {
+            Direction facing = state.getValue(MechanicalChunkLoaderBlock.FACING);
+            return super.getLocalOffset(state).add(Vec3.atLowerCornerOf(facing.getNormal())
+                    .scale(-4 / 16f));
+        }
+
+
+        @Override
+        public float getScale() {
+            return super.getScale();
+        }
+    }
+
+    public enum LoadingRange implements INamedIconOptions {
+        LOAD_1x1(CPLIcons.I_1x1),
+        LOAD_3x3(CPLIcons.I_3x3),
+        LOAD_5x5(CPLIcons.I_5x5),
+        ;
+
+        private final String translationKey;
+        private final AllIcons icon;
+
+        LoadingRange(AllIcons icon) {
+            this.icon = icon;
+            this.translationKey = CreatePowerLoader.MODID + ".mechanical_chunk_loader." + Lang.asId(name());
+        }
+
+        @Override
+        public AllIcons getIcon() {
+            return icon;
+        }
+
+        @Override
+        public String getTranslationKey() {
+            return translationKey;
+        }
+    }
 }

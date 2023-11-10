@@ -1,6 +1,7 @@
 package com.hlysine.create_power_loader;
 
 import com.hlysine.create_power_loader.content.chunkloader.MechanicalChunkLoaderBlock;
+import com.hlysine.create_power_loader.content.chunkloader.MechanicalChunkLoaderMovementBehaviour;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -9,6 +10,7 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.material.MapColor;
 
+import static com.simibubi.create.AllMovementBehaviours.movementBehaviour;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 
@@ -25,6 +27,7 @@ public class CPLBlocks {
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
             .addLayer(() -> RenderType::cutoutMipped)
+            .onRegister(movementBehaviour(new MechanicalChunkLoaderMovementBehaviour()))
             .transform(axeOrPickaxe())
             .transform(BlockStressDefaults.setImpact(4.0))
             .item()
