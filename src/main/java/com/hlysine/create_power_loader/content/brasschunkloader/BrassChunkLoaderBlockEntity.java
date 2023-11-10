@@ -1,4 +1,4 @@
-package com.hlysine.create_power_loader.content.chunkloader;
+package com.hlysine.create_power_loader.content.brasschunkloader;
 
 
 import com.hlysine.create_power_loader.CPLIcons;

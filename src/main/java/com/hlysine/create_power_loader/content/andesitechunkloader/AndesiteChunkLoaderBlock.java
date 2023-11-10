@@ -1,4 +1,4 @@
-package com.hlysine.create_power_loader.content.chunkloader;
+package com.hlysine.create_power_loader.content.andesitechunkloader;
 
 import com.hlysine.create_power_loader.CPLBlockEntityTypes;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
@@ -10,9 +10,9 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BrassChunkLoaderBlock extends DirectionalKineticBlock implements IBE<BrassChunkLoaderBlockEntity> {
+public class AndesiteChunkLoaderBlock extends DirectionalKineticBlock implements IBE<AndesiteChunkLoaderBlockEntity> {
 
-    public BrassChunkLoaderBlock(Properties properties) {
+    public AndesiteChunkLoaderBlock(Properties properties) {
         super(properties);
     }
 
@@ -32,13 +32,13 @@ public class BrassChunkLoaderBlock extends DirectionalKineticBlock implements IB
     }
 
     @Override
-    public Class<BrassChunkLoaderBlockEntity> getBlockEntityClass() {
-        return BrassChunkLoaderBlockEntity.class;
+    public Class<AndesiteChunkLoaderBlockEntity> getBlockEntityClass() {
+        return AndesiteChunkLoaderBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends BrassChunkLoaderBlockEntity> getBlockEntityType() {
-        return CPLBlockEntityTypes.BRASS_CHUNK_LOADER.get();
+    public BlockEntityType<? extends AndesiteChunkLoaderBlockEntity> getBlockEntityType() {
+        return CPLBlockEntityTypes.ANDESITE_CHUNK_LOADER.get();
     }
 
 }

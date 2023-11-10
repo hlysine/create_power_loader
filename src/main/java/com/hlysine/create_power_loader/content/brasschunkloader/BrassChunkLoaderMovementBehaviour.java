@@ -1,4 +1,4 @@
-package com.hlysine.create_power_loader.content.chunkloader;
+package com.hlysine.create_power_loader.content.brasschunkloader;
 
 import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
 import com.mojang.logging.LogUtils;

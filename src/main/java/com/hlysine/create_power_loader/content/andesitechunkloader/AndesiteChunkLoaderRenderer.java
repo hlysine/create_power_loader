@@ -1,12 +1,12 @@
-package com.hlysine.create_power_loader.content.chunkloader;
+package com.hlysine.create_power_loader.content.andesitechunkloader;
 
 
-import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
-import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.hlysine.create_power_loader.CPLPartialModels;
+import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllPartialModels;
+import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.content.contraptions.render.ContraptionMatrices;
 import com.simibubi.create.content.contraptions.render.ContraptionRenderDispatcher;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
@@ -24,14 +24,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
-public class BrassChunkLoaderRenderer extends KineticBlockEntityRenderer<BrassChunkLoaderBlockEntity> {
+public class AndesiteChunkLoaderRenderer extends KineticBlockEntityRenderer<AndesiteChunkLoaderBlockEntity> {
 
-    public BrassChunkLoaderRenderer(BlockEntityRendererProvider.Context context) {
+    public AndesiteChunkLoaderRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    protected void renderSafe(BrassChunkLoaderBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+    protected void renderSafe(AndesiteChunkLoaderBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
                               int light, int overlay) {
 
         Direction direction = be.getBlockState()
@@ -45,7 +45,7 @@ public class BrassChunkLoaderRenderer extends KineticBlockEntityRenderer<BrassCh
                 CachedBufferer.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), direction.getOpposite());
         SuperByteBuffer core =
                 CachedBufferer.partialFacing(
-                        be.isSpeedRequirementFulfilled() ? CPLPartialModels.CHUNK_LOADER_CORE_ACTIVE : CPLPartialModels.CHUNK_LOADER_CORE_INACTIVE,
+                        be.isSpeedRequirementFulfilled() ? CPLPartialModels.ANDESITE_CHUNK_LOADER_CORE_ACTIVE : CPLPartialModels.ANDESITE_CHUNK_LOADER_CORE_INACTIVE,
                         be.getBlockState(),
                         direction
                 );
@@ -68,26 +68,21 @@ public class BrassChunkLoaderRenderer extends KineticBlockEntityRenderer<BrassCh
     public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
                                            ContraptionMatrices matrices, MultiBufferSource buffer) {
         BlockState state = context.state;
-        Direction direction = state.getValue(BrassChunkLoaderBlock.FACING);
+        Direction direction = state.getValue(AndesiteChunkLoaderBlock.FACING);
         int light = ContraptionRenderDispatcher.getContraptionWorldLight(context, renderWorld);
 
         SuperByteBuffer core =
                 CachedBufferer.partialFacing(
-                        CPLPartialModels.CHUNK_LOADER_CORE_ACTIVE,
+                        CPLPartialModels.ANDESITE_CHUNK_LOADER_CORE_INACTIVE,
                         state,
                         direction
                 );
-
-        float speed = context.getAnimationSpeed();
-        float time = AnimationTickHolder.getRenderTime() / 40f;
-        float angle = ((time * speed) % 360);
 
         core
                 .transform(matrices.getModel())
                 .centre()
                 .rotateY(AngleHelper.horizontalAngle(direction))
                 .rotateX(AngleHelper.verticalAngle(direction))
-                .rotateZ(angle)
                 .unCentre()
                 .light(matrices.getWorld(), light)
                 .renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderType.solid()));

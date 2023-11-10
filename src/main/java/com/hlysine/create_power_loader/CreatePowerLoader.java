@@ -1,6 +1,6 @@
 package com.hlysine.create_power_loader;
 
-import com.hlysine.create_power_loader.content.chunkloader.ChunkLoadingUtils;
+import com.hlysine.create_power_loader.content.brasschunkloader.ChunkLoadingUtils;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;

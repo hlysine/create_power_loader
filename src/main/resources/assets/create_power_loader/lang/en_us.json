@@ -1,7 +1,11 @@
 {
-  "block.create_power_loader.brass_chunk_loader": "Brass Chunk Loader",
-  "block.create_power_loader.brass_chunk_loader.tooltip.summary": "Uses _Rotational Force_ to keep the current chunk loaded.",
   "itemGroup.create_power_loader.main": "Create: Power Loader",
+
+  "block.create_power_loader.andesite_chunk_loader": "Andesite Chunk Loader",
+  "block.create_power_loader.andesite_chunk_loader.tooltip.summary": "Uses _Rotational Force_ to keep the current chunk loaded.",
+
+  "block.create_power_loader.brass_chunk_loader": "Brass Chunk Loader",
+  "block.create_power_loader.brass_chunk_loader.tooltip.summary": "Uses _Rotational Force_ to keep chunks loaded.",
   "create_power_loader.brass_chunk_loader.loading_range": "Chunk Loading Radius",
   "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1 Square",
   "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3 Square",

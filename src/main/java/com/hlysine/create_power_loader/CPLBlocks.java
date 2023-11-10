@@ -1,7 +1,9 @@
 package com.hlysine.create_power_loader;
 
-import com.hlysine.create_power_loader.content.chunkloader.BrassChunkLoaderBlock;
-import com.hlysine.create_power_loader.content.chunkloader.BrassChunkLoaderMovementBehaviour;
+import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunkLoaderBlock;
+import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunkLoaderMovementBehaviour;
+import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderBlock;
+import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderMovementBehaviour;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -16,6 +18,23 @@ import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 
 public class CPLBlocks {
     private static final CreateRegistrate REGISTRATE = CreatePowerLoader.getRegistrate();
+
+    public static final BlockEntry<AndesiteChunkLoaderBlock> ANDESITE_CHUNK_LOADER = REGISTRATE.block("andesite_chunk_loader", AndesiteChunkLoaderBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(p -> p
+                    .mapColor(MapColor.PODZOL)
+                    .isRedstoneConductor((state, getter, pos) -> false)
+                    .noOcclusion()
+                    .lightLevel((state) -> 4)
+            )
+            .blockstate(BlockStateGen.directionalBlockProvider(true))
+            .addLayer(() -> RenderType::cutoutMipped)
+            .onRegister(movementBehaviour(new AndesiteChunkLoaderMovementBehaviour()))
+            .transform(axeOrPickaxe())
+            .transform(BlockStressDefaults.setImpact(4.0))
+            .item()
+            .transform(customItemModel())
+            .register();
 
     public static final BlockEntry<BrassChunkLoaderBlock> BRASS_CHUNK_LOADER = REGISTRATE.block("brass_chunk_loader", BrassChunkLoaderBlock::new)
             .initialProperties(SharedProperties::softMetal)
