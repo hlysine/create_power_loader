@@ -9,7 +9,7 @@ import net.minecraft.core.Direction;
 
 public class AndesiteChunkLoaderScenes {
     public static void basicUsage(SceneBuilder scene, SceneBuildingUtil util) {
-        scene.title("andesite_chunk_loader", "Basic Usage of the Andesite Chunk Loader");
+        scene.title("andesite_chunk_loader_basic", "Basic Usage of the Andesite Chunk Loader");
         scene.configureBasePlate(0, 0, 5);
         scene.world.showSection(util.select.layer(0), Direction.UP);
         scene.idle(5);
@@ -23,7 +23,7 @@ public class AndesiteChunkLoaderScenes {
         scene.idle(10);
         scene.overlay.showText(60)
                 .colored(PonderPalette.GREEN)
-                .text("The chunk loader keeps the current chunk loaded when given rotational force.")
+                .text("The chunk loader keeps the current chunk loaded when given rotational power.")
                 .placeNearTarget()
                 .attachKeyFrame()
                 .pointAt(util.vector.topOf(loaderPos));

@@ -14,7 +14,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class BrassChunkLoaderScenes {
     public static void basicUsage(SceneBuilder scene, SceneBuildingUtil util) {
-        scene.title("brass_chunk_loader", "Basic Usage of the Brass Chunk Loader");
+        scene.title("brass_chunk_loader_basic", "Basic Usage of the Brass Chunk Loader");
         scene.configureBasePlate(0, 0, 5);
         scene.world.showSection(util.select.layer(0), Direction.UP);
         scene.idle(5);
@@ -79,7 +79,7 @@ public class BrassChunkLoaderScenes {
     }
 
     public static void loadingContraptions(SceneBuilder scene, SceneBuildingUtil util) {
-        scene.title("brass_chunk_loader", "Loading Chunks Around Moving Contraptions");
+        scene.title("brass_chunk_loader_contraptions", "Loading Chunks Around Moving Contraptions");
         scene.configureBasePlate(0, 0, 6);
         scene.world.showSection(util.select.layer(0), Direction.UP);
 
