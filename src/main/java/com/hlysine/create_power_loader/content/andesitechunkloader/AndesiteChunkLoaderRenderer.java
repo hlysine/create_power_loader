@@ -38,9 +38,6 @@ public class AndesiteChunkLoaderRenderer extends KineticBlockEntityRenderer<Ande
                 .getValue(FACING);
         VertexConsumer vb = buffer.getBuffer(RenderType.cutoutMipped());
 
-        int lightBehind = LevelRenderer.getLightColor(be.getLevel(), be.getBlockPos().relative(direction.getOpposite()));
-        int lightInFront = LevelRenderer.getLightColor(be.getLevel(), be.getBlockPos().relative(direction));
-
         SuperByteBuffer shaftHalf =
                 CachedBufferer.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), direction.getOpposite());
         SuperByteBuffer core =
@@ -61,8 +58,8 @@ public class AndesiteChunkLoaderRenderer extends KineticBlockEntityRenderer<Ande
         float angle = (time * speed * 3 / 10f) % 360;
         angle = angle / 180f * (float) Math.PI;
 
-        standardKineticRotationTransform(shaftHalf, be, lightBehind).renderInto(ms, vb);
-        kineticRotationTransform(core, be, direction.getAxis(), angle, lightInFront).renderInto(ms, vb);
+        standardKineticRotationTransform(shaftHalf, be, light).renderInto(ms, vb);
+        kineticRotationTransform(core, be, direction.getAxis(), angle, light).renderInto(ms, vb);
     }
 
     public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
