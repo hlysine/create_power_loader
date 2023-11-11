@@ -35,6 +35,7 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
     private static final int LOADING_RANGE = 1;
 
     protected int chunkUpdateCooldown;
+    protected int chunkUnloadCooldown;
     protected BlockPos lastBlockPos;
     protected boolean lastSpeedRequirement;
 
@@ -58,8 +59,6 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
             chunkUpdateCooldown = CPLConfigs.server().chunkUpdateInterval.get();
             if (needsUpdate()) {
                 setChanged();
-                lastBlockPos = getBlockPos().immutable();
-                lastSpeedRequirement = isSpeedRequirementFulfilled();
                 updateForcedChunks();
             }
         }
@@ -87,14 +86,23 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
 
     private boolean needsUpdate() {
         if (lastBlockPos == null) return true;
-        return !lastBlockPos.equals(getBlockPos()) || lastSpeedRequirement != isSpeedRequirementFulfilled();
+        return !lastBlockPos.equals(getBlockPos()) || lastSpeedRequirement != isSpeedRequirementFulfilled() || chunkUnloadCooldown > 0;
     }
 
     private void updateForcedChunks() {
+        boolean resetStates = true;
         if (isSpeedRequirementFulfilled()) {
             ChunkLoadingUtils.updateForcedChunks((ServerLevel) level, new ChunkPos(getBlockPos()), getBlockPos(), getLoadingRange(), forcedChunks);
-        } else {
+        } else if (chunkUnloadCooldown >= CPLConfigs.server().unloadGracePeriod.get()) {
             ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
+        } else {
+            chunkUnloadCooldown += CPLConfigs.server().chunkUpdateInterval.get();
+            resetStates = false;
+        }
+        if (resetStates) {
+            chunkUnloadCooldown = 0;
+            lastBlockPos = getBlockPos().immutable();
+            lastSpeedRequirement = isSpeedRequirementFulfilled();
         }
     }
 

@@ -33,6 +33,7 @@ import java.util.Set;
 public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
 
     protected int chunkUpdateCooldown;
+    protected int chunkUnloadCooldown;
     protected BlockPos lastBlockPos;
     protected boolean lastSpeedRequirement;
     protected int lastRange;
@@ -74,9 +75,6 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
             chunkUpdateCooldown = CPLConfigs.server().chunkUpdateInterval.get();
             if (needsUpdate()) {
                 setChanged();
-                lastBlockPos = getBlockPos().immutable();
-                lastSpeedRequirement = isSpeedRequirementFulfilled();
-                lastRange = getLoadingRange();
                 updateForcedChunks();
             }
         }
@@ -108,14 +106,24 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
 
     private boolean needsUpdate() {
         if (lastBlockPos == null) return true;
-        return !lastBlockPos.equals(getBlockPos()) || lastSpeedRequirement != isSpeedRequirementFulfilled() || lastRange != getLoadingRange();
+        return !lastBlockPos.equals(getBlockPos()) || lastSpeedRequirement != isSpeedRequirementFulfilled() || lastRange != getLoadingRange() || chunkUnloadCooldown > 0;
     }
 
     private void updateForcedChunks() {
+        boolean resetStates = true;
         if (isSpeedRequirementFulfilled()) {
             ChunkLoadingUtils.updateForcedChunks((ServerLevel) level, new ChunkPos(getBlockPos()), getBlockPos(), getLoadingRange(), forcedChunks);
-        } else {
+        } else if (chunkUnloadCooldown >= CPLConfigs.server().unloadGracePeriod.get()) {
             ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
+        } else {
+            chunkUnloadCooldown += CPLConfigs.server().chunkUpdateInterval.get();
+            resetStates = false;
+        }
+        if (resetStates) {
+            chunkUnloadCooldown = 0;
+            lastBlockPos = getBlockPos().immutable();
+            lastSpeedRequirement = isSpeedRequirementFulfilled();
+            lastRange = getLoadingRange();
         }
     }
 
