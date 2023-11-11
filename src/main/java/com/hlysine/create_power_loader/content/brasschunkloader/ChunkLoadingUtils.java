@@ -45,7 +45,7 @@ public class ChunkLoadingUtils {
         for (ChunkPos chunk : forcedChunks) {
             forceChunk(level, owner, chunk.x, chunk.z, false);
         }
-        LOGGER.debug("Brass chunk loader destroyed, unloaded {} chunks.", forcedChunks.size());
+        LOGGER.debug("CPL: chunk loader destroyed, unloaded {} chunks.", forcedChunks.size());
         forcedChunks.clear();
     }
 
@@ -61,7 +61,7 @@ public class ChunkLoadingUtils {
         for (ChunkPos chunk : forcedChunks) {
             ForgeChunkManager.forceChunk(level, CreatePowerLoader.MODID, entityUUID, chunk.x, chunk.z, false, true);
         }
-        LOGGER.debug("Entity destroyed, unloaded {} chunks.", forcedChunks.size());
+        LOGGER.debug("CPL: Entity destroyed, unloaded {} chunks.", forcedChunks.size());
         forcedChunks.clear();
     }
 
@@ -71,19 +71,19 @@ public class ChunkLoadingUtils {
 
     public static void validateAllForcedChunks(ServerLevel level, ForgeChunkManager.TicketHelper helper) {
         helper.getBlockTickets().forEach((blockPos, tickets) -> {
-            LOGGER.debug("Inspecting block position {} which has {} non-ticking tickets and {} ticking tickets.",
+            LOGGER.debug("CPL: Inspecting block position {} which has {} non-ticking tickets and {} ticking tickets.",
                     blockPos.toShortString(),
                     tickets.getFirst().size(),
                     tickets.getSecond().size());
             Optional<BrassChunkLoaderBlockEntity> blockEntity = level.getBlockEntity(blockPos, CPLBlockEntityTypes.BRASS_CHUNK_LOADER.get());
             if (blockEntity.isEmpty()) {
                 helper.removeAllTickets(blockPos);
-                LOGGER.debug("Block position {} unforced: Cannot find block entity.", blockPos.toShortString());
+                LOGGER.debug("CPL: Block position {} unforced: Cannot find block entity.", blockPos.toShortString());
                 return;
             }
             if (!blockEntity.get().isSpeedRequirementFulfilled()) {
                 helper.removeAllTickets(blockPos);
-                LOGGER.debug("Block position {} unforced: Speed requirement not fulfilled.", blockPos.toShortString());
+                LOGGER.debug("CPL: Block position {} unforced: Speed requirement not fulfilled.", blockPos.toShortString());
                 return;
             }
             int range = blockEntity.get().getLoadingRange();
@@ -92,17 +92,17 @@ public class ChunkLoadingUtils {
                 ChunkPos chunkPos = new ChunkPos(chunk);
                 if (Mth.absMax(chunkPos.x - center.x, chunkPos.z - center.z) >= range) {
                     helper.removeTicket(blockPos, chunk, false);
-                    LOGGER.debug("Block position {} unforced non-ticking {}: Out of range.", blockPos.toShortString(), chunkPos);
+                    LOGGER.debug("CPL: Block position {} unforced non-ticking {}: Out of range.", blockPos.toShortString(), chunkPos);
                 }
             }
             for (Long chunk : tickets.getSecond()) {
                 ChunkPos chunkPos = new ChunkPos(chunk);
                 if (Mth.absMax(chunkPos.x - center.x, chunkPos.z - center.z) >= range) {
                     helper.removeTicket(blockPos, chunk, true);
-                    LOGGER.debug("Block position {} unforced ticking {}: Out of range.", blockPos.toShortString(), chunkPos);
+                    LOGGER.debug("CPL: Block position {} unforced ticking {}: Out of range.", blockPos.toShortString(), chunkPos);
                 }
             }
-            LOGGER.debug("Block position {} continues forcing.", blockPos.toShortString());
+            LOGGER.debug("CPL: Block position {} continues forcing.", blockPos.toShortString());
         });
 
         helper.getEntityTickets().forEach((entityUUID, tickets) -> {
@@ -120,7 +120,7 @@ public class ChunkLoadingUtils {
                 savedChunks.add(new ChunkPos(chunk));
             }
             savedForcedChunks.put(entityUUID, savedChunks);
-            LOGGER.debug("Inspecting entity {} which has {} non-ticking tickets and {} ticking tickets.",
+            LOGGER.debug("CPL: Inspecting entity {} which has {} non-ticking tickets and {} ticking tickets.",
                     entityUUID,
                     tickets.getFirst().size(),
                     tickets.getSecond().size());
