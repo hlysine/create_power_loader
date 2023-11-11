@@ -9,7 +9,7 @@ import net.minecraft.core.Direction;
 
 public class AndesiteChunkLoaderScenes {
     public static void basicUsage(SceneBuilder scene, SceneBuildingUtil util) {
-        scene.title("andesite_chunk_loader", "Basic Usage of the Chunk Loader");
+        scene.title("andesite_chunk_loader", "Basic Usage of the Andesite Chunk Loader");
         scene.configureBasePlate(0, 0, 5);
         scene.world.showSection(util.select.layer(0), Direction.UP);
         scene.idle(5);

@@ -1,8 +1,8 @@
 {
   "credit": "Made with Blockbench",
   "textures": {
-    "8": "create_power_loader:block/andesite_core_inactive",
-    "particle": "create_power_loader:block/andesite_core_inactive"
+    "8": "block/respawn_anchor_top_off",
+    "particle": "block/respawn_anchor_bottom"
   },
   "elements": [
     {

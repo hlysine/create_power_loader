@@ -52,7 +52,11 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
         loadingRange = new ScrollOptionBehaviour<>(LoadingRange.class,
                 Component.translatable(CreatePowerLoader.MODID + ".brass_chunk_loader.loading_range"), this, new LoadingRangeValueBox());
         loadingRange.value = 0;
-        loadingRange.withCallback(i -> updateForcedChunks());
+        loadingRange.withCallback(i -> {
+            boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
+            if (server)
+                updateForcedChunks();
+        });
         behaviours.add(loadingRange);
     }
 
@@ -95,6 +99,10 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
 
     public int getLoadingRange() {
         return loadingRange.getValue() + 1;
+    }
+
+    public void setLoadingRange(int range) {
+        loadingRange.setValue(range - 1);
     }
 
     private boolean needsUpdate() {

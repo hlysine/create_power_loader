@@ -10,7 +10,7 @@
       "tag": "forge:glass"
     },
     "R": {
-      "item": "minecraft:obsidian"
+      "item": "minecraft:respawn_anchor"
     },
     "S": {
       "item": "create:shaft"
@@ -19,7 +19,7 @@
       "item": "create:andesite_casing"
     },
     "F": {
-      "item": "minecraft:flint_and_steel"
+      "item": "minecraft:nether_star"
     }
   },
   "result": {
