@@ -9,8 +9,6 @@
   "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3 Square",
   "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5 Square",
 
-  "create_power_loader.config.brass_speed_requirement_multiplier": "Brass Chunk Loader Speed Requirement Multiplier",
-
   "create_power_loader.ponder.andesite_chunk_loader_basic.header": "Basic Usage of the Andesite Chunk Loader",
   "create_power_loader.ponder.andesite_chunk_loader_basic.text_1": "The chunk loader keeps the current chunk loaded when given rotational power.",
   "create_power_loader.ponder.andesite_chunk_loader_basic.text_2": "It does not work when the rotation speed is too slow.",

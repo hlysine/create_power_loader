@@ -71,7 +71,7 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
         }
 
         if (server && chunkUpdateCooldown-- <= 0) {
-            chunkUpdateCooldown = 10;
+            chunkUpdateCooldown = CPLConfigs.server().chunkUpdateInterval.get();
             if (needsUpdate()) {
                 setChanged();
                 lastBlockPos = getBlockPos().immutable();
