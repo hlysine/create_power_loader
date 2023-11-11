@@ -27,7 +27,7 @@ public class BrassChunkLoaderScenes {
         scene.effects.indicateSuccess(loaderPos);
         scene.idle(10);
         scene.overlay.showText(80)
-                .text("The chunk loader keeps the current chunk loaded when given rotational force")
+                .text("The chunk loader keeps the current chunk loaded when given rotational power")
                 .placeNearTarget()
                 .attachKeyFrame()
                 .pointAt(util.vector.topOf(loaderPos));
@@ -40,7 +40,7 @@ public class BrassChunkLoaderScenes {
         scene.overlay.showText(60)
                 .colored(PonderPalette.RED)
                 .placeNearTarget()
-                .text("It will not work when the rotation speed is too slow")
+                .text("It does not work when the rotation speed is too slow")
                 .attachKeyFrame()
                 .pointAt(util.vector.topOf(loaderPos));
         scene.idle(80);
@@ -126,7 +126,7 @@ public class BrassChunkLoaderScenes {
         scene.idle(20);
 
         scene.overlay.showSelectionWithText(cartLoader, 80)
-                .text("When assembled, they do not require rotational power to work")
+                .text("When assembled, they do not require rotational power to function")
                 .attachKeyFrame()
                 .pointAt(cartLoaderSurface)
                 .placeNearTarget();

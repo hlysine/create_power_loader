@@ -36,7 +36,7 @@ public class AndesiteChunkLoaderScenes {
         scene.overlay.showText(50)
                 .colored(PonderPalette.RED)
                 .placeNearTarget()
-                .text("It will not work when the rotation speed is too slow.")
+                .text("It does not work when the rotation speed is too slow.")
                 .attachKeyFrame()
                 .pointAt(util.vector.topOf(loaderPos));
         scene.idle(60);
