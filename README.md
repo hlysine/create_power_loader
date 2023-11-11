@@ -2,6 +2,8 @@
 
 <h1 align="center">Create: Power Loader</h1>
 
+<p align="center"><img src="https://img.shields.io/modrinth/v/wPQ6GgFE?style=flat-square&label=Modrinth"> <img src="https://img.shields.io/curseforge/v/936020?style=flat-square&label=CurseForge"></p>
+
 A Create mod add-on adding immersive andesite and brass chunk loaders to Minecraft.
 
 ## Features
@@ -22,4 +24,4 @@ A Create mod add-on adding immersive andesite and brass chunk loaders to Minecra
 
 ## Download
 
-Coming soon...
+Find this mod on [**Modrinth**](https://modrinth.com/mod/create-power-loader) or [**CurseForge**](https://legacy.curseforge.com/minecraft/mc-mods/create-power-loader).
