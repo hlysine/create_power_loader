@@ -1,11 +1,37 @@
-Unless noted below, Minecraft Forge, Forge Mod Loader, and all 
+=== Create: Power Loader ===
+
+MIT License
+
+Copyright (c) 2023 hlysine
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+=== Forge ===
+
+Unless noted below, Minecraft Forge, Forge Mod Loader, and all
 parts herein are licensed under the terms of the LGPL 2.1 found
-here http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt and 
+here http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt and
 copied below.
 
 Homepage: http://minecraftforge.net/
           https://github.com/MinecraftForge/MinecraftForge
-          
+
 
 A note on authorship:
 All source artifacts are property of their original author, with
@@ -22,7 +48,7 @@ patch content to the Forge project.
 
 A note on infectivity:
 The LGPL is chosen specifically so that projects may depend on Forge
-features without being infected with its license. That is the 
+features without being infected with its license. That is the
 purpose of the LGPL. Mods and others using this code via ordinary
 Java mechanics for referencing libraries are specifically not bound
 by Forge's license for the Mod code.
