@@ -4,8 +4,10 @@
       "model": "create_power_loader:block/andesite_chunk_loader/block",
       "x": 180
     },
-    "facing=up": {
-      "model": "create_power_loader:block/andesite_chunk_loader/block"
+    "facing=east": {
+      "model": "create_power_loader:block/andesite_chunk_loader/block",
+      "x": 90,
+      "y": 90
     },
     "facing=north": {
       "model": "create_power_loader:block/andesite_chunk_loader/block",
@@ -16,15 +18,13 @@
       "x": 90,
       "y": 180
     },
+    "facing=up": {
+      "model": "create_power_loader:block/andesite_chunk_loader/block"
+    },
     "facing=west": {
       "model": "create_power_loader:block/andesite_chunk_loader/block",
       "x": 90,
       "y": 270
-    },
-    "facing=east": {
-      "model": "create_power_loader:block/andesite_chunk_loader/block",
-      "x": 90,
-      "y": 90
     }
   }
 }
