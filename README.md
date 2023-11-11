@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/hlysine/create_power_loader/assets/25472513/18b4bdf4-4d89-4ecc-9e89-2159c1097ffb" alt="Logo" width="200"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/hlysine/create_power_loader/main/src/main/resources/create_power_loader_icon.png" alt="Logo" width="200"></p>
 
 <h1 align="center">Create: Power Loader</h1>
 
