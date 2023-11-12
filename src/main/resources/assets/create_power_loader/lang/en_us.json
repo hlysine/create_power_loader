@@ -10,14 +10,24 @@
   "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5 Square",
 
   "create_power_loader.ponder.andesite_chunk_loader_basic.header": "Basic Usage of the Andesite Chunk Loader",
-  "create_power_loader.ponder.andesite_chunk_loader_basic.text_1": "The chunk loader keeps the current chunk loaded when given rotational power.",
-  "create_power_loader.ponder.andesite_chunk_loader_basic.text_2": "It does not work when the rotation speed is too slow.",
+  "create_power_loader.ponder.andesite_chunk_loader_basic.text_1": "The chunk loader keeps the current chunk loaded when given rotational power",
+  "create_power_loader.ponder.andesite_chunk_loader_basic.text_2": "It does not work when the rotation speed is too slow",
+
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.header": "Redstone and the Andesite Chunk Loader",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_1": "The chunk loader gives comparator output when it is active",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_2": "When rotational power is lost, there is a short delay (configurable) before the chunk is unloaded",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_3": "The chunk will stay loaded if power is restored during this delay",
 
   "create_power_loader.ponder.brass_chunk_loader_basic.header": "Basic Usage of the Brass Chunk Loader",
   "create_power_loader.ponder.brass_chunk_loader_basic.text_1": "The chunk loader keeps the current chunk loaded when given rotational power",
   "create_power_loader.ponder.brass_chunk_loader_basic.text_2": "It does not work when the rotation speed is too slow",
   "create_power_loader.ponder.brass_chunk_loader_basic.text_3": "You can configure the loaded range through the value panel...",
   "create_power_loader.ponder.brass_chunk_loader_basic.text_4": "...but a longer range requires a higher rotation speed",
+
+  "create_power_loader.ponder.brass_chunk_loader_redstone.header": "Redstone and the Brass Chunk Loader",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_1": "The chunk loader gives comparator output when it is active",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_2": "When rotational power is lost, there is a short delay (configurable) before the chunks are unloaded",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_3": "The chunks will stay loaded if power is restored during this delay",
 
   "create_power_loader.ponder.brass_chunk_loader_contraptions.header": "Loading Chunks Around Moving Contraptions",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_1": "Brass chunk loaders also work on contraptions",

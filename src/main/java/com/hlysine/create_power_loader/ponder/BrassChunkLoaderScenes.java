@@ -78,6 +78,49 @@ public class BrassChunkLoaderScenes {
         scene.idle(40);
     }
 
+    public static void redstone(SceneBuilder scene, SceneBuildingUtil util) {
+        scene.title("brass_chunk_loader_redstone", "Redstone and the Brass Chunk Loader");
+        scene.configureBasePlate(0, 0, 5);
+        scene.world.showSection(util.select.layer(0), Direction.UP);
+        scene.idle(5);
+        scene.world.showSection(util.select.layers(1, 2), Direction.DOWN);
+        scene.idle(20);
+
+        BlockPos loaderPos = new BlockPos(1, 1, 3);
+
+        scene.world.toggleRedstonePower(util.select.fromTo(3, 1, 1, 1, 1, 3));
+        scene.effects.indicateRedstone(new BlockPos(3, 1, 1));
+        scene.world.setKineticSpeed(util.select.fromTo(3, 1, 3, 1, 1, 3), 128f);
+
+        scene.overlay.showText(60)
+                .attachKeyFrame()
+                .text("The chunk loader gives comparator output when it is active")
+                .pointAt(util.vector.blockSurface(new BlockPos(1, 1, 2), Direction.DOWN))
+                .placeNearTarget();
+        scene.idle(90);
+
+        scene.world.toggleRedstonePower(util.select.fromTo(3, 1, 1, 1, 1, 3));
+        scene.effects.indicateRedstone(new BlockPos(3, 1, 1));
+        scene.world.setKineticSpeed(util.select.fromTo(3, 1, 3, 1, 1, 3), 0);
+
+        scene.overlay.showText(90)
+                .attachKeyFrame()
+                .text("When rotational power is lost, there is a short delay (configurable) before the chunks are unloaded")
+                .pointAt(util.vector.topOf(loaderPos))
+                .placeNearTarget();
+        scene.idle(110);
+
+        scene.world.toggleRedstonePower(util.select.fromTo(3, 1, 1, 1, 1, 3));
+        scene.effects.indicateRedstone(new BlockPos(3, 1, 1));
+        scene.world.setKineticSpeed(util.select.fromTo(3, 1, 3, 1, 1, 3), 128f);
+
+        scene.overlay.showText(90)
+                .text("The chunks will stay loaded if power is restored during this delay")
+                .pointAt(util.vector.topOf(loaderPos))
+                .placeNearTarget();
+        scene.idle(110);
+    }
+
     public static void loadingContraptions(SceneBuilder scene, SceneBuildingUtil util) {
         scene.title("brass_chunk_loader_contraptions", "Loading Chunks Around Moving Contraptions");
         scene.configureBasePlate(0, 0, 6);
