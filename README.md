@@ -17,10 +17,16 @@ A Create mod add-on adding immersive andesite and brass chunk loaders to Minecra
         - Does not work on contraptions
 - Reliable chunk loading and unloading
 - No leftover chunks being loaded forever
-- Configurable speed requirements
+- Configs for speed requirements and unloading delay
 - Ponder scenes available
 
 *If the provided crafting recipes do not suit your needs, you can disable the provided datapack and create your own recipes.*
+
+## Usage
+
+You are free to use this mod however you like, including in modpacks.
+
+The source code is openly available on GitHub with MIT license, but if you do decide to modify the source code to fit your needs, please leave an issue/PR on GitHub so I can consider adding your use case to the mod.
 
 ## Download
 
