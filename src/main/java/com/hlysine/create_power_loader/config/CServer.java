@@ -18,8 +18,8 @@ public class CServer extends ConfigBase {
     }
 
     private static class Comments {
-        static String chunkUpdateInterval = "Number of ticks between chunk loading checks. Does not affect contraptions.";
-        static String unloadGracePeriod = "Minimum number of ticks between loss of power and chunk unloading. Rounds up to multiples of update interval.";
+        static String chunkUpdateInterval = "Number of ticks between chunk loading checks. Does not affect contraptions";
+        static String unloadGracePeriod = "Minimum number of ticks between loss of power and chunk unloading. Rounds up to multiples of update interval";
         static String andesiteSpeedMultiplier = "A multiplier for the speed requirements for andesite chunk loaders";
         static String brassSpeedMultiplier = "A multiplier for the speed requirements for brass chunk loaders";
     }
