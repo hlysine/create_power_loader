@@ -4,6 +4,7 @@ package com.hlysine.create_power_loader.content.brasschunkloader;
 import com.hlysine.create_power_loader.CPLIcons;
 import com.hlysine.create_power_loader.CreatePowerLoader;
 import com.hlysine.create_power_loader.config.CPLConfigs;
+import com.hlysine.create_power_loader.content.ChunkLoadingUtils;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;

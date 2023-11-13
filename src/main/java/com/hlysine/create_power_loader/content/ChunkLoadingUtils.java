@@ -1,7 +1,8 @@
-package com.hlysine.create_power_loader.content.brasschunkloader;
+package com.hlysine.create_power_loader.content;
 
 import com.hlysine.create_power_loader.CPLBlockEntityTypes;
 import com.hlysine.create_power_loader.CreatePowerLoader;
+import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderBlockEntity;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

@@ -1,5 +1,6 @@
 package com.hlysine.create_power_loader.content.brasschunkloader;
 
+import com.hlysine.create_power_loader.content.ChunkLoadingUtils;
 import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
