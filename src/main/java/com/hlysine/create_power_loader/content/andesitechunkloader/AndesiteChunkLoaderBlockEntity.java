@@ -10,13 +10,13 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 @MethodsReturnNonnullByDefault
@@ -117,7 +117,7 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
         if (!isSpeedRequirementFulfilled())
             return;
 
-        RandomSource r = level.getRandom();
+        Random r = level.getRandom();
 
         Vec3 c = VecHelper.getCenterOf(worldPosition);
 

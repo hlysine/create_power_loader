@@ -19,8 +19,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,6 +28,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 @MethodsReturnNonnullByDefault
@@ -52,7 +53,7 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
         super.addBehaviours(behaviours);
 
         loadingRange = new ScrollOptionBehaviour<>(LoadingRange.class,
-                Component.translatable(CreatePowerLoader.MODID + ".brass_chunk_loader.loading_range"), this, new LoadingRangeValueBox());
+                new TranslatableComponent(CreatePowerLoader.MODID + ".brass_chunk_loader.loading_range"), this, new LoadingRangeValueBox());
         loadingRange.value = 0;
         loadingRange.withCallback(i -> {
             boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
@@ -150,7 +151,7 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
         if (!isSpeedRequirementFulfilled())
             return;
 
-        RandomSource r = level.getRandom();
+        Random r = level.getRandom();
 
         Vec3 c = VecHelper.getCenterOf(worldPosition);
 
