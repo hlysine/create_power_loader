@@ -22,12 +22,21 @@ A Create mod add-on adding immersive andesite and brass chunk loaders to Minecra
 
 *If the provided crafting recipes do not suit your needs, you can override the provided recipes by creating your own datapack.*
 
-## Usage
-
-You are free to use this mod however you like, including in modpacks.
-
-The source code is openly available on GitHub with MIT license, but if you do decide to modify the source code to fit your needs, please leave an issue/PR on GitHub so I can consider adding your use case to the mod.
-
 ## Download
 
 Find this mod on [**Modrinth**](https://modrinth.com/mod/create-power-loader) or [**CurseForge**](https://legacy.curseforge.com/minecraft/mc-mods/create-power-loader).
+
+## Usage
+
+**In modpacks:**
+
+- You can include this mod in any modpacks.
+- You can make any modifications to the mod with the goal of distributing it in a modpack.
+
+**In other cases:**
+
+- You can use this mod however you like as long as you obtain the mod via its Modrinth or CurseForge page.
+- You can make any modifications to the mod, but you cannot redistribute it unless you have modified a substantial portion of the mod's code. Changes to resource packs/data packs/mod metadata do not count as code modification.
+
+This mod is open to suggestions, so if you have made any modification to the mod, please leave an issue/PR so I can consider adding your use case to the mod.
+
