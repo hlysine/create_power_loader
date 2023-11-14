@@ -1,27 +1,66 @@
 package com.hlysine.create_power_loader;
 
-import com.simibubi.create.AllCreativeModeTabs;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
+import com.simibubi.create.Create;
+import com.tterrag.registrate.util.entry.RegistryEntry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
 
 public class CPLCreativeTabs {
-    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "create_power_loader" namespace
-    private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, CreatePowerLoader.MODID);
-    public static final RegistryObject<CreativeModeTab> MAIN = CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.create_power_loader.main"))
-            .withTabsBefore(AllCreativeModeTabs.PALETTES_CREATIVE_TAB.getKey())
-            .icon(CPLBlocks.BRASS_CHUNK_LOADER::asStack)
-            .displayItems((params, output) -> {
-                output.accept(CPLBlocks.ANDESITE_CHUNK_LOADER.asStack());
-                output.accept(CPLBlocks.BRASS_CHUNK_LOADER.asStack());
-            })
-            .build());
+    public static final CreativeModeTab MAIN = new MainCreativeModeTab();
 
-    public static void register(IEventBus modEventBus) {
-        CREATIVE_MODE_TABS.register(modEventBus);
+    public static void register() {
+    }
+
+    public static class MainCreativeModeTab extends CreativeModeTab {
+        public MainCreativeModeTab() {
+            super(CreatePowerLoader.MODID + ".main");
+        }
+
+        @Override
+        public @NotNull ItemStack makeIcon() {
+            return CPLBlocks.BRASS_CHUNK_LOADER.asStack();
+        }
+
+        @Override
+        public void fillItemList(@NotNull NonNullList<ItemStack> items) {
+            addItems(items, true);
+            addBlocks(items);
+            addItems(items, false);
+        }
+
+        protected Collection<RegistryEntry<Item>> registeredItems() {
+            return CreatePowerLoader.getRegistrate().getAll(ForgeRegistries.ITEMS.getRegistryKey());
+        }
+
+        public void addBlocks(NonNullList<ItemStack> items) {
+            for (RegistryEntry<Item> entry : registeredItems())
+                if (entry.get() instanceof BlockItem blockItem)
+                    blockItem.fillItemCategory(this, items);
+        }
+
+        public void addItems(NonNullList<ItemStack> items, boolean specialItems) {
+            ItemRenderer itemRenderer = Minecraft.getInstance()
+                    .getItemRenderer();
+
+            for (RegistryEntry<Item> entry : registeredItems()) {
+                Item item = entry.get();
+                if (item instanceof BlockItem)
+                    continue;
+                ItemStack stack = new ItemStack(item);
+                BakedModel model = itemRenderer.getModel(stack, null, null, 0);
+                if (model.isGui3d() == specialItems)
+                    item.fillItemCategory(this, items);
+            }
+        }
     }
 }
