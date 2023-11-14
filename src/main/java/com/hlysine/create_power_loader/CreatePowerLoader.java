@@ -40,6 +40,7 @@ public class CreatePowerLoader {
 
     public CreatePowerLoader() {
         modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
         REGISTRATE.registerEventListeners(modEventBus);
 
         // Register the commonSetup method for mod loading
@@ -55,7 +56,7 @@ public class CreatePowerLoader {
 
         CPLConfigs.register(ModLoadingContext.get());
 
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreatePowerLoaderClient.onCtorClient(modEventBus, modEventBus));
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreatePowerLoaderClient.onCtorClient(modEventBus, forgeEventBus));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

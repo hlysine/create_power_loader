@@ -9,10 +9,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 @Mod.EventBusSubscriber(Dist.CLIENT)
 public class CreatePowerLoaderClient {
     public static void onCtorClient(IEventBus modEventBus, IEventBus forgeEventBus) {
+        CPLPartialModels.register();
         modEventBus.addListener(CreatePowerLoaderClient::init);
     }
     public static void init(final FMLClientSetupEvent event) {
-        CPLPartialModels.register();
         CPLPonders.register();
     }
 }
