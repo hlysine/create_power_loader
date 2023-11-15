@@ -1,4 +1,4 @@
-package com.hlysine.create_power_loader.content.emptybrasschunkloader.brasschunkloader;
+package com.hlysine.create_power_loader.content.emptybrasschunkloader;
 
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;

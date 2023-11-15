@@ -1,4 +1,4 @@
-package com.hlysine.create_power_loader.content.emptyandesitechunkloader.andesitechunkloader;
+package com.hlysine.create_power_loader.content.emptyandesitechunkloader;
 
 
 import com.hlysine.create_power_loader.config.CPLConfigs;

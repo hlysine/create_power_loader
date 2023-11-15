@@ -1,4 +1,4 @@
-package com.hlysine.create_power_loader.content.emptyandesitechunkloader.andesitechunkloader;
+package com.hlysine.create_power_loader.content.emptybrasschunkloader;
 
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -14,14 +14,14 @@ import net.minecraft.core.Direction;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
-public class EmptyAndesiteChunkLoaderRenderer extends KineticBlockEntityRenderer<EmptyAndesiteChunkLoaderBlockEntity> {
+public class EmptyBrassChunkLoaderRenderer extends KineticBlockEntityRenderer<EmptyBrassChunkLoaderBlockEntity> {
 
-    public EmptyAndesiteChunkLoaderRenderer(BlockEntityRendererProvider.Context context) {
+    public EmptyBrassChunkLoaderRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    protected void renderSafe(EmptyAndesiteChunkLoaderBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+    protected void renderSafe(EmptyBrassChunkLoaderBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
                               int light, int overlay) {
 
         Direction direction = be.getBlockState()
