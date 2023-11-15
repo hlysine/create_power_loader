@@ -1,8 +1,8 @@
-package com.hlysine.create_power_loader.content.emptybrasschunkloader;
+package com.hlysine.create_power_loader.content.emptychunkloader;
 
-import com.hlysine.create_power_loader.CPLBlockEntityTypes;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
+import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -10,10 +10,13 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class EmptyBrassChunkLoaderBlock extends DirectionalKineticBlock implements IBE<EmptyBrassChunkLoaderBlockEntity> {
+public class EmptyChunkLoaderBlock extends DirectionalKineticBlock implements IBE<EmptyChunkLoaderBlockEntity> {
 
-    public EmptyBrassChunkLoaderBlock(Properties properties) {
+    protected final BlockEntityEntry<EmptyChunkLoaderBlockEntity> entityEntry;
+
+    public EmptyChunkLoaderBlock(Properties properties, BlockEntityEntry<EmptyChunkLoaderBlockEntity> entityEntry) {
         super(properties);
+        this.entityEntry = entityEntry;
     }
 
     @Override
@@ -27,13 +30,12 @@ public class EmptyBrassChunkLoaderBlock extends DirectionalKineticBlock implemen
     }
 
     @Override
-    public Class<EmptyBrassChunkLoaderBlockEntity> getBlockEntityClass() {
-        return EmptyBrassChunkLoaderBlockEntity.class;
+    public Class<EmptyChunkLoaderBlockEntity> getBlockEntityClass() {
+        return EmptyChunkLoaderBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends EmptyBrassChunkLoaderBlockEntity> getBlockEntityType() {
-        return CPLBlockEntityTypes.EMPTY_BRASS_CHUNK_LOADER.get();
+    public BlockEntityType<? extends EmptyChunkLoaderBlockEntity> getBlockEntityType() {
+        return entityEntry.get();
     }
-
 }

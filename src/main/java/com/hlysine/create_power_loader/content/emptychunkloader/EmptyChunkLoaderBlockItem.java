@@ -1,4 +1,4 @@
-package com.hlysine.create_power_loader.content;
+package com.hlysine.create_power_loader.content.emptychunkloader;
 
 import com.hlysine.create_power_loader.CPLBlocks;
 import com.hlysine.create_power_loader.CPLTags.AllEntityTags;

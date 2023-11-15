@@ -1,12 +1,11 @@
 package com.hlysine.create_power_loader;
 
+import com.hlysine.create_power_loader.content.emptychunkloader.EmptyChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunkLoaderMovementBehaviour;
 import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderMovementBehaviour;
-import com.hlysine.create_power_loader.content.emptyandesitechunkloader.EmptyAndesiteChunkLoaderBlock;
-import com.hlysine.create_power_loader.content.EmptyChunkLoaderBlockItem;
-import com.hlysine.create_power_loader.content.emptybrasschunkloader.EmptyBrassChunkLoaderBlock;
+import com.hlysine.create_power_loader.content.emptychunkloader.EmptyChunkLoaderBlockItem;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -22,7 +21,8 @@ import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 public class CPLBlocks {
     private static final CreateRegistrate REGISTRATE = CreatePowerLoader.getRegistrate();
 
-    public static final BlockEntry<EmptyAndesiteChunkLoaderBlock> EMPTY_ANDESITE_CHUNK_LOADER = REGISTRATE.block("empty_andesite_chunk_loader", EmptyAndesiteChunkLoaderBlock::new)
+    public static final BlockEntry<EmptyChunkLoaderBlock> EMPTY_ANDESITE_CHUNK_LOADER = REGISTRATE
+            .block("empty_andesite_chunk_loader", props -> new EmptyChunkLoaderBlock(props, CPLBlockEntityTypes.EMPTY_ANDESITE_CHUNK_LOADER))
             .initialProperties(() -> Blocks.BEACON)
             .properties(p -> p
                     .mapColor(MapColor.PODZOL)
@@ -37,7 +37,8 @@ public class CPLBlocks {
             .transform(axeOrPickaxe())
             .register();
 
-    public static final BlockEntry<AndesiteChunkLoaderBlock> ANDESITE_CHUNK_LOADER = REGISTRATE.block("andesite_chunk_loader", AndesiteChunkLoaderBlock::new)
+    public static final BlockEntry<AndesiteChunkLoaderBlock> ANDESITE_CHUNK_LOADER = REGISTRATE
+            .block("andesite_chunk_loader", AndesiteChunkLoaderBlock::new)
             .initialProperties(() -> Blocks.BEACON)
             .properties(p -> p
                     .mapColor(MapColor.PODZOL)
@@ -54,7 +55,8 @@ public class CPLBlocks {
             .transform(axeOrPickaxe())
             .register();
 
-    public static final BlockEntry<EmptyBrassChunkLoaderBlock> EMPTY_BRASS_CHUNK_LOADER = REGISTRATE.block("empty_brass_chunk_loader", EmptyBrassChunkLoaderBlock::new)
+    public static final BlockEntry<EmptyChunkLoaderBlock> EMPTY_BRASS_CHUNK_LOADER = REGISTRATE
+            .block("empty_brass_chunk_loader", props -> new EmptyChunkLoaderBlock(props, CPLBlockEntityTypes.EMPTY_BRASS_CHUNK_LOADER))
             .initialProperties(() -> Blocks.BEACON)
             .properties(p -> p
                     .mapColor(MapColor.TERRACOTTA_YELLOW)
@@ -69,7 +71,8 @@ public class CPLBlocks {
             .transform(axeOrPickaxe())
             .register();
 
-    public static final BlockEntry<BrassChunkLoaderBlock> BRASS_CHUNK_LOADER = REGISTRATE.block("brass_chunk_loader", BrassChunkLoaderBlock::new)
+    public static final BlockEntry<BrassChunkLoaderBlock> BRASS_CHUNK_LOADER = REGISTRATE
+            .block("brass_chunk_loader", BrassChunkLoaderBlock::new)
             .initialProperties(() -> Blocks.BEACON)
             .properties(p -> p
                     .mapColor(MapColor.TERRACOTTA_YELLOW)
