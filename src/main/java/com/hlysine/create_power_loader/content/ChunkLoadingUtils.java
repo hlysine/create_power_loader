@@ -62,7 +62,8 @@ public class ChunkLoadingUtils {
         for (ChunkPos chunk : forcedChunks) {
             ForgeChunkManager.forceChunk(level, CreatePowerLoader.MODID, entityUUID, chunk.x, chunk.z, false, true);
         }
-        LOGGER.debug("CPL: Entity destroyed, unloaded {} chunks.", forcedChunks.size());
+        if (forcedChunks.size() > 0)
+            LOGGER.debug("CPL: Entity destroyed, unloaded {} chunks.", forcedChunks.size());
         forcedChunks.clear();
     }
 
