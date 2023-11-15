@@ -14,21 +14,18 @@
     "C": {
       "item": "create:brass_casing"
     },
-    "B": {
-      "item": "minecraft:beacon"
-    },
     "P": {
       "item": "create:precision_mechanism"
     }
   },
   "pattern": [
     "GGGGG",
+    "G   G",
     "G R G",
-    "G B G",
     "CPPPC",
     "CCSCC"
   ],
   "result": {
-    "item": "create_power_loader:brass_chunk_loader"
+    "item": "create_power_loader:empty_brass_chunk_loader"
   }
 }

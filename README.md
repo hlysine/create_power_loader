@@ -10,6 +10,14 @@
 
 A Create mod add-on adding immersive andesite and brass chunk loaders to Minecraft.
 
+## What's new in 1.2.0
+
+Nether stars/beacons are no longer required. Instead, you have to capture a ghast to light up your chunk loaders:
+
+![Pondering about Ghast capturing](https://cdn.modrinth.com/data/wPQ6GgFE/images/981c9cc2e2a29e795463d768e45a6d8c320ce3d9.png)
+
+New configs are also added for you to control how chunk loaders behave on contraptions.
+
 ## Features
 
 - 2 tiers of chunk loaders

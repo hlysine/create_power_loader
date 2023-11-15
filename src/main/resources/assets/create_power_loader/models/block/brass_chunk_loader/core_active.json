@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"7": "block/respawn_anchor_top",
-		"particle": "block/respawn_anchor_bottom"
+		"particle": "create_power_loader:block/core_frame"
 	},
 	"elements": [
 		{

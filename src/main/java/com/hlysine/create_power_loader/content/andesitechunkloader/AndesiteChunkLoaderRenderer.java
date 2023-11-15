@@ -2,6 +2,7 @@ package com.hlysine.create_power_loader.content.andesitechunkloader;
 
 
 import com.hlysine.create_power_loader.CPLPartialModels;
+import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -12,9 +13,7 @@ import com.simibubi.create.content.contraptions.render.ContraptionRenderDispatch
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -68,20 +67,25 @@ public class AndesiteChunkLoaderRenderer extends KineticBlockEntityRenderer<Ande
         Direction direction = state.getValue(AndesiteChunkLoaderBlock.FACING);
         int light = ContraptionRenderDispatcher.getContraptionWorldLight(context, renderWorld);
 
+        boolean shouldFunction = CPLConfigs.server().andesiteOnContraption.get();
+
         SuperByteBuffer core =
                 CachedBufferer.partialFacing(
-                        CPLPartialModels.ANDESITE_CHUNK_LOADER_CORE_INACTIVE,
+                        shouldFunction ? CPLPartialModels.ANDESITE_CHUNK_LOADER_CORE_ACTIVE : CPLPartialModels.ANDESITE_CHUNK_LOADER_CORE_INACTIVE,
                         state,
                         direction
                 );
 
+        float speed = context.getAnimationSpeed();
+        float time = AnimationTickHolder.getRenderTime() / 40f;
+        float angle = ((time * speed) % 360);
+
         core
                 .transform(matrices.getModel())
                 .centre()
-                .rotateY(AngleHelper.horizontalAngle(direction))
-                .rotateX(AngleHelper.verticalAngle(direction))
+                .rotateZ(shouldFunction ? angle : 0)
                 .unCentre()
                 .light(matrices.getWorld(), light)
-                .renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderType.solid()));
+                .renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderType.cutoutMipped()));
     }
 }

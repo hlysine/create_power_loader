@@ -1,13 +1,20 @@
 {
   "itemGroup.create_power_loader.main": "Create: Power Loader",
 
+  "block.create_power_loader.empty_andesite_chunk_loader": "Empty Andesite Chunk Loader",
   "block.create_power_loader.andesite_chunk_loader": "Andesite Chunk Loader",
 
+  "block.create_power_loader.empty_brass_chunk_loader": "Empty Brass Chunk Loader",
   "block.create_power_loader.brass_chunk_loader": "Brass Chunk Loader",
   "create_power_loader.brass_chunk_loader.loading_range": "Chunk Loading Radius",
   "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1 Square",
   "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3 Square",
   "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5 Square",
+
+  "create_power_loader.ponder.empty_chunk_loader_basic.header": "Usage of Empty Chunk Loaders",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "Right-click a Ghast with an empty chunk loader to capture it",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_2": "With rotational power, the captured ghasts light up the portal cores...",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_3": "...bringing the chunk loaders to life",
 
   "create_power_loader.ponder.andesite_chunk_loader_basic.header": "Basic Usage of the Andesite Chunk Loader",
   "create_power_loader.ponder.andesite_chunk_loader_basic.text_1": "The chunk loader keeps the current chunk loaded when given rotational power",

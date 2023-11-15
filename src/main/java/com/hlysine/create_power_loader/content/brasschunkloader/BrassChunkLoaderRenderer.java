@@ -1,6 +1,7 @@
 package com.hlysine.create_power_loader.content.brasschunkloader;
 
 
+import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.hlysine.create_power_loader.CPLPartialModels;
@@ -12,9 +13,7 @@ import com.simibubi.create.content.contraptions.render.ContraptionRenderDispatch
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -68,9 +67,11 @@ public class BrassChunkLoaderRenderer extends KineticBlockEntityRenderer<BrassCh
         Direction direction = state.getValue(BrassChunkLoaderBlock.FACING);
         int light = ContraptionRenderDispatcher.getContraptionWorldLight(context, renderWorld);
 
+        boolean shouldFunction = CPLConfigs.server().brassOnContraption.get();
+
         SuperByteBuffer core =
                 CachedBufferer.partialFacing(
-                        CPLPartialModels.BRASS_CHUNK_LOADER_CORE_ACTIVE,
+                        shouldFunction ? CPLPartialModels.BRASS_CHUNK_LOADER_CORE_ACTIVE : CPLPartialModels.BRASS_CHUNK_LOADER_CORE_INACTIVE,
                         state,
                         direction
                 );
@@ -82,11 +83,9 @@ public class BrassChunkLoaderRenderer extends KineticBlockEntityRenderer<BrassCh
         core
                 .transform(matrices.getModel())
                 .centre()
-                .rotateY(AngleHelper.horizontalAngle(direction))
-                .rotateX(AngleHelper.verticalAngle(direction))
-                .rotateZ(angle)
+                .rotateZ(shouldFunction ? angle : 0)
                 .unCentre()
                 .light(matrices.getWorld(), light)
-                .renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderType.solid()));
+                .renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderType.cutoutMipped()));
     }
 }

@@ -3,7 +3,6 @@ package com.hlysine.create_power_loader.ponder;
 import com.simibubi.create.foundation.ponder.PonderPalette;
 import com.simibubi.create.foundation.ponder.SceneBuilder;
 import com.simibubi.create.foundation.ponder.SceneBuildingUtil;
-import com.simibubi.create.foundation.ponder.Selection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 

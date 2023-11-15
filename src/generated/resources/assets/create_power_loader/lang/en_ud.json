@@ -1,4 +1,6 @@
 {
-  "block.create_power_loader.andesite_chunk_loader": "\u0279\u01DDp\u0250o\uA780 \u029Eun\u0265\u0186 \u01DD\u0287\u0131s\u01DDpu\u2C6F",
-  "block.create_power_loader.brass_chunk_loader": "\u0279\u01DDp\u0250o\uA780 \u029Eun\u0265\u0186 ss\u0250\u0279\u15FA"
+  "block.create_power_loader.andesite_chunk_loader": "ɹǝpɐoꞀ ʞunɥƆ ǝʇısǝpuⱯ",
+  "block.create_power_loader.brass_chunk_loader": "ɹǝpɐoꞀ ʞunɥƆ ssɐɹᗺ",
+  "block.create_power_loader.empty_andesite_chunk_loader": "ɹǝpɐoꞀ ʞunɥƆ ǝʇısǝpuⱯ ʎʇdɯƎ",
+  "block.create_power_loader.empty_brass_chunk_loader": "ɹǝpɐoꞀ ʞunɥƆ ssɐɹᗺ ʎʇdɯƎ"
 }
