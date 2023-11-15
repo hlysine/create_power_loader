@@ -59,12 +59,12 @@ public class CreatePowerLoader {
         CPLConfigs.register(ModLoadingContext.get());
 
         modEventBus.addListener(EventPriority.LOWEST, CPLDatagen::gatherData);
-
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreatePowerLoaderClient.onCtorClient(modEventBus, forgeEventBus));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            CPLRecipes.register();
             ForgeChunkManager.setForcedChunkLoadingCallback(MODID, ChunkLoadingUtils::validateAllForcedChunks);
         });
     }
