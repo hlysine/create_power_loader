@@ -1,7 +1,6 @@
 package com.hlysine.create_power_loader.content.brasschunkloader;
 
 import com.hlysine.create_power_loader.CPLBlockEntityTypes;
-import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunkLoaderBlockEntity;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;

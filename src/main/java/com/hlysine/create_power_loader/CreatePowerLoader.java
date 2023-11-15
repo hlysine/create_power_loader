@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.ForgeChunkManager;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -50,17 +51,20 @@ public class CreatePowerLoader {
         MinecraftForge.EVENT_BUS.register(this);
 
         REGISTRATE.creativeModeTab(() -> CPLCreativeTabs.MAIN);
+        CPLTags.register();
         CPLBlocks.register();
         CPLBlockEntityTypes.register();
         CPLCreativeTabs.register();
 
         CPLConfigs.register(ModLoadingContext.get());
 
+        modEventBus.addListener(EventPriority.LOWEST, CPLDatagen::gatherData);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreatePowerLoaderClient.onCtorClient(modEventBus, forgeEventBus));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            CPLRecipes.register();
             ForgeChunkManager.setForcedChunkLoadingCallback(MODID, ChunkLoadingUtils::validateAllForcedChunks);
         });
     }

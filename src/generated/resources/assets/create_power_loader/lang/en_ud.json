@@ -1,4 +1,6 @@
 {
   "block.create_power_loader.andesite_chunk_loader": "ɹǝpɐoꞀ ʞunɥƆ ǝʇısǝpuⱯ",
-  "block.create_power_loader.brass_chunk_loader": "ɹǝpɐoꞀ ʞunɥƆ ssɐɹᗺ"
+  "block.create_power_loader.brass_chunk_loader": "ɹǝpɐoꞀ ʞunɥƆ ssɐɹᗺ",
+  "block.create_power_loader.empty_andesite_chunk_loader": "ɹǝpɐoꞀ ʞunɥƆ ǝʇısǝpuⱯ ʎʇdɯƎ",
+  "block.create_power_loader.empty_brass_chunk_loader": "ɹǝpɐoꞀ ʞunɥƆ ssɐɹᗺ ʎʇdɯƎ"
 }
