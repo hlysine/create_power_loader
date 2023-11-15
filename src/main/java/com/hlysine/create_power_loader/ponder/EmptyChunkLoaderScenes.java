@@ -18,7 +18,7 @@ import net.minecraft.world.entity.Entity;
 
 public class EmptyChunkLoaderScenes {
     public static void usage(SceneBuilder scene, SceneBuildingUtil util) {
-        scene.title("empty_chunk_loader_basic", "Using Empty Chunk Loaders");
+        scene.title("empty_chunk_loader_basic", "Usage of Empty Chunk Loaders");
         scene.scaleSceneView(5 / 11f);
         scene.configureBasePlate(0, 0, 11);
         scene.world.showSection(util.select.layer(0), Direction.UP);

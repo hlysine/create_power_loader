@@ -11,7 +11,7 @@
   "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3 Square",
   "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5 Square",
 
-  "create_power_loader.ponder.empty_chunk_loader_basic.header": "Using Empty Chunk Loaders",
+  "create_power_loader.ponder.empty_chunk_loader_basic.header": "Usage of Empty Chunk Loaders",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "Right-click a Ghast with an empty chunk loader to capture it",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_2": "You now have functional chunk loaders",
 
