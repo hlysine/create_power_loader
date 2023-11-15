@@ -1,11 +1,8 @@
 package com.hlysine.create_power_loader.ponder;
 
 import com.hlysine.create_power_loader.CPLBlocks;
-import com.simibubi.create.foundation.ponder.ElementLink;
-import com.simibubi.create.foundation.ponder.PonderPalette;
 import com.simibubi.create.foundation.ponder.SceneBuilder;
 import com.simibubi.create.foundation.ponder.SceneBuildingUtil;
-import com.simibubi.create.foundation.ponder.element.WorldSectionElement;
 import com.simibubi.create.foundation.utility.Pointing;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
