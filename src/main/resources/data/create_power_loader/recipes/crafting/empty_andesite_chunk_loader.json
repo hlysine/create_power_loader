@@ -1,8 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
+    "GGG",
     "GRG",
-    "GFG",
     "CSC"
   ],
   "key": {
@@ -17,9 +17,6 @@
     },
     "C": {
       "item": "create:andesite_casing"
-    },
-    "F": {
-      "item": "minecraft:nether_star"
     }
   },
   "result": {
