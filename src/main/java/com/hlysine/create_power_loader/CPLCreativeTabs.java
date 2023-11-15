@@ -16,7 +16,9 @@ public class CPLCreativeTabs {
             .withTabsBefore(AllCreativeModeTabs.PALETTES_CREATIVE_TAB.getKey())
             .icon(CPLBlocks.BRASS_CHUNK_LOADER::asStack)
             .displayItems((params, output) -> {
+                output.accept(CPLBlocks.EMPTY_ANDESITE_CHUNK_LOADER.asStack());
                 output.accept(CPLBlocks.ANDESITE_CHUNK_LOADER.asStack());
+                output.accept(CPLBlocks.EMPTY_BRASS_CHUNK_LOADER.asStack());
                 output.accept(CPLBlocks.BRASS_CHUNK_LOADER.asStack());
             })
             .build());

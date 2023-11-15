@@ -82,8 +82,6 @@ public class BrassChunkLoaderRenderer extends KineticBlockEntityRenderer<BrassCh
         core
                 .transform(matrices.getModel())
                 .centre()
-                .rotateY(AngleHelper.horizontalAngle(direction))
-                .rotateX(AngleHelper.verticalAngle(direction))
                 .rotateZ(angle)
                 .unCentre()
                 .light(matrices.getWorld(), light)

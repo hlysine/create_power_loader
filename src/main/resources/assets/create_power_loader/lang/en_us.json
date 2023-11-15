@@ -1,8 +1,10 @@
 {
   "itemGroup.create_power_loader.main": "Create: Power Loader",
 
+  "block.create_power_loader.empty_andesite_chunk_loader": "Empty Andesite Chunk Loader",
   "block.create_power_loader.andesite_chunk_loader": "Andesite Chunk Loader",
 
+  "block.create_power_loader.empty_brass_chunk_loader": "Empty Brass Chunk Loader",
   "block.create_power_loader.brass_chunk_loader": "Brass Chunk Loader",
   "create_power_loader.brass_chunk_loader.loading_range": "Chunk Loading Radius",
   "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1 Square",

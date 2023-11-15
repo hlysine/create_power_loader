@@ -4,6 +4,8 @@ import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunk
 import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunkLoaderMovementBehaviour;
 import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderMovementBehaviour;
+import com.hlysine.create_power_loader.content.emptyandesitechunkloader.andesitechunkloader.EmptyAndesiteChunkLoaderBlock;
+import com.hlysine.create_power_loader.content.emptybrasschunkloader.brasschunkloader.EmptyBrassChunkLoaderBlock;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -19,6 +21,21 @@ import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 public class CPLBlocks {
     private static final CreateRegistrate REGISTRATE = CreatePowerLoader.getRegistrate();
 
+    public static final BlockEntry<EmptyAndesiteChunkLoaderBlock> EMPTY_ANDESITE_CHUNK_LOADER = REGISTRATE.block("empty_andesite_chunk_loader", EmptyAndesiteChunkLoaderBlock::new)
+            .initialProperties(() -> Blocks.BEACON)
+            .properties(p -> p
+                    .mapColor(MapColor.PODZOL)
+                    .isRedstoneConductor((state, getter, pos) -> false)
+                    .noOcclusion()
+            )
+            .blockstate(BlockStateGen.directionalBlockProvider(true))
+            .addLayer(() -> RenderType::cutoutMipped)
+            .transform(BlockStressDefaults.setImpact(0.0))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOrPickaxe())
+            .register();
+
     public static final BlockEntry<AndesiteChunkLoaderBlock> ANDESITE_CHUNK_LOADER = REGISTRATE.block("andesite_chunk_loader", AndesiteChunkLoaderBlock::new)
             .initialProperties(() -> Blocks.BEACON)
             .properties(p -> p
@@ -31,6 +48,21 @@ public class CPLBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .onRegister(movementBehaviour(new AndesiteChunkLoaderMovementBehaviour()))
             .transform(BlockStressDefaults.setImpact(16.0))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOrPickaxe())
+            .register();
+
+    public static final BlockEntry<EmptyBrassChunkLoaderBlock> EMPTY_BRASS_CHUNK_LOADER = REGISTRATE.block("empty_brass_chunk_loader", EmptyBrassChunkLoaderBlock::new)
+            .initialProperties(() -> Blocks.BEACON)
+            .properties(p -> p
+                    .mapColor(MapColor.TERRACOTTA_YELLOW)
+                    .isRedstoneConductor((state, getter, pos) -> false)
+                    .noOcclusion()
+            )
+            .blockstate(BlockStateGen.directionalBlockProvider(true))
+            .addLayer(() -> RenderType::cutoutMipped)
+            .transform(BlockStressDefaults.setImpact(0.0))
             .item()
             .transform(customItemModel())
             .transform(axeOrPickaxe())

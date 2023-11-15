@@ -77,11 +77,7 @@ public class AndesiteChunkLoaderRenderer extends KineticBlockEntityRenderer<Ande
 
         core
                 .transform(matrices.getModel())
-                .centre()
-                .rotateY(AngleHelper.horizontalAngle(direction))
-                .rotateX(AngleHelper.verticalAngle(direction))
-                .unCentre()
                 .light(matrices.getWorld(), light)
-                .renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderType.solid()));
+                .renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderType.cutoutMipped()));
     }
 }
