@@ -13,7 +13,8 @@
 
   "create_power_loader.ponder.empty_chunk_loader_basic.header": "Usage of Empty Chunk Loaders",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "Right-click a Ghast with an empty chunk loader to capture it",
-  "create_power_loader.ponder.empty_chunk_loader_basic.text_2": "You now have functional chunk loaders",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_2": "With rotational power, the captured ghasts light up the portal cores...",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_3": "...bringing the chunk loaders to life",
 
   "create_power_loader.ponder.andesite_chunk_loader_basic.header": "Basic Usage of the Andesite Chunk Loader",
   "create_power_loader.ponder.andesite_chunk_loader_basic.text_1": "The chunk loader keeps the current chunk loaded when given rotational power",
