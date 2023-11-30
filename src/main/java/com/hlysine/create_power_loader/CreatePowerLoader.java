@@ -1,5 +1,6 @@
 package com.hlysine.create_power_loader;
 
+import com.hlysine.create_power_loader.compat.Mods;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.ChunkLoadingUtils;
 import com.mojang.logging.LogUtils;
@@ -64,7 +65,7 @@ public class CreatePowerLoader {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            CPLRecipes.register();
+            Mods.JEI.executeIfInstalled(() -> CPLRecipes::register);
             ForgeChunkManager.setForcedChunkLoadingCallback(MODID, ChunkLoadingUtils::validateAllForcedChunks);
         });
     }
