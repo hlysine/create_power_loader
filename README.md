@@ -23,10 +23,10 @@ New configs are also added for you to control how chunk loaders behave on contra
 - 2 tiers of chunk loaders
     - Brass chunk loader
         - Configurable loading range (1x1 to 5x5)
-        - Works on the ground and on contraptions
+        - Works on the ground and on contraptions (configurable)
     - Andesite chunk loader
         - Loads a single chunk
-        - Does not work on contraptions
+        - Does not work on contraptions (configurable)
 - Reliable chunk loading and unloading
 - No leftover chunks being loaded forever
 - Configs for speed requirements and unloading delay
