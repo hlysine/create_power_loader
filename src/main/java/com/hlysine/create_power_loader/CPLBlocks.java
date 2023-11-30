@@ -5,6 +5,7 @@ import com.hlysine.create_power_loader.content.emptychunkloader.EmptyChunkLoader
 import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.emptychunkloader.EmptyChunkLoaderBlockItem;
+import com.simibubi.create.AllTags;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -50,6 +51,7 @@ public class CPLBlocks {
             .onRegister(movementBehaviour(new ChunkLoaderMovementBehaviour(ChunkLoaderMovementBehaviour.BehaviorType.ANDESITE)))
             .transform(BlockStressDefaults.setImpact(16.0))
             .item()
+            .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)
             .transform(customItemModel())
             .transform(axeOrPickaxe())
             .register();
@@ -84,6 +86,7 @@ public class CPLBlocks {
             .onRegister(movementBehaviour(new ChunkLoaderMovementBehaviour(ChunkLoaderMovementBehaviour.BehaviorType.BRASS)))
             .transform(BlockStressDefaults.setImpact(16.0))
             .item()
+            .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)
             .transform(customItemModel())
             .transform(axeOrPickaxe())
             .register();
