@@ -1,6 +1,7 @@
 package com.hlysine.create_power_loader.content.andesitechunkloader;
 
 
+import com.hlysine.create_power_loader.CPLBlocks;
 import com.hlysine.create_power_loader.CPLPartialModels;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
@@ -19,6 +20,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
@@ -67,7 +69,9 @@ public class AndesiteChunkLoaderRenderer extends KineticBlockEntityRenderer<Ande
         Direction direction = state.getValue(AndesiteChunkLoaderBlock.FACING);
         int light = ContraptionRenderDispatcher.getContraptionWorldLight(context, renderWorld);
 
-        boolean shouldFunction = CPLConfigs.server().andesiteOnContraption.get();
+        boolean shouldFunction = CPLConfigs.server().andesiteOnContraption.get() &&
+                !context.contraption.isActorTypeDisabled(CPLBlocks.ANDESITE_CHUNK_LOADER.asStack()) &&
+                !context.contraption.isActorTypeDisabled(ItemStack.EMPTY);
 
         SuperByteBuffer core =
                 CachedBufferer.partialFacing(

@@ -1,6 +1,7 @@
 package com.hlysine.create_power_loader.content.brasschunkloader;
 
 
+import com.hlysine.create_power_loader.CPLBlocks;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
@@ -19,6 +20,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
@@ -67,7 +69,9 @@ public class BrassChunkLoaderRenderer extends KineticBlockEntityRenderer<BrassCh
         Direction direction = state.getValue(BrassChunkLoaderBlock.FACING);
         int light = ContraptionRenderDispatcher.getContraptionWorldLight(context, renderWorld);
 
-        boolean shouldFunction = CPLConfigs.server().brassOnContraption.get();
+        boolean shouldFunction = CPLConfigs.server().brassOnContraption.get() &&
+                !context.contraption.isActorTypeDisabled(CPLBlocks.BRASS_CHUNK_LOADER.asStack()) &&
+                !context.contraption.isActorTypeDisabled(ItemStack.EMPTY);
 
         SuperByteBuffer core =
                 CachedBufferer.partialFacing(
