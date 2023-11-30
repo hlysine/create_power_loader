@@ -1,6 +1,7 @@
 package com.hlysine.create_power_loader.content.andesitechunkloader;
 
 
+import com.hlysine.create_power_loader.CPLBlocks;
 import com.hlysine.create_power_loader.CPLPartialModels;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
@@ -67,7 +68,7 @@ public class AndesiteChunkLoaderRenderer extends KineticBlockEntityRenderer<Ande
         Direction direction = state.getValue(AndesiteChunkLoaderBlock.FACING);
         int light = ContraptionRenderDispatcher.getContraptionWorldLight(context, renderWorld);
 
-        boolean shouldFunction = CPLConfigs.server().andesiteOnContraption.get();
+        boolean shouldFunction = CPLConfigs.server().andesiteOnContraption.get() && !context.contraption.isActorTypeDisabled(CPLBlocks.ANDESITE_CHUNK_LOADER.asStack());
 
         SuperByteBuffer core =
                 CachedBufferer.partialFacing(
