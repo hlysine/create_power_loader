@@ -1,0 +1,44 @@
+{
+  "itemGroup.create_power_loader.main": "机械动力：动力加载器",
+
+  "block.create_power_loader.empty_andesite_chunk_loader": "空的安山区块加载器",
+  "block.create_power_loader.andesite_chunk_loader": "安山区块加载器",
+
+  "block.create_power_loader.empty_brass_chunk_loader": "空的黄铜区块加载器",
+  "block.create_power_loader.brass_chunk_loader": "黄铜区块加载器",
+  "create_power_loader.brass_chunk_loader.loading_range": "区块加载范围",
+  "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1 矩形",
+  "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3 矩形",
+  "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5 矩形",
+
+  "create_power_loader.ponder.empty_chunk_loader_basic.header": "空的区块加载器用法",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "用空的区块加载器右击恶魂来捕获它",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_2": "利用旋转的动力，可让被捕获的恶魂点亮机械核心……",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_3": "……将区块加载器带入生活",
+
+  "create_power_loader.ponder.andesite_chunk_loader_basic.header": "安山区块加载器的基本用法",
+  "create_power_loader.ponder.andesite_chunk_loader_basic.text_1": "给予旋转动力后区块加载器会保持当前区块的加载",
+  "create_power_loader.ponder.andesite_chunk_loader_basic.text_2": "当转速过慢时不会工作",
+
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.header": "红石与安山区块加载器",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_1": "加载器工作时可以点亮比较器",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_2": "动力消失后，在区块被卸载前会有一小段延迟（可配置）",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_3": "如果在延迟期间动力复原，则区块可继续加载",
+
+  "create_power_loader.ponder.brass_chunk_loader_basic.header": "黄铜区块加载器的基本用法",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_1": "给予旋转动力后区块加载器会保持当前区块的加载",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_2": "当转速过慢时不会工作",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_3": "可以通过控制面板配置加载范围……",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_4": "……但更广的范围需要更高的转速",
+
+  "create_power_loader.ponder.brass_chunk_loader_redstone.header": "红石与黄铜区块加载器",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_1": "加载器工作时可以点亮比较器",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_2": "动力消失后，在区块被卸载前会有一小段延迟（可配置）",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_3": "如果在延迟期间动力复原，则区块可继续加载",
+
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.header": "区块加载器与动态结构",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_1": "黄铜区块加载器也可在动态结构上使用",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "可一直加载动态结构周围3x3区块",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_3": "组装后，则不再需要旋转动力来启动",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_4": "它们也能在固定的结构上工作"
+}
