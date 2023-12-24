@@ -51,3 +51,12 @@ Find this mod on [**Modrinth**](https://modrinth.com/mod/create-power-loader) or
 
 This mod is open to suggestions, so if you have made any modification to the mod, please leave an issue/PR so I can consider adding your use case to the mod.
 
+## Credits
+
+**Translation**
+
+[Huantanhua](https://github.com/Huantanhua) for Simplified Chinese translation
+
+**Inspiration**
+
+The [Create mod](https://github.com/Creators-of-Create/Create) and the [Create Chunkloading mod](https://github.com/embeddedt/CreateChunkloading)
