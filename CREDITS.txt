@@ -1,5 +1,8 @@
 === Create: Power Loader ===
 
+The following people have contributed to the project:
+- Huantanhua - Simplified Chinese translation
+
 The following projects have provided code inspiration for this mod and made this mod possible:
 - Create: https://github.com/Creators-of-Create/Create
 - Create Chunkloading: https://github.com/embeddedt/CreateChunkloading
