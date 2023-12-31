@@ -10,7 +10,7 @@
 
 A Create mod add-on adding immersive andesite and brass chunk loaders to Minecraft.
 
-> Want more Create-esque QoL items? Check out [Create: Connected](https://modrinth.com/mod/create-connected)
+> **Want more Create-esque QoL items? Check out [Create: Connected](https://modrinth.com/mod/create-connected)**
 
 ## What's new in 1.2.0
 
