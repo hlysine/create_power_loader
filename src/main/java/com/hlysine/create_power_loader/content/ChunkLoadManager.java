@@ -43,6 +43,7 @@ public class ChunkLoadManager {
             forceChunk(level, owner, chunk.x(), chunk.z(), true);
             forcedChunks.add(chunk);
         }
+        LOGGER.debug("CPL: update chunks, unloaded {}, loaded {}.", unforcedChunks.size(), targetChunks.size());
     }
 
     public static <T extends Comparable<? super T>> void unforceAllChunks(ServerLevel level, T owner, Set<LoadedChunkPos> forcedChunks) {
@@ -72,7 +73,7 @@ public class ChunkLoadManager {
                     blockPos.toShortString(),
                     tickets.getFirst().size(),
                     tickets.getSecond().size());
-            IChunkLoaderBlockEntity blockEntity = level.getBlockEntity(blockPos, CPLBlockEntityTypes.BRASS_CHUNK_LOADER.get()).orElse(null);
+            AbstractChunkLoaderBlockEntity blockEntity = level.getBlockEntity(blockPos, CPLBlockEntityTypes.BRASS_CHUNK_LOADER.get()).orElse(null);
             if (blockEntity == null)
                 blockEntity = level.getBlockEntity(blockPos, CPLBlockEntityTypes.ANDESITE_CHUNK_LOADER.get()).orElse(null);
             if (blockEntity == null) {
