@@ -4,7 +4,8 @@ package com.hlysine.create_power_loader.content.brasschunkloader;
 import com.hlysine.create_power_loader.CPLIcons;
 import com.hlysine.create_power_loader.CreatePowerLoader;
 import com.hlysine.create_power_loader.config.CPLConfigs;
-import com.hlysine.create_power_loader.content.ChunkLoadingUtils;
+import com.hlysine.create_power_loader.content.ChunkLoadManager;
+import com.hlysine.create_power_loader.content.IChunkLoaderBlockEntity;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -30,8 +31,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.hlysine.create_power_loader.content.ChunkLoadManager.*;
+
 @MethodsReturnNonnullByDefault
-public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
+public class BrassChunkLoaderBlockEntity extends KineticBlockEntity implements IChunkLoaderBlockEntity {
 
     protected int chunkUpdateCooldown;
     protected int chunkUnloadCooldown;
@@ -39,7 +42,7 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
     protected boolean lastSpeedRequirement;
     protected int lastRange;
 
-    protected Set<ChunkPos> forcedChunks = new HashSet<>();
+    protected Set<LoadedChunkPos> forcedChunks = new HashSet<>();
 
     protected ScrollOptionBehaviour<LoadingRange> loadingRange;
 
@@ -97,6 +100,7 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
         return Math.abs(getSpeed()) >= requirement;
     }
 
+    @Override
     public int getLoadingRange() {
         return loadingRange.getValue() + 1;
     }
@@ -113,9 +117,9 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
     private void updateForcedChunks() {
         boolean resetStates = true;
         if (isSpeedRequirementFulfilled()) {
-            ChunkLoadingUtils.updateForcedChunks((ServerLevel) level, new ChunkPos(getBlockPos()), getBlockPos(), getLoadingRange(), forcedChunks);
+            ChunkLoadManager.updateForcedChunks((ServerLevel) level, new ChunkPos(getBlockPos()), getBlockPos(), getLoadingRange(), forcedChunks);
         } else if (chunkUnloadCooldown >= CPLConfigs.server().unloadGracePeriod.get()) {
-            ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
+            unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
         } else {
             chunkUnloadCooldown += CPLConfigs.server().chunkUpdateInterval.get();
             resetStates = false;
@@ -133,7 +137,7 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
         super.destroy();
         boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
         if (server)
-            ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
+            unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
     }
 
     @Override
@@ -141,7 +145,7 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
         super.remove();
         boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
         if (server)
-            ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
+            unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
     }
 
     protected void spawnParticles() {

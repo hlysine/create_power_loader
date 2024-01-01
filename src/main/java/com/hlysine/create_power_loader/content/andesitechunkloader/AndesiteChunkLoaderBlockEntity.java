@@ -2,7 +2,8 @@ package com.hlysine.create_power_loader.content.andesitechunkloader;
 
 
 import com.hlysine.create_power_loader.config.CPLConfigs;
-import com.hlysine.create_power_loader.content.ChunkLoadingUtils;
+import com.hlysine.create_power_loader.content.ChunkLoadManager;
+import com.hlysine.create_power_loader.content.IChunkLoaderBlockEntity;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.utility.VecHelper;
@@ -19,8 +20,10 @@ import net.minecraft.world.phys.Vec3;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.hlysine.create_power_loader.content.ChunkLoadManager.*;
+
 @MethodsReturnNonnullByDefault
-public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
+public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity implements IChunkLoaderBlockEntity {
     private static final int LOADING_RANGE = 1;
 
     protected int chunkUpdateCooldown;
@@ -28,7 +31,7 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
     protected BlockPos lastBlockPos;
     protected boolean lastSpeedRequirement;
 
-    protected Set<ChunkPos> forcedChunks = new HashSet<>();
+    protected Set<LoadedChunkPos> forcedChunks = new HashSet<>();
 
     public AndesiteChunkLoaderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -69,6 +72,7 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
         return Math.abs(getSpeed()) >= requirement;
     }
 
+    @Override
     public int getLoadingRange() {
         return LOADING_RANGE;
     }
@@ -81,9 +85,9 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
     private void updateForcedChunks() {
         boolean resetStates = true;
         if (isSpeedRequirementFulfilled()) {
-            ChunkLoadingUtils.updateForcedChunks((ServerLevel) level, new ChunkPos(getBlockPos()), getBlockPos(), getLoadingRange(), forcedChunks);
+            ChunkLoadManager.updateForcedChunks((ServerLevel) level, new ChunkPos(getBlockPos()), getBlockPos(), getLoadingRange(), forcedChunks);
         } else if (chunkUnloadCooldown >= CPLConfigs.server().unloadGracePeriod.get()) {
-            ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
+            unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
         } else {
             chunkUnloadCooldown += CPLConfigs.server().chunkUpdateInterval.get();
             resetStates = false;
@@ -100,7 +104,7 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
         super.destroy();
         boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
         if (server)
-            ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
+            unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
     }
 
     @Override
@@ -108,7 +112,7 @@ public class AndesiteChunkLoaderBlockEntity extends KineticBlockEntity {
         super.remove();
         boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
         if (server)
-            ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
+            unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
     }
 
     protected void spawnParticles() {
