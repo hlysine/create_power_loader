@@ -1,6 +1,7 @@
 package com.hlysine.create_power_loader.content.trains;
 
 import com.hlysine.create_power_loader.CPLBlocks;
+import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.ChunkLoadManager;
 import com.simibubi.create.content.contraptions.Contraption;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
@@ -37,8 +38,9 @@ public class CarriageChunkLoader {
     public void tick(Level level) {
         if (!known) updateCarriage();
         if (!known) return;
-        if (!canLoadChunks() && !forcedChunks.isEmpty()) {
-            ChunkLoadManager.unforceAllChunks(level.getServer(), carriage.train.id, forcedChunks);
+        if (!canLoadChunks()) {
+            if (!forcedChunks.isEmpty())
+                ChunkLoadManager.unforceAllChunks(level.getServer(), carriage.train.id, forcedChunks);
             return;
         }
 
@@ -98,7 +100,7 @@ public class CarriageChunkLoader {
 
     private boolean canLoadChunks() {
         if (carriage.train.graph == null) return false;
-        return brass; // TODO: add config for this
+        return andesite && CPLConfigs.server().andesiteOnContraption.get() || brass && CPLConfigs.server().brassOnContraption.get();
     }
 
     public CompoundTag write() {
