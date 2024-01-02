@@ -5,6 +5,12 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin' version '0.7.38'
+    id 'me.modmuss50.mod-publish-plugin' version '0.4.5'
+}
+
+def secrets = new Properties()
+file("./secrets.properties").withInputStream {
+    stream -> secrets.load(stream)
 }
 
 version = mod_version
@@ -261,4 +267,37 @@ tasks.withType(JavaCompile).configureEach {
 wrapper {
     gradleVersion = '8.1.1'
     distributionType = Wrapper.DistributionType.BIN
+}
+
+publishMods {
+    changelog = "Check out the detailed changelog at https://github.com/hlysine/create_power_loader/blob/main/CHANGELOG.md"
+    type = STABLE
+    file = jar.archiveFile
+    modLoaders.add("forge")
+    dryRun = true
+
+    github {
+        accessToken = secrets.GITHUB_TOKEN
+        repository = "hlysine/create_power_loader"
+        commitish = "main"
+    }
+
+    modrinth {
+        accessToken = secrets.MODRINTH_TOKEN
+        projectId = "wPQ6GgFE"
+        minecraftVersions.add(minecraft_version)
+
+        requires {
+            id = "LNytGWDc"
+        }
+        optional {
+            id = "u6dRKJwZ"
+        }
+    }
+
+    curseforge {
+        accessToken = secrets.CURSEFORGE_TOKEN
+        projectId = "936020"
+        minecraftVersions.add(minecraft_version)
+    }
 }
