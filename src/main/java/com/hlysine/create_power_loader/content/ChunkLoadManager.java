@@ -2,15 +2,20 @@ package com.hlysine.create_power_loader.content;
 
 import com.hlysine.create_power_loader.CPLBlockEntityTypes;
 import com.hlysine.create_power_loader.CreatePowerLoader;
-import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderBlockEntity;
 import com.mojang.logging.LogUtils;
+import com.simibubi.create.foundation.utility.Pair;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.world.ForgeChunkManager;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.fml.LogicalSide;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -18,47 +23,97 @@ import java.util.*;
 
 public class ChunkLoadManager {
     private static final Logger LOGGER = LogUtils.getLogger();
+    private static final int SAVED_CHUNKS_DISCARD_TICKS = 100;
 
+    private static final List<Pair<UUID, Set<LoadedChunkPos>>> unforceQueue = new LinkedList<>();
     private static final Map<UUID, Set<LoadedChunkPos>> savedForcedChunks = new HashMap<>();
+    private static int savedChunksDiscardCountdown = SAVED_CHUNKS_DISCARD_TICKS;
 
-    public static <T extends Comparable<? super T>> void updateForcedChunks(ServerLevel level, ChunkPos center, T owner, int loadingRange, Set<LoadedChunkPos> forcedChunks) {
-        Set<LoadedChunkPos> targetChunks = new HashSet<>();
-        for (int i = center.x - loadingRange + 1; i <= center.x + loadingRange - 1; i++) {
-            for (int j = center.z - loadingRange + 1; j <= center.z + loadingRange - 1; j++) {
-                targetChunks.add(new LoadedChunkPos(level, i, j));
+    public static void onServerWorldTick(TickEvent.LevelTickEvent event) {
+        if (event.phase == TickEvent.Phase.END)
+            return;
+        if (event.side == LogicalSide.CLIENT)
+            return;
+
+        MinecraftServer server = event.level.getServer();
+        if (savedChunksDiscardCountdown == 0) {
+            for (Map.Entry<UUID, Set<LoadedChunkPos>> entry : savedForcedChunks.entrySet()) {
+                unforceAllChunks(server, entry.getKey(), entry.getValue());
             }
-        }
+            savedForcedChunks.clear();
+        } else if (savedChunksDiscardCountdown > 0)
+            savedChunksDiscardCountdown--;
 
+        if (!unforceQueue.isEmpty()) {
+            for (Pair<UUID, Set<LoadedChunkPos>> pair : unforceQueue) {
+                unforceAllChunks(server, pair.getFirst(), pair.getSecond());
+            }
+            unforceQueue.clear();
+        }
+    }
+
+    public static <T extends Comparable<? super T>> void updateForcedChunks(MinecraftServer server, LoadedChunkPos center, T owner, int loadingRange, Set<LoadedChunkPos> forcedChunks) {
+        Set<LoadedChunkPos> targetChunks = getChunksAroundCenter(center, loadingRange);
+        updateForcedChunks(server, targetChunks, owner, forcedChunks);
+    }
+
+    public static <T extends Comparable<? super T>> void updateForcedChunks(MinecraftServer server, Collection<LoadedChunkPos> centers, T owner, int loadingRange, Set<LoadedChunkPos> forcedChunks) {
+        Set<LoadedChunkPos> targetChunks = new HashSet<>();
+        for (LoadedChunkPos center : centers) {
+            targetChunks.addAll(getChunksAroundCenter(center, loadingRange));
+        }
+        updateForcedChunks(server, targetChunks, owner, forcedChunks);
+    }
+
+    public static <T extends Comparable<? super T>> void updateForcedChunks(MinecraftServer server, Collection<LoadedChunkPos> newChunks, T owner, Set<LoadedChunkPos> forcedChunks) {
         Set<LoadedChunkPos> unforcedChunks = new HashSet<>();
         for (LoadedChunkPos chunk : forcedChunks) {
-            if (targetChunks.contains(chunk)) {
-                targetChunks.remove(chunk);
+            if (newChunks.contains(chunk)) {
+                newChunks.remove(chunk);
             } else {
-                forceChunk(level, owner, chunk.x(), chunk.z(), false);
+                forceChunk(server, owner, chunk.dimension(), chunk.x(), chunk.z(), false);
                 unforcedChunks.add(chunk);
             }
         }
         forcedChunks.removeAll(unforcedChunks);
-        for (LoadedChunkPos chunk : targetChunks) {
-            forceChunk(level, owner, chunk.x(), chunk.z(), true);
+        for (LoadedChunkPos chunk : newChunks) {
+            forceChunk(server, owner, chunk.dimension(), chunk.x(), chunk.z(), true);
             forcedChunks.add(chunk);
         }
-        LOGGER.debug("CPL: update chunks, unloaded {}, loaded {}.", unforcedChunks.size(), targetChunks.size());
+        if (unforcedChunks.size() > 0 || newChunks.size() > 0)
+            LOGGER.debug("CPL: update chunks, unloaded {}, loaded {}.", unforcedChunks.size(), newChunks.size());
     }
 
-    public static <T extends Comparable<? super T>> void unforceAllChunks(ServerLevel level, T owner, Set<LoadedChunkPos> forcedChunks) {
+    public static void enqueueUnforceAll(UUID owner, Set<LoadedChunkPos> forcedChunks) {
+        unforceQueue.add(Pair.of(owner, forcedChunks));
+    }
+
+    public static <T extends Comparable<? super T>> void unforceAllChunks(MinecraftServer server, T owner, Set<LoadedChunkPos> forcedChunks) {
         for (LoadedChunkPos chunk : forcedChunks) {
-            forceChunk(level, owner, chunk.x(), chunk.z(), false);
+            forceChunk(server, owner, chunk.dimension(), chunk.x(), chunk.z(), false);
         }
-        LOGGER.debug("CPL: unload all, unloaded {} chunks.", forcedChunks.size());
+        if (forcedChunks.size() > 0)
+            LOGGER.debug("CPL: unload all, unloaded {} chunks.", forcedChunks.size());
         forcedChunks.clear();
     }
 
-    private static <T extends Comparable<? super T>> void forceChunk(ServerLevel level, T owner, int chunkX, int chunkZ, boolean add) {
+    private static Set<LoadedChunkPos> getChunksAroundCenter(LoadedChunkPos center, int radius) {
+        Set<LoadedChunkPos> ret = new HashSet<>();
+        for (int i = center.x() - radius + 1; i <= center.x() + radius - 1; i++) {
+            for (int j = center.z() - radius + 1; j <= center.z() + radius - 1; j++) {
+                ret.add(new LoadedChunkPos(center.dimension(), i, j));
+            }
+        }
+        return ret;
+    }
+
+    private static <T extends Comparable<? super T>> void forceChunk(MinecraftServer server, T owner, ResourceLocation dimension, int chunkX, int chunkZ, boolean add) {
+        ServerLevel targetLevel = server.getLevel(ResourceKey.create(Registries.DIMENSION, dimension));
+        assert targetLevel != null;
         if (owner instanceof BlockPos) {
-            ForgeChunkManager.forceChunk(level, CreatePowerLoader.MODID, (BlockPos) owner, chunkX, chunkZ, add, true);
+            ForgeChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (BlockPos) owner, chunkX, chunkZ, add, true);
         } else {
-            ForgeChunkManager.forceChunk(level, CreatePowerLoader.MODID, (UUID) owner, chunkX, chunkZ, add, true);
+            ForgeChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (UUID) owner, chunkX, chunkZ, add, true);
         }
     }
 
@@ -125,6 +180,7 @@ public class ChunkLoadManager {
                     tickets.getFirst().size(),
                     tickets.getSecond().size());
         });
+        savedChunksDiscardCountdown = SAVED_CHUNKS_DISCARD_TICKS;
     }
 
     public record LoadedChunkPos(@NotNull ResourceLocation dimension, @NotNull ChunkPos chunkPos) {
@@ -133,8 +189,12 @@ public class ChunkLoadManager {
             this(level.dimension().location(), new ChunkPos(chunkPos));
         }
 
-        public LoadedChunkPos(@NotNull Level level, int pX, int pZ) {
-            this(level.dimension().location(), new ChunkPos(pX, pZ));
+        public LoadedChunkPos(@NotNull ResourceLocation level, int pX, int pZ) {
+            this(level, new ChunkPos(pX, pZ));
+        }
+
+        public LoadedChunkPos(@NotNull Level level, BlockPos blockPos) {
+            this(level.dimension().location(), new ChunkPos(blockPos));
         }
 
         public int x() {

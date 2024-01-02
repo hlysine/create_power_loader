@@ -8,11 +8,11 @@ import com.mojang.logging.LogUtils;
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.content.contraptions.render.ContraptionMatrices;
+import com.simibubi.create.content.trains.entity.CarriageContraption;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.ChunkPos;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
@@ -72,11 +72,11 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
 
         savedState.chunkPos = entityChunkPosition;
 
-        if (shouldFunction()) {
-            updateForcedChunks((ServerLevel) context.world, entityChunkPosition.chunkPos(), context.contraption.entity.getUUID(), 2, savedState.forcedChunks);
+        if (shouldFunction(context)) {
+            updateForcedChunks(context.world.getServer(), entityChunkPosition, context.contraption.entity.getUUID(), 2, savedState.forcedChunks);
             LOGGER.debug("CPL: Entity {} at new chunk {}, loaded {} chunks", context.contraption.entity, entityChunkPosition, savedState.forcedChunks.size());
         } else {
-            unforceAllChunks((ServerLevel) context.world, context.contraption.entity.getUUID(), savedState.forcedChunks);
+            unforceAllChunks(context.world.getServer(), context.contraption.entity.getUUID(), savedState.forcedChunks);
         }
 
         context.temporaryData = savedState;
@@ -105,11 +105,11 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
                 LOGGER.debug("CPL: Entity {} reclaimed {} chunks", context.contraption.entity, savedForcedChunks.size());
             }
 
-            if (shouldFunction()) {
-                updateForcedChunks((ServerLevel) context.world, entityChunkPosition.chunkPos(), context.contraption.entity.getUUID(), 2, savedState.forcedChunks);
+            if (shouldFunction(context)) {
+                updateForcedChunks(context.world.getServer(), entityChunkPosition, context.contraption.entity.getUUID(), 2, savedState.forcedChunks);
                 LOGGER.debug("CPL: Entity {} starts moving at chunk {}, loaded {} chunks", context.contraption.entity, entityChunkPosition, savedState.forcedChunks.size());
             } else
-                unforceAllChunks((ServerLevel) context.world, context.contraption.entity.getUUID(), savedState.forcedChunks);
+                unforceAllChunks(context.world.getServer(), context.contraption.entity.getUUID(), savedState.forcedChunks);
             savedState.chunkPos = entityChunkPosition;
         }
     }
@@ -126,9 +126,9 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
         if (!(tempState instanceof SavedState savedState))
             return;
 
-        if (shouldFunction()) // no need to log if we don't expect it to function
+        if (shouldFunction(context)) // no need to log if we don't expect it to function
             LOGGER.debug("CPL: Entity {} stops moving in {}, unloaded {} chunks", context.contraption.entity, savedState.chunkPos, savedState.forcedChunks.size());
-        unforceAllChunks((ServerLevel) context.world, context.contraption.entity.getUUID(), savedState.forcedChunks);
+        unforceAllChunks(context.world.getServer(), context.contraption.entity.getUUID(), savedState.forcedChunks);
 
         // remove chunk pos to force a loaded chunk check when this movement context is reused
         // required when the chunk loader travels through a nether portal, then comes out of the same portal later
@@ -148,8 +148,10 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
         }
     }
 
-    private boolean shouldFunction() {
-        if (behaviorType == BehaviorType.ANDESITE) {
+    private boolean shouldFunction(MovementContext context) {
+        if (context.contraption instanceof CarriageContraption) {
+            return false; // train loading is handled with special logic
+        } else if (behaviorType == BehaviorType.ANDESITE) {
             return CPLConfigs.server().andesiteOnContraption.get();
         } else if (behaviorType == BehaviorType.BRASS) {
             return CPLConfigs.server().brassOnContraption.get();

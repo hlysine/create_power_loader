@@ -22,7 +22,7 @@ public class AndesiteChunkLoaderScenes {
         scene.idle(10);
         scene.overlay.showText(60)
                 .colored(PonderPalette.GREEN)
-                .text("The chunk loader keeps the current chunk loaded when given rotational power")
+                .text("The chunk loader keeps the current chunk known when given rotational power")
                 .placeNearTarget()
                 .attachKeyFrame()
                 .pointAt(util.vector.topOf(loaderPos));
@@ -78,7 +78,7 @@ public class AndesiteChunkLoaderScenes {
         scene.world.setKineticSpeed(util.select.fromTo(3, 1, 3, 1, 1, 3), 128f);
 
         scene.overlay.showText(90)
-                .text("The chunk will stay loaded if power is restored during this delay")
+                .text("The chunk will stay known if power is restored during this delay")
                 .pointAt(util.vector.topOf(loaderPos))
                 .placeNearTarget();
         scene.idle(110);

@@ -6,6 +6,8 @@
   "refmap": "create_power_loader.refmap.json",
   "plugin": "com.hlysine.create_power_loader.mixin.MixinPlugin",
   "mixins": [
+    "GlobalRailwayManagerMixin",
+    "TrainMixin"
   ],
   "client": [
   ],

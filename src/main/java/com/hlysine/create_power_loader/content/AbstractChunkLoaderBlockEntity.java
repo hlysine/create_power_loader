@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -17,6 +16,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.hlysine.create_power_loader.content.ChunkLoadManager.LoadedChunkPos;
 import static com.hlysine.create_power_loader.content.ChunkLoadManager.unforceAllChunks;
 
 public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity {
@@ -26,7 +26,7 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
     protected int lastRange;
     protected int chunkUpdateCooldown;
     protected int chunkUnloadCooldown;
-    protected Set<ChunkLoadManager.LoadedChunkPos> forcedChunks = new HashSet<>();
+    protected Set<LoadedChunkPos> forcedChunks = new HashSet<>();
 
     public AbstractChunkLoaderBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
@@ -59,9 +59,9 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
     protected void updateForcedChunks() {
         boolean resetStates = true;
         if (isSpeedRequirementFulfilled()) {
-            ChunkLoadManager.updateForcedChunks((ServerLevel) level, new ChunkPos(getBlockPos()), getBlockPos(), getLoadingRange(), forcedChunks);
+            ChunkLoadManager.updateForcedChunks(level.getServer(), new LoadedChunkPos(getLevel(), getBlockPos()), getBlockPos(), getLoadingRange(), forcedChunks);
         } else if (chunkUnloadCooldown >= CPLConfigs.server().unloadGracePeriod.get()) {
-            unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
+            unforceAllChunks(level.getServer(), getBlockPos(), forcedChunks);
         } else {
             chunkUnloadCooldown += CPLConfigs.server().chunkUpdateInterval.get();
             resetStates = false;
@@ -95,7 +95,7 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
         super.destroy();
         boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
         if (server)
-            unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
+            unforceAllChunks(level.getServer(), getBlockPos(), forcedChunks);
     }
 
     @Override
@@ -103,7 +103,7 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
         super.remove();
         boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
         if (server)
-            unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
+            unforceAllChunks(level.getServer(), getBlockPos(), forcedChunks);
     }
 
     public abstract int getLoadingRange();

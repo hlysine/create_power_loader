@@ -27,7 +27,7 @@ public class BrassChunkLoaderScenes {
         scene.effects.indicateSuccess(loaderPos);
         scene.idle(10);
         scene.overlay.showText(80)
-                .text("The chunk loader keeps the current chunk loaded when given rotational power")
+                .text("The chunk loader keeps the current chunk known when given rotational power")
                 .placeNearTarget()
                 .attachKeyFrame()
                 .pointAt(util.vector.topOf(loaderPos));
@@ -53,7 +53,7 @@ public class BrassChunkLoaderScenes {
         Vec3 scrollSlot = util.vector.of(2.5, 2 + 4 / 16f, 2);
         scene.overlay.showFilterSlotInput(scrollSlot, Direction.NORTH, 170);
         scene.overlay.showText(60)
-                .text("You can configure the loaded range through the value panel...")
+                .text("You can configure the known range through the value panel...")
                 .pointAt(scrollSlot)
                 .attachKeyFrame()
                 .placeNearTarget();
@@ -115,7 +115,7 @@ public class BrassChunkLoaderScenes {
         scene.world.setKineticSpeed(util.select.fromTo(3, 1, 3, 1, 1, 3), 128f);
 
         scene.overlay.showText(90)
-                .text("The chunks will stay loaded if power is restored during this delay")
+                .text("The chunks will stay known if power is restored during this delay")
                 .pointAt(util.vector.topOf(loaderPos))
                 .placeNearTarget();
         scene.idle(110);

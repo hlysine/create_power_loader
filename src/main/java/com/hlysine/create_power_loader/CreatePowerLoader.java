@@ -60,6 +60,7 @@ public class CreatePowerLoader {
         CPLConfigs.register(ModLoadingContext.get());
 
         modEventBus.addListener(EventPriority.LOWEST, CPLDatagen::gatherData);
+        forgeEventBus.addListener(ChunkLoadManager::onServerWorldTick);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreatePowerLoaderClient.onCtorClient(modEventBus, forgeEventBus));
     }
 
