@@ -60,14 +60,16 @@ public class TrainChunkLoader {
             }
         }
 
-        MinecraftServer server = level.getServer();
-        assert server != null;
-        for (Iterator<Map.Entry<ResourceKey<Level>, Set<LoadedChunkPos>>> iterator = reclaimedChunks.entrySet().iterator(); iterator.hasNext(); ) {
-            Map.Entry<ResourceKey<Level>, Set<LoadedChunkPos>> entry = iterator.next();
-            ServerLevel reclaimLevel = server.getLevel(entry.getKey());
-            if (reclaimLevel != null) {
-                ChunkLoadManager.unforceAllChunks(server, train.id, entry.getValue());
-                iterator.remove();
+        if (!reclaimedChunks.isEmpty()) {
+            MinecraftServer server = level.getServer();
+            assert server != null;
+            for (Iterator<Map.Entry<ResourceKey<Level>, Set<LoadedChunkPos>>> iterator = reclaimedChunks.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<ResourceKey<Level>, Set<LoadedChunkPos>> entry = iterator.next();
+                ServerLevel reclaimLevel = server.getLevel(entry.getKey());
+                if (reclaimLevel != null) {
+                    ChunkLoadManager.unforceAllChunks(server, train.id, entry.getValue());
+                    iterator.remove();
+                }
             }
         }
 
