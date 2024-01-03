@@ -36,7 +36,7 @@ public enum Mods {
     }
 
     /**
-     * @return a boolean of whether the mod is known or not based on mod id
+     * @return a boolean of whether the mod is loaded or not based on mod id
      */
     public boolean isLoaded() {
         return ModList.get().isLoaded(id);
@@ -44,8 +44,8 @@ public enum Mods {
 
     /**
      * Simple hook to run code if a mod is installed
-     * @param toRun will be run only if the mod is known
-     * @return Optional.empty() if the mod is not known, otherwise an Optional of the return value of the given supplier
+     * @param toRun will be run only if the mod is loaded
+     * @return Optional.empty() if the mod is not loaded, otherwise an Optional of the return value of the given supplier
      */
     public <T> Optional<T> runIfInstalled(Supplier<Supplier<T>> toRun) {
         if (isLoaded())
@@ -55,7 +55,7 @@ public enum Mods {
 
     /**
      * Simple hook to execute code if a mod is installed
-     * @param toExecute will be executed only if the mod is known
+     * @param toExecute will be executed only if the mod is loaded
      */
     public void executeIfInstalled(Supplier<Runnable> toExecute) {
         if (isLoaded()) {
