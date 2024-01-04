@@ -1,9 +1,10 @@
 package com.hlysine.create_power_loader;
 
 import com.hlysine.create_power_loader.content.ChunkLoaderMovementBehaviour;
-import com.hlysine.create_power_loader.content.emptychunkloader.EmptyChunkLoaderBlock;
+import com.hlysine.create_power_loader.content.LoaderType;
 import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderBlock;
+import com.hlysine.create_power_loader.content.emptychunkloader.EmptyChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.emptychunkloader.EmptyChunkLoaderBlockItem;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
@@ -48,7 +49,7 @@ public class CPLBlocks {
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
             .addLayer(() -> RenderType::cutoutMipped)
-            .onRegister(movementBehaviour(new ChunkLoaderMovementBehaviour(ChunkLoaderMovementBehaviour.BehaviorType.ANDESITE)))
+            .onRegister(movementBehaviour(new ChunkLoaderMovementBehaviour(LoaderType.ANDESITE)))
             .transform(BlockStressDefaults.setImpact(16.0))
             .item()
             .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)
@@ -83,7 +84,7 @@ public class CPLBlocks {
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
             .addLayer(() -> RenderType::cutoutMipped)
-            .onRegister(movementBehaviour(new ChunkLoaderMovementBehaviour(ChunkLoaderMovementBehaviour.BehaviorType.BRASS)))
+            .onRegister(movementBehaviour(new ChunkLoaderMovementBehaviour(LoaderType.BRASS)))
             .transform(BlockStressDefaults.setImpact(16.0))
             .item()
             .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)

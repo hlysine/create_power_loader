@@ -18,7 +18,8 @@ public class CPLPonders {
         HELPER.forComponents(CPLBlocks.BRASS_CHUNK_LOADER)
                 .addStoryBoard("brass_chunk_loader/basic_usage", BrassChunkLoaderScenes::basicUsage, AllPonderTags.KINETIC_APPLIANCES)
                 .addStoryBoard("brass_chunk_loader/redstone", BrassChunkLoaderScenes::redstone, AllPonderTags.KINETIC_APPLIANCES)
-                .addStoryBoard("brass_chunk_loader/loading_contraptions", BrassChunkLoaderScenes::loadingContraptions, AllPonderTags.KINETIC_APPLIANCES);
+                .addStoryBoard("brass_chunk_loader/loading_contraptions", BrassChunkLoaderScenes::loadingContraptions, AllPonderTags.KINETIC_APPLIANCES)
+                .addStoryBoard("brass_chunk_loader/attach_station", BrassChunkLoaderScenes::attachStation, AllPonderTags.KINETIC_APPLIANCES);
         HELPER.forComponents(CPLBlocks.EMPTY_ANDESITE_CHUNK_LOADER, CPLBlocks.EMPTY_BRASS_CHUNK_LOADER)
                 .addStoryBoard("empty_chunk_loader/usage", EmptyChunkLoaderScenes::usage);
 
