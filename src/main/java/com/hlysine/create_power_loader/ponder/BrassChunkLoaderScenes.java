@@ -1,15 +1,20 @@
 package com.hlysine.create_power_loader.ponder;
 
+import com.hlysine.create_power_loader.content.AbstractChunkLoaderBlockEntity;
 import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderBlockEntity;
+import com.simibubi.create.content.contraptions.actors.trainControls.ControlsBlock;
+import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.foundation.ponder.*;
 import com.simibubi.create.foundation.ponder.element.InputWindowElement;
 import com.simibubi.create.foundation.ponder.element.MinecartElement;
-import com.simibubi.create.foundation.ponder.element.ParrotElement.FacePointOfInterestPose;
 import com.simibubi.create.foundation.ponder.element.ParrotElement;
-import net.minecraft.world.entity.vehicle.Minecart;
+import com.simibubi.create.foundation.ponder.element.ParrotElement.FacePointOfInterestPose;
+import com.simibubi.create.foundation.ponder.element.WorldSectionElement;
 import com.simibubi.create.foundation.utility.Pointing;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.vehicle.Minecart;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public class BrassChunkLoaderScenes {
@@ -126,6 +131,12 @@ public class BrassChunkLoaderScenes {
         scene.configureBasePlate(0, 0, 6);
         scene.world.showSection(util.select.layer(0), Direction.UP);
 
+        scene.world.modifyBlock(
+                new BlockPos(4, 3, 4),
+                state -> state.setValue(ControlsBlock.OPEN, true).setValue(ControlsBlock.VIRTUAL, true),
+                false
+        );
+
         scene.idle(5);
 
         Selection trainLoader = util.select.position(4, 3, 2);
@@ -182,5 +193,83 @@ public class BrassChunkLoaderScenes {
                 .placeNearTarget();
 
         scene.idle(80);
+    }
+
+    public static void attachStation(SceneBuilder scene, SceneBuildingUtil util) {
+        scene.title("brass_chunk_loader_station", "Loading Chunks For Train Stations");
+        scene.configureBasePlate(30, 0, 9);
+        scene.scaleSceneView(0.75f);
+
+        scene.world.cycleBlockProperty(util.grid.at(60, 3, 6), BlazeBurnerBlock.HEAT_LEVEL);
+
+        BlockPos chunkLoader = util.grid.at(34, 1, 2);
+        Selection selectLoader = util.select.position(chunkLoader);
+        BlockPos trainStation = util.grid.at(34, 1, 3);
+        Selection train = util.select.fromTo(57, 2, 7, 61, 3, 5);
+        Selection load = util.select.layer(0).add(selectLoader).add(util.select.position(trainStation));
+
+        scene.showBasePlate();
+        scene.idle(5);
+        scene.world.showSection(util.select.layersFrom(1).substract(selectLoader), Direction.DOWN);
+        scene.idle(10);
+        scene.world.showSection(selectLoader, Direction.SOUTH);
+        scene.idle(20);
+
+
+        scene.overlay.showText(50)
+                .text("Brass chunk loaders can attach to Train Stations")
+                .pointAt(util.vector.blockSurface(chunkLoader, Direction.WEST))
+                .attachKeyFrame()
+                .placeNearTarget();
+        scene.idle(70);
+        scene.overlay.showText(50)
+                .text("Place them next to Train Stations in the correct direction")
+                .pointAt(util.vector.blockSurface(chunkLoader, Direction.WEST))
+                .placeNearTarget();
+        scene.idle(70);
+
+        scene.overlay.chaseBoundingBoxOutline(PonderPalette.BLUE, chunkLoader,
+                new AABB(chunkLoader), 150);
+        scene.world.hideSection(load, null);
+        scene.idle(10);
+        scene.overlay.showText(60)
+                .text("They do not require rotational power, but are normally inactive")
+                .pointAt(util.vector.blockSurface(chunkLoader, Direction.WEST))
+                .attachKeyFrame()
+                .placeNearTarget();
+        scene.idle(80);
+
+        ElementLink<WorldSectionElement> trainElement = scene.world.showIndependentSectionImmediately(train);
+        scene.world.moveSection(trainElement, new Vec3(-10, 0, 0), 1);
+        scene.world.moveSection(trainElement, new Vec3(-15, 0, 0), 60);
+        scene.world.animateBogey(util.grid.at(59, 2, 6), 15, 60);
+        scene.idle(60);
+
+        scene.addKeyframe();
+        scene.world.showSection(load, null);
+        scene.world.modifyBlockEntity(chunkLoader, AbstractChunkLoaderBlockEntity.class, be -> be.isLoaderActive = true);
+        scene.world.animateTrainStation(trainStation, true);
+        scene.idle(20);
+
+        scene.overlay.showText(70)
+                .text("When a train arrives at the station, a 3x3 area around the chunk loader is loaded")
+                .pointAt(util.vector.blockSurface(chunkLoader, Direction.WEST))
+                .placeNearTarget();
+        scene.idle(90);
+
+        scene.world.hideSection(load, null);
+        scene.world.moveSection(trainElement, new Vec3(-15, 0, 0), 60);
+        scene.world.animateBogey(util.grid.at(59, 2, 6), 15, 60);
+        scene.overlay.chaseBoundingBoxOutline(PonderPalette.BLUE, chunkLoader,
+                new AABB(chunkLoader), 100);
+        scene.idle(40);
+
+        scene.overlay.showText(50)
+                .text("When the train leaves, the area is unloaded again")
+                .pointAt(util.vector.blockSurface(chunkLoader, Direction.WEST))
+                .attachKeyFrame()
+                .placeNearTarget();
+        scene.idle(60);
+        scene.markAsFinished();
     }
 }

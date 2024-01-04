@@ -40,5 +40,12 @@
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_1": "Brass chunk loaders also work on contraptions",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "They always load a 3x3 chunk area around the contraption",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_3": "When assembled, they do not require rotational power to function",
-  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_4": "They also function on stationary contraptions"
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_4": "They also function on stationary contraptions",
+
+  "create_power_loader.ponder.brass_chunk_loader_station.header": "Loading Chunks For Train Stations",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_1": "Brass chunk loaders can attach to Train Stations",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_2": "Place them next to Train Stations in the correct direction",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_3": "They do not require rotational power, but are normally inactive",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "When a train arrives at the station, a 3x3 area around the chunk loader is loaded",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_5": "When the train leaves, the area is unloaded again"
 }

@@ -25,6 +25,8 @@ public class TrainMixin implements CPLTrain {
     @Override
     @Unique
     public TrainChunkLoader getLoader() {
+        if (cpl$chunkLoader == null)
+            cpl$chunkLoader = new TrainChunkLoader((Train) (Object) this);
         return cpl$chunkLoader;
     }
 
@@ -41,7 +43,7 @@ public class TrainMixin implements CPLTrain {
     )
     private void cpl$write(DimensionPalette dimensions, CallbackInfoReturnable<CompoundTag> cir) {
         CompoundTag nbt = cir.getReturnValue();
-        nbt.put("CPLData", cpl$chunkLoader.write());
+        nbt.put("CPLData", getLoader().write());
         cir.setReturnValue(nbt);
     }
 
@@ -61,8 +63,6 @@ public class TrainMixin implements CPLTrain {
             method = "tick(Lnet/minecraft/world/level/Level;)V"
     )
     private void cpl$tick(Level level, CallbackInfo ci) {
-        if (cpl$chunkLoader == null)
-            cpl$chunkLoader = new TrainChunkLoader((Train) (Object) this);
-        cpl$chunkLoader.tick(level);
+        getLoader().tick(level);
     }
 }

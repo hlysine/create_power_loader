@@ -10,7 +10,7 @@ public class CServer extends ConfigBase {
 
 
     public final ConfigBool andesiteOnContraption = b(false, "andesiteOnContraption", Comments.andesiteOnContraption);
-    public final ConfigBool andesiteOnStation = b(true, "andesiteOnStation", Comments.andesiteOnStation);
+    public final ConfigBool andesiteOnStation = b(false, "andesiteOnStation", Comments.andesiteOnStation);
 
     public final ConfigFloat andesiteSpeedMultiplier = f(1, 0, 128, "andesiteSpeedMultiplier", Comments.andesiteSpeedMultiplier);
 

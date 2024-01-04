@@ -20,6 +20,8 @@ public class GlobalStationMixin implements CPLGlobalStation {
     @Override
     @Unique
     public StationChunkLoader getLoader() {
+        if (cpl$chunkLoader == null)
+            cpl$chunkLoader = new StationChunkLoader((GlobalStation) (Object) this);
         return cpl$chunkLoader;
     }
 
@@ -50,7 +52,7 @@ public class GlobalStationMixin implements CPLGlobalStation {
             method = "write(Lnet/minecraft/nbt/CompoundTag;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)V"
     )
     private void cpl$write(CompoundTag nbt, DimensionPalette dimensions, CallbackInfo ci) {
-        nbt.put("CPLData", cpl$chunkLoader.write());
+        nbt.put("CPLData", getLoader().write());
     }
 
     @Inject(
@@ -58,6 +60,6 @@ public class GlobalStationMixin implements CPLGlobalStation {
             method = "write(Lnet/minecraft/network/FriendlyByteBuf;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)V"
     )
     private void cpl$write(FriendlyByteBuf buffer, DimensionPalette dimensions, CallbackInfo ci) {
-        buffer.writeNbt(cpl$chunkLoader.write());
+        buffer.writeNbt(getLoader().write());
     }
 }
