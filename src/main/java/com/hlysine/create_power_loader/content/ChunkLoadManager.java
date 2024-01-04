@@ -10,7 +10,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.world.ForgeChunkManager;
@@ -136,28 +135,20 @@ public class ChunkLoadManager {
                 LOGGER.debug("CPL: level {} position {} unforced: Cannot find block entity.", level.dimension().location(), blockPos.toShortString());
                 return;
             }
-            if (!blockEntity.isSpeedRequirementFulfilled()) {
-                helper.removeAllTickets(blockPos);
-                LOGGER.debug("CPL: level {} position {} unforced: Speed requirement not fulfilled.", level.dimension().location(), blockPos.toShortString());
-                return;
-            }
-            int range = blockEntity.getLoadingRange();
-            ChunkPos center = new ChunkPos(blockPos);
+
             for (Long chunk : tickets.getFirst()) {
                 ChunkPos chunkPos = new ChunkPos(chunk);
-                if (Mth.absMax(chunkPos.x - center.x, chunkPos.z - center.z) >= range) {
-                    helper.removeTicket(blockPos, chunk, false);
-                    LOGGER.debug("CPL: level {} position {} unforced non-ticking {}: Out of range.", level.dimension().location(), blockPos.toShortString(), chunkPos);
-                }
+                helper.removeTicket(blockPos, chunk, false);
+                LOGGER.debug("CPL: level {} position {} unforced non-ticking {}", level.dimension().location(), blockPos.toShortString(), chunkPos);
             }
+
+            Set<LoadedChunkPos> forcedChunks = new HashSet<>();
             for (Long chunk : tickets.getSecond()) {
                 ChunkPos chunkPos = new ChunkPos(chunk);
-                if (Mth.absMax(chunkPos.x - center.x, chunkPos.z - center.z) >= range) {
-                    helper.removeTicket(blockPos, chunk, true);
-                    LOGGER.debug("CPL: level {} position {} unforced ticking {}: Out of range.", level.dimension().location(), blockPos.toShortString(), chunkPos);
-                }
+                forcedChunks.add(new LoadedChunkPos(level.dimension().location(), chunkPos));
             }
-            LOGGER.debug("CPL: level {} position {} continues forcing.", level.dimension().location(), blockPos.toShortString());
+            blockEntity.reclaimChunks(forcedChunks);
+            LOGGER.debug("CPL: level {} position {} reclaimed {} chunks.", level.dimension().location(), blockPos.toShortString(), forcedChunks.size());
         });
 
         helper.getEntityTickets().forEach((entityUUID, tickets) -> {

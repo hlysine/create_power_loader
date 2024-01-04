@@ -5,6 +5,7 @@ import com.hlysine.create_power_loader.CPLIcons;
 import com.hlysine.create_power_loader.CreatePowerLoader;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.AbstractChunkLoaderBlockEntity;
+import com.hlysine.create_power_loader.content.AbstractChunkLoaderBlock;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.CenteredSideValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.INamedIconOptions;
@@ -64,7 +65,7 @@ public class BrassChunkLoaderBlockEntity extends AbstractChunkLoaderBlockEntity 
     private static class LoadingRangeValueBox extends CenteredSideValueBoxTransform {
         public LoadingRangeValueBox() {
             super((blockState, direction) -> {
-                Direction facing = blockState.getValue(BrassChunkLoaderBlock.FACING);
+                Direction facing = blockState.getValue(AbstractChunkLoaderBlock.FACING);
                 return facing.getAxis() != direction.getAxis();
             });
         }
@@ -76,7 +77,7 @@ public class BrassChunkLoaderBlockEntity extends AbstractChunkLoaderBlockEntity 
 
         @Override
         public Vec3 getLocalOffset(BlockState state) {
-            Direction facing = state.getValue(BrassChunkLoaderBlock.FACING);
+            Direction facing = state.getValue(AbstractChunkLoaderBlock.FACING);
             return super.getLocalOffset(state).add(Vec3.atLowerCornerOf(facing.getNormal())
                     .scale(-4 / 16f));
         }

@@ -22,7 +22,7 @@ import static com.hlysine.create_power_loader.content.ChunkLoadManager.unforceAl
 public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity {
 
     protected BlockPos lastBlockPos;
-    protected boolean lastSpeedRequirement;
+    protected boolean lastEnabled;
     protected int lastRange;
     protected int chunkUpdateCooldown;
     protected int chunkUnloadCooldown;
@@ -30,6 +30,10 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
 
     public AbstractChunkLoaderBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
+    }
+
+    public void reclaimChunks(Set<LoadedChunkPos> forcedChunks) {
+        this.forcedChunks.addAll(forcedChunks);
     }
 
     @Override
@@ -53,7 +57,7 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
 
     private boolean needsUpdate() {
         if (lastBlockPos == null) return true;
-        return !lastBlockPos.equals(getBlockPos()) || lastSpeedRequirement != isSpeedRequirementFulfilled() || lastRange != getLoadingRange() || chunkUnloadCooldown > 0;
+        return !lastBlockPos.equals(getBlockPos()) || lastEnabled != isSpeedRequirementFulfilled() || lastRange != getLoadingRange() || chunkUnloadCooldown > 0;
     }
 
     protected void updateForcedChunks() {
@@ -69,7 +73,7 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
         if (resetStates) {
             chunkUnloadCooldown = 0;
             lastBlockPos = getBlockPos().immutable();
-            lastSpeedRequirement = isSpeedRequirementFulfilled();
+            lastEnabled = isSpeedRequirementFulfilled();
             lastRange = getLoadingRange();
         }
     }

@@ -1,5 +1,6 @@
 package com.hlysine.create_power_loader.content;
 
+import com.hlysine.create_power_loader.CPLBlocks;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunkLoaderRenderer;
 import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderRenderer;
@@ -13,6 +14,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
@@ -23,11 +25,13 @@ import static com.hlysine.create_power_loader.content.ChunkLoadManager.*;
 
 public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
     private static final Logger LOGGER = LogUtils.getLogger();
+    private static final AndesiteChunkLoaderRenderer ANDESITE_RENDERER = new AndesiteChunkLoaderRenderer(null);
+    private static final BrassChunkLoaderRenderer BRASS_RENDERER = new BrassChunkLoaderRenderer(null);
 
-    public final BehaviorType behaviorType;
+    public final Block block;
 
-    public ChunkLoaderMovementBehaviour(BehaviorType type) {
-        this.behaviorType = type;
+    public ChunkLoaderMovementBehaviour(Block block) {
+        this.block = block;
     }
 
     @Override
@@ -139,21 +143,21 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
 
     @Override
     public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld, ContraptionMatrices matrices, MultiBufferSource buffer) {
-        if (behaviorType == BehaviorType.ANDESITE) {
-            AndesiteChunkLoaderRenderer.renderInContraption(context, renderWorld, matrices, buffer);
-        } else if (behaviorType == BehaviorType.BRASS) {
-            BrassChunkLoaderRenderer.renderInContraption(context, renderWorld, matrices, buffer);
+        if (block == CPLBlocks.ANDESITE_CHUNK_LOADER.get()) {
+            ANDESITE_RENDERER.renderInContraption(context, renderWorld, matrices, buffer);
+        } else if (block == CPLBlocks.BRASS_CHUNK_LOADER.get()) {
+            BRASS_RENDERER.renderInContraption(context, renderWorld, matrices, buffer);
         } else {
-            throw new RuntimeException("Unknown BehaviorType. This should not be reachable.");
+            throw new RuntimeException("Unknown block.");
         }
     }
 
     private boolean shouldFunction(MovementContext context) {
         if (context.contraption instanceof CarriageContraption) {
             return false; // train loading is handled with special logic
-        } else if (behaviorType == BehaviorType.ANDESITE) {
+        } else if (block == CPLBlocks.ANDESITE_CHUNK_LOADER.get()) {
             return CPLConfigs.server().andesiteOnContraption.get();
-        } else if (behaviorType == BehaviorType.BRASS) {
+        } else if (block == CPLBlocks.BRASS_CHUNK_LOADER.get()) {
             return CPLConfigs.server().brassOnContraption.get();
         } else {
             return false;
@@ -169,10 +173,5 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
             this.chunkPos = chunkPos;
             this.forcedChunks = forcedChunks;
         }
-    }
-
-    public enum BehaviorType {
-        ANDESITE,
-        BRASS
     }
 }
