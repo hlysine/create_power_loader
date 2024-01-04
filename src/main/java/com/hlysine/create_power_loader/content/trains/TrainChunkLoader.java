@@ -4,13 +4,10 @@ import com.hlysine.create_power_loader.content.ChunkLoadManager;
 import com.simibubi.create.content.trains.entity.Carriage;
 import com.simibubi.create.content.trains.entity.Train;
 import com.simibubi.create.foundation.utility.NBTHelper;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 
 import java.util.*;
@@ -43,35 +40,7 @@ public class TrainChunkLoader {
             carriageLoaders.addAll(newLoaders);
         }
 
-        // Unload saved chunks when new ones are ready
-        // Perhaps this is overcomplicating things because levels with forced chunks should always be loaded?
-        Set<LoadedChunkPos> oldChunks = ChunkLoadManager.getSavedForcedChunks(train.id);
-        if (oldChunks != null) {
-            for (LoadedChunkPos chunk : oldChunks) {
-                ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, chunk.dimension());
-                Set<LoadedChunkPos> reclaim = reclaimedChunks.get(key);
-                if (reclaim != null) {
-                    reclaim.add(chunk);
-                } else {
-                    reclaim = new HashSet<>();
-                    reclaim.add(chunk);
-                    reclaimedChunks.put(key, reclaim);
-                }
-            }
-        }
-
-        if (!reclaimedChunks.isEmpty()) {
-            MinecraftServer server = level.getServer();
-            assert server != null;
-            for (Iterator<Map.Entry<ResourceKey<Level>, Set<LoadedChunkPos>>> iterator = reclaimedChunks.entrySet().iterator(); iterator.hasNext(); ) {
-                Map.Entry<ResourceKey<Level>, Set<LoadedChunkPos>> entry = iterator.next();
-                ServerLevel reclaimLevel = server.getLevel(entry.getKey());
-                if (reclaimLevel != null) {
-                    ChunkLoadManager.unforceAllChunks(server, train.id, entry.getValue());
-                    iterator.remove();
-                }
-            }
-        }
+        ChunkLoadManager.reclaimChunks(level, train.id, reclaimedChunks);
 
         for (CarriageChunkLoader loader : carriageLoaders) {
             loader.tick(level);

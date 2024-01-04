@@ -27,6 +27,10 @@ public class ChunkLoadManager {
     private static final List<Pair<UUID, Set<LoadedChunkPos>>> unforceQueue = new LinkedList<>();
     private static final Map<UUID, Set<LoadedChunkPos>> savedForcedChunks = new HashMap<>();
     private static int savedChunksDiscardCountdown = SAVED_CHUNKS_DISCARD_TICKS;
+    /**
+     * Only accessible during GlobalRailwayManager#tick
+     */
+    public static Level tickLevel;
 
     public static void onServerWorldTick(TickEvent.LevelTickEvent event) {
         if (event.phase == TickEvent.Phase.END)
@@ -172,6 +176,38 @@ public class ChunkLoadManager {
                     tickets.getSecond().size());
         });
         savedChunksDiscardCountdown = SAVED_CHUNKS_DISCARD_TICKS;
+    }
+
+    public static void reclaimChunks(Level level, UUID owner, Map<ResourceKey<Level>, Set<LoadedChunkPos>> reclaimedChunks) {
+        // Unload saved chunks when new ones are ready
+        // Perhaps this is overcomplicating things because levels with forced chunks should always be loaded?
+        Set<LoadedChunkPos> oldChunks = getSavedForcedChunks(owner);
+        if (oldChunks != null) {
+            for (LoadedChunkPos chunk : oldChunks) {
+                ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, chunk.dimension());
+                Set<LoadedChunkPos> reclaim = reclaimedChunks.get(key);
+                if (reclaim != null) {
+                    reclaim.add(chunk);
+                } else {
+                    reclaim = new HashSet<>();
+                    reclaim.add(chunk);
+                    reclaimedChunks.put(key, reclaim);
+                }
+            }
+        }
+
+        if (!reclaimedChunks.isEmpty()) {
+            MinecraftServer server = level.getServer();
+            assert server != null;
+            for (Iterator<Map.Entry<ResourceKey<Level>, Set<LoadedChunkPos>>> iterator = reclaimedChunks.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<ResourceKey<Level>, Set<LoadedChunkPos>> entry = iterator.next();
+                ServerLevel reclaimLevel = server.getLevel(entry.getKey());
+                if (reclaimLevel != null) {
+                    unforceAllChunks(server, owner, entry.getValue());
+                    iterator.remove();
+                }
+            }
+        }
     }
 
     public record LoadedChunkPos(@NotNull ResourceLocation dimension, @NotNull ChunkPos chunkPos) {

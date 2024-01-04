@@ -2,6 +2,7 @@ package com.hlysine.create_power_loader.content;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
+import com.simibubi.create.content.trains.station.StationBlockEntity;
 import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -58,6 +59,18 @@ public abstract class AbstractChunkLoaderBlock extends DirectionalKineticBlock {
         return state;
     }
 
+    private void updateBEStation(LevelAccessor level, BlockPos pos, BlockState state) {
+        BlockEntity be = level.getBlockEntity(pos);
+        if (!(be instanceof AbstractChunkLoaderBlockEntity clbe)) return;
+        if (!state.getValue(ATTACHED)) {
+            clbe.updateAttachedStation(null);
+            return;
+        }
+        BlockEntity station = level.getBlockEntity(pos.relative(state.getValue(FACING).getOpposite()));
+        if (!(station instanceof StationBlockEntity sbe)) return;
+        clbe.updateAttachedStation(sbe);
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(@NotNull BlockState state,
@@ -72,7 +85,9 @@ public abstract class AbstractChunkLoaderBlock extends DirectionalKineticBlock {
         boolean shouldAttach = shouldAttach(level, pos, state);
         if (attached == shouldAttach)
             return;
-        level.setBlockAndUpdate(pos, state.cycle(ATTACHED));
+        BlockState newState = state.cycle(ATTACHED);
+        level.setBlockAndUpdate(pos, newState);
+        updateBEStation(level, pos, newState);
     }
 
     @SuppressWarnings("deprecation")
@@ -84,7 +99,9 @@ public abstract class AbstractChunkLoaderBlock extends DirectionalKineticBlock {
                                            @NotNull BlockPos pCurrentPos,
                                            @NotNull BlockPos pNeighborPos) {
         BlockState state = super.updateShape(pState, pDirection, pNeighborState, pLevel, pCurrentPos, pNeighborPos);
-        return state.setValue(ATTACHED, shouldAttach(pLevel, pCurrentPos, state));
+        BlockState newState = state.setValue(ATTACHED, shouldAttach(pLevel, pCurrentPos, state));
+        updateBEStation(pLevel, pCurrentPos, newState);
+        return newState;
     }
 
     @Override

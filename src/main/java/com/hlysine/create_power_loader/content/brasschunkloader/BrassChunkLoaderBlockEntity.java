@@ -24,6 +24,8 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
+import static com.hlysine.create_power_loader.content.AbstractChunkLoaderBlock.ATTACHED;
+
 @MethodsReturnNonnullByDefault
 public class BrassChunkLoaderBlockEntity extends AbstractChunkLoaderBlockEntity {
 
@@ -45,6 +47,7 @@ public class BrassChunkLoaderBlockEntity extends AbstractChunkLoaderBlockEntity 
             if (server)
                 updateForcedChunks();
         });
+        loadingRange.onlyActiveWhen(() -> !getBlockState().getValue(ATTACHED));
         behaviours.add(loadingRange);
     }
 

@@ -40,6 +40,7 @@ public abstract class AbstractChunkLoaderRenderer extends KineticBlockEntityRend
         Direction direction = be.getBlockState()
                 .getValue(FACING);
         boolean attached = be.getBlockState().getValue(ATTACHED);
+        boolean active = attached ? be.isLoaderActive : be.isSpeedRequirementFulfilled();
         VertexConsumer vb = buffer.getBuffer(RenderType.cutoutMipped());
 
         SuperByteBuffer shaftHalf =
@@ -50,14 +51,14 @@ public abstract class AbstractChunkLoaderRenderer extends KineticBlockEntityRend
                 );
         SuperByteBuffer core =
                 CachedBufferer.partialFacing(
-                        getCorePartial(attached, be.isSpeedRequirementFulfilled()),
+                        getCorePartial(attached, active),
                         be.getBlockState(),
                         direction
                 );
 
         float time = AnimationTickHolder.getRenderTime(be.getLevel());
         float speed = be.getSpeed() / 16f;
-        if (!be.isSpeedRequirementFulfilled())
+        if (!active)
             speed = Mth.clamp(speed, -0.5f, 0.5f);
         if (speed > 0)
             speed = Mth.clamp(speed, 0.1f, 8);

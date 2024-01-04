@@ -7,6 +7,8 @@
   "plugin": "com.hlysine.create_power_loader.mixin.MixinPlugin",
   "mixins": [
     "GlobalRailwayManagerMixin",
+    "GlobalStationMixin",
+    "TrackEdgePointMixin",
     "TrainMixin"
   ],
   "client": [

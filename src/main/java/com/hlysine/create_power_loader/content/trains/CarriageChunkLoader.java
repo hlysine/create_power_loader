@@ -26,7 +26,7 @@ public class CarriageChunkLoader {
     public boolean known;
     public boolean andesite;
     public boolean brass;
-    public Set<LoadedChunkPos> forcedChunks = new HashSet<>();
+    public final Set<LoadedChunkPos> forcedChunks = new HashSet<>();
 
     public CarriageChunkLoader(Carriage carriage, boolean known, boolean andesite, boolean brass) {
         this.carriage = carriage;
