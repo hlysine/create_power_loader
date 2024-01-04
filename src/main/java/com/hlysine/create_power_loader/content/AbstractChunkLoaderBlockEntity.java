@@ -161,12 +161,12 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) {
         super.read(compound, clientPacket);
-        isLoaderActive = compound.getBoolean("CPLActive");
+        isLoaderActive = compound.getBoolean("CoreActive");
     }
 
     @Override
     protected void write(CompoundTag compound, boolean clientPacket) {
-        compound.putBoolean("CPLActive", isLoaderActive);
+        compound.putBoolean("CoreActive", isLoaderActive);
         super.write(compound, clientPacket);
     }
 
