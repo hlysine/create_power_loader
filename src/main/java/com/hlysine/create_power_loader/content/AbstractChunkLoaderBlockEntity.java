@@ -2,6 +2,7 @@ package com.hlysine.create_power_loader.content;
 
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.trains.CPLGlobalStation;
+import com.hlysine.create_power_loader.content.trains.StationChunkLoader;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.trains.station.StationBlockEntity;
@@ -28,6 +29,7 @@ import static com.simibubi.create.content.kinetics.base.DirectionalKineticBlock.
 
 public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity {
 
+    public final LoaderType type;
     protected BlockPos lastBlockPos;
     protected boolean lastEnabled;
     protected int lastRange;
@@ -38,20 +40,21 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
     private StationBlockEntity attachedStation = null;
     public boolean isLoaderActive = false;
 
-    public AbstractChunkLoaderBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
+    public AbstractChunkLoaderBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state, LoaderType type) {
         super(typeIn, pos, state);
+        this.type = type;
     }
 
     public void updateAttachedStation(StationBlockEntity be) {
         if (attachedStation != null) {
             if (attachedStation.getStation() instanceof CPLGlobalStation station) {
-                station.getLoader().attachments.remove(getBlockPos());
+                station.getLoader().removeAttachment(getBlockPos());
             }
         }
         attachedStation = be;
         if (attachedStation != null) {
             if (attachedStation.getStation() instanceof CPLGlobalStation station) {
-                station.getLoader().attachments.add(getBlockPos());
+                station.getLoader().addAttachment(type, getBlockPos());
             }
         }
     }
@@ -94,7 +97,10 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
 
         if (server) {
             boolean wasLoaderActive = isLoaderActive;
-            isLoaderActive = attachedStation != null && attachedStation.getStation() != null && attachedStation.getStation().getPresentTrain() != null;
+            isLoaderActive = StationChunkLoader.isEnabledForStation(type) &&
+                    attachedStation != null &&
+                    attachedStation.getStation() != null &&
+                    attachedStation.getStation().getPresentTrain() != null;
             if (wasLoaderActive != isLoaderActive) {
                 notifyUpdate();
             }

@@ -1,6 +1,5 @@
 package com.hlysine.create_power_loader.content;
 
-import com.hlysine.create_power_loader.CPLBlocks;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunkLoaderRenderer;
 import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderRenderer;
@@ -14,7 +13,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
@@ -28,10 +26,10 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
     private static final AndesiteChunkLoaderRenderer ANDESITE_RENDERER = new AndesiteChunkLoaderRenderer(null);
     private static final BrassChunkLoaderRenderer BRASS_RENDERER = new BrassChunkLoaderRenderer(null);
 
-    public final Block block;
+    public final LoaderType type;
 
-    public ChunkLoaderMovementBehaviour(Block block) {
-        this.block = block;
+    public ChunkLoaderMovementBehaviour(LoaderType type) {
+        this.type = type;
     }
 
     @Override
@@ -143,9 +141,9 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
 
     @Override
     public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld, ContraptionMatrices matrices, MultiBufferSource buffer) {
-        if (block == CPLBlocks.ANDESITE_CHUNK_LOADER.get()) {
+        if (type == LoaderType.ANDESITE) {
             ANDESITE_RENDERER.renderInContraption(context, renderWorld, matrices, buffer);
-        } else if (block == CPLBlocks.BRASS_CHUNK_LOADER.get()) {
+        } else if (type == LoaderType.BRASS) {
             BRASS_RENDERER.renderInContraption(context, renderWorld, matrices, buffer);
         } else {
             throw new RuntimeException("Unknown block.");
@@ -155,9 +153,9 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
     private boolean shouldFunction(MovementContext context) {
         if (context.contraption instanceof CarriageContraption) {
             return false; // train loading is handled with special logic
-        } else if (block == CPLBlocks.ANDESITE_CHUNK_LOADER.get()) {
+        } else if (type == LoaderType.ANDESITE) {
             return CPLConfigs.server().andesiteOnContraption.get();
-        } else if (block == CPLBlocks.BRASS_CHUNK_LOADER.get()) {
+        } else if (type == LoaderType.BRASS) {
             return CPLConfigs.server().brassOnContraption.get();
         } else {
             return false;

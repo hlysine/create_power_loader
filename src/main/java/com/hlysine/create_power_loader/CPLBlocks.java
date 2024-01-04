@@ -1,6 +1,7 @@
 package com.hlysine.create_power_loader;
 
 import com.hlysine.create_power_loader.content.ChunkLoaderMovementBehaviour;
+import com.hlysine.create_power_loader.content.LoaderType;
 import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.emptychunkloader.EmptyChunkLoaderBlock;
@@ -14,7 +15,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MapColor;
 
-import static com.simibubi.create.AllMovementBehaviours.registerBehaviour;
+import static com.simibubi.create.AllMovementBehaviours.movementBehaviour;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 
@@ -48,7 +49,7 @@ public class CPLBlocks {
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
             .addLayer(() -> RenderType::cutoutMipped)
-            .onRegister(b -> registerBehaviour(b, new ChunkLoaderMovementBehaviour(b)))
+            .onRegister(movementBehaviour(new ChunkLoaderMovementBehaviour(LoaderType.ANDESITE)))
             .transform(BlockStressDefaults.setImpact(16.0))
             .item()
             .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)
@@ -83,7 +84,7 @@ public class CPLBlocks {
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
             .addLayer(() -> RenderType::cutoutMipped)
-            .onRegister(b -> registerBehaviour(b, new ChunkLoaderMovementBehaviour(b)))
+            .onRegister(movementBehaviour(new ChunkLoaderMovementBehaviour(LoaderType.BRASS)))
             .transform(BlockStressDefaults.setImpact(16.0))
             .item()
             .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)

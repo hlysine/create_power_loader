@@ -6,6 +6,7 @@ import com.hlysine.create_power_loader.CreatePowerLoader;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.AbstractChunkLoaderBlockEntity;
 import com.hlysine.create_power_loader.content.AbstractChunkLoaderBlock;
+import com.hlysine.create_power_loader.content.LoaderType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.CenteredSideValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.INamedIconOptions;
@@ -32,7 +33,7 @@ public class BrassChunkLoaderBlockEntity extends AbstractChunkLoaderBlockEntity 
     protected ScrollOptionBehaviour<LoadingRange> loadingRange;
 
     public BrassChunkLoaderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
+        super(type, pos, state, LoaderType.BRASS);
     }
 
     @Override
