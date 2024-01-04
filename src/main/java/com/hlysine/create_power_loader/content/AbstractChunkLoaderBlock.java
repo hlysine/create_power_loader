@@ -130,7 +130,8 @@ public abstract class AbstractChunkLoaderBlock extends DirectionalKineticBlock {
     public int getAnalogOutputSignal(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos) {
         BlockEntity be = pLevel.getBlockEntity(pPos);
         if (be instanceof AbstractChunkLoaderBlockEntity chunkLoader) {
-            return chunkLoader.isSpeedRequirementFulfilled() ? 15 : 0;
+            boolean attached = pState.getValue(ATTACHED);
+            return (attached ? chunkLoader.isLoaderActive : chunkLoader.isSpeedRequirementFulfilled()) ? 15 : 0;
         }
         return 0;
     }
