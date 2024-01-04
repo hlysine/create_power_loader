@@ -4,12 +4,21 @@
       "model": "create_power_loader:block/andesite_chunk_loader/block",
       "x": 180
     },
-    "attached=false,facing=east": {
+    "attached=true,facing=down": {
       "model": "create_power_loader:block/andesite_chunk_loader/block",
-      "x": 90,
-      "y": 90
+      "x": 180
+    },
+    "attached=false,facing=up": {
+      "model": "create_power_loader:block/andesite_chunk_loader/block"
+    },
+    "attached=true,facing=up": {
+      "model": "create_power_loader:block/andesite_chunk_loader/block"
     },
     "attached=false,facing=north": {
+      "model": "create_power_loader:block/andesite_chunk_loader/block",
+      "x": 90
+    },
+    "attached=true,facing=north": {
       "model": "create_power_loader:block/andesite_chunk_loader/block",
       "x": 90
     },
@@ -18,39 +27,30 @@
       "x": 90,
       "y": 180
     },
-    "attached=false,facing=up": {
-      "model": "create_power_loader:block/andesite_chunk_loader/block"
+    "attached=true,facing=south": {
+      "model": "create_power_loader:block/andesite_chunk_loader/block",
+      "x": 90,
+      "y": 180
     },
     "attached=false,facing=west": {
       "model": "create_power_loader:block/andesite_chunk_loader/block",
       "x": 90,
       "y": 270
     },
-    "attached=true,facing=down": {
+    "attached=true,facing=west": {
       "model": "create_power_loader:block/andesite_chunk_loader/block",
-      "x": 180
+      "x": 90,
+      "y": 270
+    },
+    "attached=false,facing=east": {
+      "model": "create_power_loader:block/andesite_chunk_loader/block",
+      "x": 90,
+      "y": 90
     },
     "attached=true,facing=east": {
       "model": "create_power_loader:block/andesite_chunk_loader/block",
       "x": 90,
       "y": 90
-    },
-    "attached=true,facing=north": {
-      "model": "create_power_loader:block/andesite_chunk_loader/block",
-      "x": 90
-    },
-    "attached=true,facing=south": {
-      "model": "create_power_loader:block/andesite_chunk_loader/block",
-      "x": 90,
-      "y": 180
-    },
-    "attached=true,facing=up": {
-      "model": "create_power_loader:block/andesite_chunk_loader/block"
-    },
-    "attached=true,facing=west": {
-      "model": "create_power_loader:block/andesite_chunk_loader/block",
-      "x": 90,
-      "y": 270
     }
   }
 }

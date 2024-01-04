@@ -11,7 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,6 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import static com.hlysine.create_power_loader.content.AbstractChunkLoaderBlock.ATTACHED;
@@ -186,7 +186,7 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
         if (!isSpeedRequirementFulfilled())
             return;
 
-        RandomSource r = level.getRandom();
+        Random r = level.getRandom();
 
         Vec3 c = VecHelper.getCenterOf(worldPosition);
 

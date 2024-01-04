@@ -32,13 +32,13 @@ public class ChunkLoadManager {
      */
     public static Level tickLevel;
 
-    public static void onServerWorldTick(TickEvent.LevelTickEvent event) {
+    public static void onServerWorldTick(TickEvent.WorldTickEvent event) {
         if (event.phase == TickEvent.Phase.END)
             return;
         if (event.side == LogicalSide.CLIENT)
             return;
 
-        MinecraftServer server = event.level.getServer();
+        MinecraftServer server = event.world.getServer();
         if (savedChunksDiscardCountdown == 0) {
             for (Map.Entry<UUID, Set<LoadedChunkPos>> entry : savedForcedChunks.entrySet()) {
                 unforceAllChunks(server, entry.getKey(), entry.getValue());
