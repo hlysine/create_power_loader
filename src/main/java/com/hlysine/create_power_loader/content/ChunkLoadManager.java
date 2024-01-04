@@ -5,7 +5,7 @@ import com.hlysine.create_power_loader.CreatePowerLoader;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.utility.Pair;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -111,7 +111,7 @@ public class ChunkLoadManager {
     }
 
     private static <T extends Comparable<? super T>> void forceChunk(MinecraftServer server, T owner, ResourceLocation dimension, int chunkX, int chunkZ, boolean add) {
-        ServerLevel targetLevel = server.getLevel(ResourceKey.create(Registries.DIMENSION, dimension));
+        ServerLevel targetLevel = server.getLevel(ResourceKey.create(Registry.DIMENSION_REGISTRY, dimension));
         assert targetLevel != null;
         if (owner instanceof BlockPos) {
             ForgeChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (BlockPos) owner, chunkX, chunkZ, add, true);
@@ -184,7 +184,7 @@ public class ChunkLoadManager {
         Set<LoadedChunkPos> oldChunks = getSavedForcedChunks(owner);
         if (oldChunks != null) {
             for (LoadedChunkPos chunk : oldChunks) {
-                ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, chunk.dimension());
+                ResourceKey<Level> key = ResourceKey.create(Registry.DIMENSION_REGISTRY, chunk.dimension());
                 Set<LoadedChunkPos> reclaim = reclaimedChunks.get(key);
                 if (reclaim != null) {
                     reclaim.add(chunk);

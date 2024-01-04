@@ -8,7 +8,6 @@ import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.content.trains.entity.Carriage;
 import com.simibubi.create.content.trains.entity.CarriageContraptionEntity;
 import com.simibubi.create.content.trains.entity.TravellingPoint;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
@@ -20,6 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.hlysine.create_power_loader.content.ChunkLoadManager.LoadedChunkPos;
+import static com.hlysine.create_power_loader.content.Helper.blockPosContaining;
 
 public class CarriageChunkLoader {
     public final Carriage carriage;
@@ -60,16 +60,16 @@ public class CarriageChunkLoader {
         if (point.edge.isInterDimensional()) {
             loadTargets.add(new LoadedChunkPos(
                     point.node1.getLocation().getDimension().location(),
-                    new ChunkPos(BlockPos.containing(point.node1.getLocation().getLocation()))
+                    new ChunkPos(blockPosContaining(point.node1.getLocation().getLocation()))
             ));
             loadTargets.add(new LoadedChunkPos(
                     point.node2.getLocation().getDimension().location(),
-                    new ChunkPos(BlockPos.containing(point.node2.getLocation().getLocation()))
+                    new ChunkPos(blockPosContaining(point.node2.getLocation().getLocation()))
             ));
         } else {
             loadTargets.add(new LoadedChunkPos(
                     point.node1.getLocation().getDimension().location(),
-                    new ChunkPos(BlockPos.containing(point.getPosition(carriage.train.graph)))
+                    new ChunkPos(blockPosContaining(point.getPosition(carriage.train.graph)))
             ));
         }
     }
@@ -86,10 +86,10 @@ public class CarriageChunkLoader {
 
         boolean hasAndesite = false, hasBrass = false;
         for (MutablePair<StructureTemplate.StructureBlockInfo, MovementContext> actor : entity.getContraption().getActors()) {
-            if (!hasAndesite && actor.left.state().is(CPLBlocks.ANDESITE_CHUNK_LOADER.get())) {
+            if (!hasAndesite && actor.left.state.is(CPLBlocks.ANDESITE_CHUNK_LOADER.get())) {
                 hasAndesite = true;
             }
-            if (!hasBrass && actor.left.state().is(CPLBlocks.BRASS_CHUNK_LOADER.get())) {
+            if (!hasBrass && actor.left.state.is(CPLBlocks.BRASS_CHUNK_LOADER.get())) {
                 hasBrass = true;
             }
             if (hasAndesite && hasBrass) break;
