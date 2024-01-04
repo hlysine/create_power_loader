@@ -2,7 +2,7 @@ package com.hlysine.create_power_loader;
 
 import com.hlysine.create_power_loader.compat.Mods;
 import com.hlysine.create_power_loader.config.CPLConfigs;
-import com.hlysine.create_power_loader.content.ChunkLoadingUtils;
+import com.hlysine.create_power_loader.content.ChunkLoadManager;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
@@ -60,13 +60,14 @@ public class CreatePowerLoader {
         CPLConfigs.register(ModLoadingContext.get());
 
         modEventBus.addListener(EventPriority.LOWEST, CPLDatagen::gatherData);
+        forgeEventBus.addListener(ChunkLoadManager::onServerWorldTick);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreatePowerLoaderClient.onCtorClient(modEventBus, forgeEventBus));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             Mods.JEI.executeIfInstalled(() -> CPLRecipes::register);
-            ForgeChunkManager.setForcedChunkLoadingCallback(MODID, ChunkLoadingUtils::validateAllForcedChunks);
+            ForgeChunkManager.setForcedChunkLoadingCallback(MODID, ChunkLoadManager::validateAllForcedChunks);
         });
     }
 

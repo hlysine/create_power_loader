@@ -4,9 +4,9 @@ package com.hlysine.create_power_loader.content.brasschunkloader;
 import com.hlysine.create_power_loader.CPLIcons;
 import com.hlysine.create_power_loader.CreatePowerLoader;
 import com.hlysine.create_power_loader.config.CPLConfigs;
-import com.hlysine.create_power_loader.content.ChunkLoadingUtils;
-import com.simibubi.create.content.kinetics.base.IRotate;
-import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import com.hlysine.create_power_loader.content.AbstractChunkLoaderBlockEntity;
+import com.hlysine.create_power_loader.content.AbstractChunkLoaderBlock;
+import com.hlysine.create_power_loader.content.LoaderType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.CenteredSideValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.INamedIconOptions;
@@ -17,34 +17,23 @@ import com.simibubi.create.foundation.utility.VecHelper;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import static com.hlysine.create_power_loader.content.AbstractChunkLoaderBlock.ATTACHED;
 
 @MethodsReturnNonnullByDefault
-public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
-
-    protected int chunkUpdateCooldown;
-    protected int chunkUnloadCooldown;
-    protected BlockPos lastBlockPos;
-    protected boolean lastSpeedRequirement;
-    protected int lastRange;
-
-    protected Set<ChunkPos> forcedChunks = new HashSet<>();
+public class BrassChunkLoaderBlockEntity extends AbstractChunkLoaderBlockEntity {
 
     protected ScrollOptionBehaviour<LoadingRange> loadingRange;
 
     public BrassChunkLoaderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
+        super(type, pos, state, LoaderType.BRASS);
     }
 
     @Override
@@ -59,44 +48,11 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
             if (server)
                 updateForcedChunks();
         });
+        loadingRange.onlyActiveWhen(() -> !getBlockState().getValue(ATTACHED));
         behaviours.add(loadingRange);
     }
 
     @Override
-    public void tick() {
-        super.tick();
-
-        boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
-
-        if (!server) {
-            spawnParticles();
-        }
-
-        if (server && chunkUpdateCooldown-- <= 0) {
-            chunkUpdateCooldown = CPLConfigs.server().chunkUpdateInterval.get();
-            if (needsUpdate()) {
-                setChanged();
-                updateForcedChunks();
-            }
-        }
-    }
-
-    @Override
-    public boolean isSpeedRequirementFulfilled() {
-        if (!super.isSpeedRequirementFulfilled())
-            return false;
-
-        BlockState state = getBlockState();
-        if (!(getBlockState().getBlock() instanceof IRotate))
-            return true;
-        IRotate def = (IRotate) state.getBlock();
-        IRotate.SpeedLevel minimumRequiredSpeedLevel = def.getMinimumRequiredSpeedLevel();
-        float minSpeed = minimumRequiredSpeedLevel.getSpeedValue();
-
-        double requirement = minSpeed * (float) Math.pow(2, getLoadingRange()) * CPLConfigs.server().brassSpeedMultiplier.get();
-        return Math.abs(getSpeed()) >= requirement;
-    }
-
     public int getLoadingRange() {
         return loadingRange.getValue() + 1;
     }
@@ -105,74 +61,15 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
         loadingRange.setValue(range - 1);
     }
 
-    private boolean needsUpdate() {
-        if (lastBlockPos == null) return true;
-        return !lastBlockPos.equals(getBlockPos()) || lastSpeedRequirement != isSpeedRequirementFulfilled() || lastRange != getLoadingRange() || chunkUnloadCooldown > 0;
-    }
-
-    private void updateForcedChunks() {
-        boolean resetStates = true;
-        if (isSpeedRequirementFulfilled()) {
-            ChunkLoadingUtils.updateForcedChunks((ServerLevel) level, new ChunkPos(getBlockPos()), getBlockPos(), getLoadingRange(), forcedChunks);
-        } else if (chunkUnloadCooldown >= CPLConfigs.server().unloadGracePeriod.get()) {
-            ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
-        } else {
-            chunkUnloadCooldown += CPLConfigs.server().chunkUpdateInterval.get();
-            resetStates = false;
-        }
-        if (resetStates) {
-            chunkUnloadCooldown = 0;
-            lastBlockPos = getBlockPos().immutable();
-            lastSpeedRequirement = isSpeedRequirementFulfilled();
-            lastRange = getLoadingRange();
-        }
-    }
-
     @Override
-    public void destroy() {
-        super.destroy();
-        boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
-        if (server)
-            ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
-    }
-
-    @Override
-    public void remove() {
-        super.remove();
-        boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
-        if (server)
-            ChunkLoadingUtils.unforceAllChunks((ServerLevel) level, getBlockPos(), forcedChunks);
-    }
-
-    protected void spawnParticles() {
-        if (level == null)
-            return;
-        if (!isSpeedRequirementFulfilled())
-            return;
-
-        RandomSource r = level.getRandom();
-
-        Vec3 c = VecHelper.getCenterOf(worldPosition);
-
-        if (r.nextInt(4) != 0)
-            return;
-
-        double speed = .0625f;
-        Vec3 normal = Vec3.atLowerCornerOf(getBlockState().getValue(BrassChunkLoaderBlock.FACING).getNormal());
-        Vec3 v2 = c.add(VecHelper.offsetRandomly(Vec3.ZERO, r, .5f)
-                        .multiply(1, 1, 1)
-                        .normalize()
-                        .scale((.25f) + r.nextDouble() * .125f))
-                .add(normal.scale(0.5f));
-
-        Vec3 motion = normal.scale(speed);
-        level.addParticle(ParticleTypes.PORTAL, v2.x, v2.y, v2.z, motion.x, motion.y, motion.z);
+    protected double getSpeedMultiplierConfig() {
+        return CPLConfigs.server().brassSpeedMultiplier.get();
     }
 
     private static class LoadingRangeValueBox extends CenteredSideValueBoxTransform {
         public LoadingRangeValueBox() {
             super((blockState, direction) -> {
-                Direction facing = blockState.getValue(BrassChunkLoaderBlock.FACING);
+                Direction facing = blockState.getValue(AbstractChunkLoaderBlock.FACING);
                 return facing.getAxis() != direction.getAxis();
             });
         }
@@ -184,7 +81,7 @@ public class BrassChunkLoaderBlockEntity extends KineticBlockEntity {
 
         @Override
         public Vec3 getLocalOffset(BlockState state) {
-            Direction facing = state.getValue(BrassChunkLoaderBlock.FACING);
+            Direction facing = state.getValue(AbstractChunkLoaderBlock.FACING);
             return super.getLocalOffset(state).add(Vec3.atLowerCornerOf(facing.getNormal())
                     .scale(-4 / 16f));
         }

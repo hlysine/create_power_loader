@@ -4,6 +4,13 @@ plugins {
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'org.spongepowered.mixin' version '0.7.38'
+    id 'me.modmuss50.mod-publish-plugin' version '0.4.5'
+}
+
+def secrets = new Properties()
+file("./secrets.properties").withInputStream {
+    stream -> secrets.load(stream)
 }
 
 version = mod_version
@@ -11,6 +18,11 @@ group = mod_group_id
 
 base {
     archivesName = mod_id
+}
+
+mixin {
+    add sourceSets.main, "create_power_loader.refmap.json"
+    config 'create_power_loader.mixins.json'
 }
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
@@ -78,6 +90,8 @@ minecraft {
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
+            arg '-mixin.config=create_power_loader.mixins.json'
+
             mods {
                 "${mod_id}" {
                     source sourceSets.main
@@ -91,6 +105,7 @@ minecraft {
         }
 
         server {
+            workingDirectory project.file('run-server')
             property 'forge.enabledGameTestNamespaces', mod_id
             args '--nogui'
         }
@@ -107,7 +122,7 @@ minecraft {
             workingDirectory project.file('run-data')
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), '--existing-mod', 'create'
         }
     }
 }
@@ -174,6 +189,8 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -250,4 +267,36 @@ tasks.withType(JavaCompile).configureEach {
 wrapper {
     gradleVersion = '8.1.1'
     distributionType = Wrapper.DistributionType.BIN
+}
+
+publishMods {
+    changelog = "Check out the detailed changelog at https://github.com/hlysine/create_power_loader/blob/main/CHANGELOG.md"
+    type = STABLE
+    file = jar.archiveFile
+    modLoaders.add("forge")
+
+    github {
+        accessToken = secrets.GITHUB_TOKEN
+        repository = "hlysine/create_power_loader"
+        commitish = "main"
+    }
+
+    modrinth {
+        accessToken = secrets.MODRINTH_TOKEN
+        projectId = "wPQ6GgFE"
+        minecraftVersions.add(minecraft_version)
+
+        requires {
+            id = "LNytGWDc"
+        }
+        optional {
+            id = "u6dRKJwZ"
+        }
+    }
+
+    curseforge {
+        accessToken = secrets.CURSEFORGE_TOKEN
+        projectId = "936020"
+        minecraftVersions.add(minecraft_version)
+    }
 }

@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"0": "create:block/station",
+		"particle": "create:block/station"
+	},
+	"elements": [
+		{
+			"name": "Axis",
+			"from": [6, 6, 15],
+			"to": [10, 10, 23],
+			"faces": {
+				"north": {"uv": [2, 4, 4, 6], "rotation": 270, "texture": "#0"},
+				"east": {"uv": [2, 6, 6, 4], "rotation": 180, "texture": "#0"},
+				"south": {"uv": [2, 4, 4, 6], "rotation": 270, "texture": "#0"},
+				"west": {"uv": [2, 4, 6, 6], "rotation": 180, "texture": "#0"},
+				"up": {"uv": [2, 4, 6, 6], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [2, 6, 6, 4], "rotation": 270, "texture": "#0"}
+			}
+		}
+	]
+}
