@@ -1,27 +1,53 @@
 {
   "variants": {
-    "facing=down": {
+    "attached=false,facing=down": {
       "model": "create_power_loader:block/brass_chunk_loader/block",
       "x": 180
     },
-    "facing=east": {
+    "attached=false,facing=east": {
       "model": "create_power_loader:block/brass_chunk_loader/block",
       "x": 90,
       "y": 90
     },
-    "facing=north": {
+    "attached=false,facing=north": {
       "model": "create_power_loader:block/brass_chunk_loader/block",
       "x": 90
     },
-    "facing=south": {
+    "attached=false,facing=south": {
       "model": "create_power_loader:block/brass_chunk_loader/block",
       "x": 90,
       "y": 180
     },
-    "facing=up": {
+    "attached=false,facing=up": {
       "model": "create_power_loader:block/brass_chunk_loader/block"
     },
-    "facing=west": {
+    "attached=false,facing=west": {
+      "model": "create_power_loader:block/brass_chunk_loader/block",
+      "x": 90,
+      "y": 270
+    },
+    "attached=true,facing=down": {
+      "model": "create_power_loader:block/brass_chunk_loader/block",
+      "x": 180
+    },
+    "attached=true,facing=east": {
+      "model": "create_power_loader:block/brass_chunk_loader/block",
+      "x": 90,
+      "y": 90
+    },
+    "attached=true,facing=north": {
+      "model": "create_power_loader:block/brass_chunk_loader/block",
+      "x": 90
+    },
+    "attached=true,facing=south": {
+      "model": "create_power_loader:block/brass_chunk_loader/block",
+      "x": 90,
+      "y": 180
+    },
+    "attached=true,facing=up": {
+      "model": "create_power_loader:block/brass_chunk_loader/block"
+    },
+    "attached=true,facing=west": {
       "model": "create_power_loader:block/brass_chunk_loader/block",
       "x": 90,
       "y": 270
