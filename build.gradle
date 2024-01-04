@@ -274,7 +274,6 @@ publishMods {
     type = STABLE
     file = jar.archiveFile
     modLoaders.add("forge")
-    dryRun = true
 
     github {
         accessToken = secrets.GITHUB_TOKEN
