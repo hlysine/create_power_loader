@@ -1,8 +1,6 @@
 package com.hlysine.create_power_loader.content;
 
 import com.hlysine.create_power_loader.config.CPLConfigs;
-import com.hlysine.create_power_loader.content.andesitechunkloader.AndesiteChunkLoaderRenderer;
-import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoaderRenderer;
 import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
@@ -23,8 +21,6 @@ import static com.hlysine.create_power_loader.content.ChunkLoadManager.*;
 
 public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
     private static final Logger LOGGER = LogUtils.getLogger();
-    private static final AndesiteChunkLoaderRenderer ANDESITE_RENDERER = new AndesiteChunkLoaderRenderer(null);
-    private static final BrassChunkLoaderRenderer BRASS_RENDERER = new BrassChunkLoaderRenderer(null);
 
     public final LoaderType type;
 
@@ -141,13 +137,7 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
 
     @Override
     public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld, ContraptionMatrices matrices, MultiBufferSource buffer) {
-        if (type == LoaderType.ANDESITE) {
-            ANDESITE_RENDERER.renderInContraption(context, renderWorld, matrices, buffer);
-        } else if (type == LoaderType.BRASS) {
-            BRASS_RENDERER.renderInContraption(context, renderWorld, matrices, buffer);
-        } else {
-            throw new RuntimeException("Unknown block.");
-        }
+        ContraptionRenderer.renderInContraption(context, renderWorld, matrices, buffer, type);
     }
 
     private boolean shouldFunction(MovementContext context) {
