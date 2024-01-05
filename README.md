@@ -45,8 +45,8 @@ datapack.*
 
 ## Download
 
-Find this mod on [**Modrinth**](https://modrinth.com/mod/create-power-loader) or [**CurseForge
-**](https://legacy.curseforge.com/minecraft/mc-mods/create-power-loader).
+Find this mod on [**Modrinth**](https://modrinth.com/mod/create-power-loader) or
+[**CurseForge**](https://legacy.curseforge.com/minecraft/mc-mods/create-power-loader).
 
 ## Usage
 

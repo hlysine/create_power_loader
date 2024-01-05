@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Crash on dedicated server due to client class loading
+- Crash on dedicated server due to client class loading (#7)
 
 ## 1.3.0 - 2024-01-04
 
@@ -50,7 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Crash if JEI is not installed
+- Crash if JEI is not installed (#2)
 
 ## 1.2.0 - 2023-11-15
 
@@ -68,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Mod incompatibility due to partial models being loaded too late
+- Mod incompatibility due to partial models being loaded too late (#1)
 
 ## 1.1.0 - 2023-11-12
 
