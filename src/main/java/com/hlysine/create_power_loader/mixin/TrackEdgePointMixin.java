@@ -24,4 +24,14 @@ public class TrackEdgePointMixin {
             station.getLoader().tick(graph, preTrains);
         }
     }
+
+    @Inject(
+            at = @At("HEAD"),
+            method = "removeFromAllGraphs()V"
+    )
+    public void cpl$remove(CallbackInfo ci) {
+        if (this instanceof CPLGlobalStation station) {
+            station.getLoader().onRemove();
+        }
+    }
 }

@@ -39,6 +39,7 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
     @Nullable
     private StationBlockEntity attachedStation = null;
     public boolean isLoaderActive = false;
+    private boolean deferredEdgePoint = false;
 
     public AbstractChunkLoaderBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state, LoaderType type) {
         super(typeIn, pos, state);
@@ -55,6 +56,8 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
         if (attachedStation != null) {
             if (attachedStation.getStation() instanceof CPLGlobalStation station) {
                 station.getLoader().addAttachment(type, getBlockPos());
+            } else {
+                deferredEdgePoint = true; // The GlobalStation is only created in the next tick after the station block is placed
             }
         }
     }
@@ -96,6 +99,12 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
         }
 
         if (server) {
+            if (deferredEdgePoint) {
+                if (attachedStation.getStation() instanceof CPLGlobalStation station) {
+                    station.getLoader().addAttachment(type, getBlockPos());
+                    deferredEdgePoint = false;
+                }
+            }
             boolean wasLoaderActive = isLoaderActive;
             isLoaderActive = StationChunkLoader.isEnabledForStation(type) &&
                     attachedStation != null &&
