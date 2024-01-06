@@ -5,11 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.3.2 - 2024-01-06
+
+### Fixed
+
+- Loaded chunks not updating if a train station is removed while an attached chunk loader is active
+- Loaded chunks not updating if a chunk loader is placed before a train station
+
 ## 1.3.1 - 2024-01-05
 
 ### Fixed
 
-- Crash on dedicated server due to client class loading
+- Crash on dedicated server due to client class loading (#7)
 
 ## 1.3.0 - 2024-01-04
 
@@ -50,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Crash if JEI is not installed
+- Crash if JEI is not installed (#2)
 
 ## 1.2.0 - 2023-11-15
 
@@ -68,7 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Mod incompatibility due to partial models being loaded too late
+- Mod incompatibility due to partial models being loaded too late (#1)
 
 ## 1.1.0 - 2023-11-12
 

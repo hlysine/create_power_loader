@@ -6,6 +6,7 @@ import com.simibubi.create.content.trains.graph.DimensionPalette;
 import com.simibubi.create.content.trains.station.GlobalStation;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,7 +20,7 @@ public class GlobalStationMixin implements CPLGlobalStation {
 
     @Override
     @Unique
-    public StationChunkLoader getLoader() {
+    public @NotNull StationChunkLoader getLoader() {
         if (cpl$chunkLoader == null)
             cpl$chunkLoader = new StationChunkLoader((GlobalStation) (Object) this);
         return cpl$chunkLoader;
