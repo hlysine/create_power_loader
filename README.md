@@ -29,6 +29,8 @@ Create's track graph to provide reliable chunk loading.
 
 ## Features
 
+> Check out the [Wiki](https://github.com/hlysine/create_power_loader/wiki) for more info!
+
 - 2 tiers of chunk loaders
     - Brass chunk loader: configurable loading range (1x1 to 5x5)
     - Andesite chunk loader: loads a single chunk
