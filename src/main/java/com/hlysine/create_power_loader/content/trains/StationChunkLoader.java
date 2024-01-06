@@ -66,7 +66,12 @@ public class StationChunkLoader {
     }
 
     public void addAttachment(LoaderType type, BlockPos pos) {
+        removeAttachment(pos);
         attachments.add(new AttachedLoader(type, pos));
+    }
+
+    public void onRemove() {
+        ChunkLoadManager.enqueueUnforceAll(station.id, forcedChunks);
     }
 
     public CompoundTag write() {
