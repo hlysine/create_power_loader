@@ -32,6 +32,16 @@ public class ChunkLoadManager {
      */
     public static Level tickLevel;
 
+    public static final Map<LoaderMode, WeakCollection<ChunkLoader>> allLoaders = new HashMap<>();
+
+    public static void addLoader(LoaderMode mode, ChunkLoader loader) {
+        allLoaders.computeIfAbsent(mode, $ -> new WeakCollection<>()).add(loader);
+    }
+
+    public static void removeLoader(LoaderMode mode, ChunkLoader loader) {
+        allLoaders.computeIfAbsent(mode, $ -> new WeakCollection<>()).remove(loader);
+    }
+
     public static void onServerWorldTick(TickEvent.LevelTickEvent event) {
         if (event.phase == TickEvent.Phase.END)
             return;

@@ -1,26 +1,67 @@
 package com.hlysine.create_power_loader.content.trains;
 
 import com.hlysine.create_power_loader.content.ChunkLoadManager;
+import com.hlysine.create_power_loader.content.ChunkLoader;
+import com.hlysine.create_power_loader.content.LoaderMode;
+import com.hlysine.create_power_loader.content.LoaderType;
 import com.simibubi.create.content.trains.entity.Carriage;
 import com.simibubi.create.content.trains.entity.Train;
 import com.simibubi.create.foundation.utility.NBTHelper;
+import com.simibubi.create.foundation.utility.Pair;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 import static com.hlysine.create_power_loader.content.ChunkLoadManager.LoadedChunkPos;
 
-public class TrainChunkLoader {
+public class TrainChunkLoader implements ChunkLoader {
     private final Train train;
-    private final List<CarriageChunkLoader> carriageLoaders = new LinkedList<>();
+    public final List<CarriageChunkLoader> carriageLoaders = new LinkedList<>();
     private final Map<ResourceKey<Level>, Set<LoadedChunkPos>> reclaimedChunks = new HashMap<>();
 
     public TrainChunkLoader(Train train) {
         this.train = train;
+        addToManager();
+    }
+
+    @Override
+    public @NotNull Set<LoadedChunkPos> getForcedChunks() {
+        Set<LoadedChunkPos> allForced = new HashSet<>();
+        for (CarriageChunkLoader loader : carriageLoaders) {
+            allForced.addAll(loader.getForcedChunks());
+        }
+        return allForced;
+    }
+
+    @Override
+    public LoaderMode getLoaderMode() {
+        return LoaderMode.TRAIN;
+    }
+
+    @Override
+    public LoaderType getLoaderType() {
+        for (CarriageChunkLoader carriageLoader : carriageLoaders) {
+            if (carriageLoader.getLoaderType() == LoaderType.BRASS) return LoaderType.BRASS;
+        }
+        return LoaderType.ANDESITE;
+    }
+
+    @Override
+    public Pair<ResourceLocation, BlockPos> getLocation() {
+        if (train.graph == null) return null;
+        return train.carriages.stream().findFirst()
+                .map(carriage -> Pair.of(
+                        carriage.leadingBogey().trailing().node1.getLocation().getDimension().location(),
+                        BlockPos.containing(carriage.leadingBogey().trailing().getPosition(train.graph))
+                ))
+                .orElse(null);
     }
 
     public void tick(Level level) {
@@ -51,6 +92,7 @@ public class TrainChunkLoader {
         for (CarriageChunkLoader loader : carriageLoaders) {
             loader.onRemove();
         }
+        removeFromManager();
     }
 
     public CompoundTag write() {
