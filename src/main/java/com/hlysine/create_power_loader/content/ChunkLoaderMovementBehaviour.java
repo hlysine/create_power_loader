@@ -40,7 +40,7 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
         Object tempState = context.temporaryData;
 
         if (!(tempState instanceof SavedState)) {
-            tempState = new SavedState(type, null, null, new HashSet<>());
+            tempState = new SavedState(type, null, null, context.contraption instanceof CarriageContraption, new HashSet<>());
         }
 
         SavedState savedState = (SavedState) tempState;
@@ -62,7 +62,7 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
         Object tempState = context.temporaryData;
 
         if (!(tempState instanceof SavedState)) {
-            tempState = new SavedState(type, null, null, new HashSet<>());
+            tempState = new SavedState(type, null, null, context.contraption instanceof CarriageContraption, new HashSet<>());
             context.temporaryData = tempState;
         }
 
@@ -97,7 +97,7 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
         Object tempState = context.temporaryData;
 
         if (!(tempState instanceof SavedState)) {
-            tempState = new SavedState(type, entityChunkPos, entityBlockPos, new HashSet<>());
+            tempState = new SavedState(type, entityChunkPos, entityBlockPos, context.contraption instanceof CarriageContraption, new HashSet<>());
             context.temporaryData = tempState;
 
             SavedState savedState = (SavedState) tempState;
@@ -166,12 +166,15 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
         public LoadedChunkPos chunkPos;
         @Nullable
         public BlockPos blockPos;
+        private final boolean isTrain;
         public Set<LoadedChunkPos> forcedChunks;
+        public boolean registered = false;
 
-        public SavedState(LoaderType type, @Nullable LoadedChunkPos chunkPos, @Nullable BlockPos blockPos, Set<LoadedChunkPos> forcedChunks) {
+        public SavedState(LoaderType type, @Nullable LoadedChunkPos chunkPos, @Nullable BlockPos blockPos, boolean isTrain, Set<LoadedChunkPos> forcedChunks) {
             loaderType = type;
             this.chunkPos = chunkPos;
             this.blockPos = blockPos;
+            this.isTrain = isTrain;
             this.forcedChunks = forcedChunks;
             addToManager();
         }
@@ -189,6 +192,12 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
         @Override
         public LoaderType getLoaderType() {
             return loaderType;
+        }
+
+        @Override
+        public void addToManager() {
+            if (!isTrain)
+                ChunkLoader.super.addToManager();
         }
 
         @Override

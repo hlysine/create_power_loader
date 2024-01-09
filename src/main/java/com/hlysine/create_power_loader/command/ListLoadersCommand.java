@@ -20,6 +20,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -39,45 +40,66 @@ public class ListLoadersCommand {
     public static ArgumentBuilder<CommandSourceStack, ?> register() {
         return Commands.literal("list")
                 .requires(cs -> cs.hasPermission(2))
-                .then(
-                        Commands.argument("type", EnumArgument.enumArgument(LoaderMode.class))
-                                .then(
-                                        Commands.literal("limit")
-                                                .then(
-                                                        Commands.argument("limit", IntegerArgumentType.integer(1))
-                                                                .executes(handler(true, true))
-                                                )
-                                )
-                                .executes(handler(true, false))
+                .then(Commands.argument("type", EnumArgument.enumArgument(LoaderMode.class))
+                        .then(Commands.literal("active")
+                                .then(Commands.literal("limit")
+                                        .then(Commands.argument("limit", IntegerArgumentType.integer(1))
+                                                .executes(handler(true, true, true))
+                                        )
+                                ).executes(handler(true, false, true))
+                        )
+                        .then(Commands.literal("all")
+                                .then(Commands.literal("limit")
+                                        .then(Commands.argument("limit", IntegerArgumentType.integer(1))
+                                                .executes(handler(true, true, false))
+                                        )
+                                ).executes(handler(true, false, false))
+                        )
                 )
-                .then(
-                        Commands.literal("limit")
-                                .then(
-                                        Commands.argument("limit", IntegerArgumentType.integer(1))
-                                                .executes(handler(false, true))
-                                )
-                )
-                .executes(handler(false, false));
+                .then(Commands.literal("all")
+                        .then(Commands.literal("active")
+                                .then(Commands.literal("limit")
+                                        .then(Commands.argument("limit", IntegerArgumentType.integer(1))
+                                                .executes(handler(false, true, true))
+                                        )
+                                ).executes(handler(false, false, true))
+                        )
+                        .then(Commands.literal("all")
+                                .then(Commands.literal("limit")
+                                        .then(Commands.argument("limit", IntegerArgumentType.integer(1))
+                                                .executes(handler(false, true, false))
+                                        )
+                                ).executes(handler(false, false, false))
+                        )
+                );
     }
 
-    private static Command<CommandSourceStack> handler(boolean hasMode, boolean hasLimit) {
+    private static Command<CommandSourceStack> handler(boolean hasMode, boolean hasLimit, boolean activeOnly) {
         return ctx -> {
             CommandSourceStack source = ctx.getSource();
             fillReport(source.getLevel(), source.getPosition(),
                     hasMode ? ctx.getArgument("type", LoaderMode.class) : null,
-                    hasLimit ? ctx.getArgument("limit", Integer.class) : Integer.MAX_VALUE,
+                    hasLimit ? ctx.getArgument("limit", Integer.class) : 20,
+                    activeOnly,
                     (s, f) -> source.sendSuccess(() -> Components.literal(s).withStyle(st -> st.withColor(f)), false),
                     (c) -> source.sendSuccess(() -> c, false));
             return Command.SINGLE_SUCCESS;
         };
     }
 
-    private static void fillReport(ServerLevel level, Vec3 location, @Nullable LoaderMode mode, int limit, BiConsumer<String, Integer> chat,
+    private static void fillReport(ServerLevel level,
+                                   Vec3 location,
+                                   @Nullable LoaderMode mode,
+                                   int limit,
+                                   boolean activeOnly,
+                                   BiConsumer<String, Integer> chat,
                                    Consumer<Component> chatRaw) {
         int white = ChatFormatting.WHITE.getColor();
+        int gray = ChatFormatting.GRAY.getColor();
         int blue = 0xD3DEDC;
-        int bright = 0xFFEFEF;
+        int darkBlue = 0x5955A1;
         int orange = 0xFFAD60;
+        int darkOrange = 0xB27943;
 
         List<ChunkLoader> loaders = new LinkedList<>();
         if (mode == null) {
@@ -87,7 +109,20 @@ public class ListLoadersCommand {
         } else {
             loaders.addAll(ChunkLoadManager.allLoaders.get(mode));
         }
-        loaders.removeIf(loader -> loader.getForcedChunks().size() == 0);
+        loaders.removeIf(loader -> {
+            if (loader instanceof TrainChunkLoader trainLoader) {
+                for (CarriageChunkLoader carriageLoader : trainLoader.carriageLoaders) {
+                    if (carriageLoader.known && (carriageLoader.brass || carriageLoader.andesite)) return false;
+                }
+                return true;
+            } else if (loader instanceof StationChunkLoader stationLoader) {
+                return stationLoader.attachments.size() == 0;
+            } else {
+                return false;
+            }
+        });
+        if (activeOnly)
+            loaders.removeIf(loader -> loader.getForcedChunks().size() == 0);
 
         Map<ResourceLocation, DimensionType> typeCache = new HashMap<>();
         MinecraftServer server = level.getServer();
@@ -106,62 +141,78 @@ public class ListLoadersCommand {
 
         chat.accept("", white);
         chat.accept("-+------<< Chunk Loader List >>------+-", white);
-        chat.accept(pairs.size() + " out of " + loaders.size() + " nearest" + (mode != null ? " " + mode.getSerializedName() : "") + " loaders", blue);
+        chat.accept(pairs.size() + " out of " + loaders.size() + " nearest" + (activeOnly ? " active" : "") + (mode != null ? " " + mode.getSerializedName() : "") + " loaders", blue);
+        chat.accept("", white);
         for (Pair<ChunkLoader, Pair<ResourceLocation, Vec3>> pair : pairs) {
             ChunkLoader loader = pair.getFirst();
             ResourceLocation dimension = pair.getSecond().getFirst();
             BlockPos pos = BlockPos.containing(pair.getSecond().getSecond());
 
-            chatRaw.accept(createTpButton(dimension, pos,
-                    (mode == null ? " " + loader.getLoaderMode().getSerializedName() + " " : "")
-                            + "[" + pos.toShortString() + "]"
-                            + (!dimension.equals(level.dimension().location()) ? " in " + dimension : "")
-                    , white));
+            chatRaw.accept(
+                    text(mode == null ? loader.getLoaderMode().getSerializedName() + " - " : "", white)
+                            .append(text(loader.getLoaderType().getSerializedName() + " - ", orange))
+                            .append(text(loader.getForcedChunks().size() + " chunks", colorForCount(loader.getForcedChunks().size())))
+            );
 
-            chat.accept(
-                    "    "
-                            + loader.getLoaderType().getSerializedName() + " - "
-                            + loader.getForcedChunks().size() + " chunks"
-                    , orange);
+            chatRaw.accept(
+                    text("                    ↳ ", darkBlue)
+                            .append(createTpButton(level.dimension().location(), dimension, pos, darkBlue))
+            );
             if (loader instanceof TrainChunkLoader trainLoader) {
                 for (int i = 0; i < trainLoader.carriageLoaders.size(); i++) {
                     CarriageChunkLoader carriageLoader = trainLoader.carriageLoaders.get(i);
                     if (carriageLoader.getForcedChunks().isEmpty()) continue;
                     Pair<ResourceLocation, BlockPos> carriageLocation = carriageLoader.getLocation();
-                    chatRaw.accept(createTpButton(carriageLocation.getFirst(), carriageLocation.getSecond(),
-                            "  Carriage " + (i + 1) + " - "
-                                    + "[" + carriageLocation.getSecond().toShortString() + "]"
-                                    + (!carriageLocation.getFirst().equals(level.dimension().location()) ? " in " + carriageLocation.getFirst().toString() : "")
-                            , blue));
-                    chat.accept(
-                            "      "
-                                    + carriageLoader.getLoaderType().getSerializedName() + " - "
-                                    + carriageLoader.getForcedChunks().size() + " chunks"
-                            , orange);
+                    chatRaw.accept(
+                            text("    Carriage " + (i + 1) + " - ", gray)
+                                    .append(text(carriageLoader.getLoaderType().getSerializedName() + " - ", darkOrange))
+                                    .append(text(carriageLoader.getForcedChunks().size() + " chunks", colorForCount(carriageLoader.getForcedChunks().size())))
+                    );
+                    chatRaw.accept(
+                            text("                    ↳ ", darkBlue)
+                                    .append(createTpButton(level.dimension().location(), carriageLocation.getFirst(), carriageLocation.getSecond(), darkBlue))
+                    );
                 }
             } else if (loader instanceof StationChunkLoader stationLoader) {
                 for (StationChunkLoader.AttachedLoader attachment : stationLoader.attachments) {
-                    chatRaw.accept(createTpButton(stationLoader.getLocation().getFirst(), attachment.pos(),
-                            "  "
-                                    + attachment.type().getSerializedName()
-                                    + " - "
-                                    + "[" + attachment.pos().toShortString() + "]"
-                            , blue));
+                    chatRaw.accept(
+                            text("    ", gray)
+                                    .append(text("Attached - ", gray))
+                                    .append(text(attachment.type().getSerializedName(), darkOrange))
+                    );
+                    chatRaw.accept(
+                            text("                    ↳ ", darkBlue)
+                                    .append(createTpButton(level.dimension().location(), stationLoader.getLocation().getFirst(), attachment.pos(), darkBlue))
+                    );
                 }
             }
         }
         chat.accept("-+--------------------------------+-", white);
     }
 
-    private static Component createTpButton(ResourceLocation dimension, BlockPos blockPos, String text, int color) {
+    private static int colorForCount(int count) {
+        if (count == 0) return ChatFormatting.DARK_GRAY.getColor();
+        if (count < 5) return ChatFormatting.GRAY.getColor();
+        if (count < 10) return ChatFormatting.YELLOW.getColor();
+        return ChatFormatting.RED.getColor();
+    }
+
+    private static String shortString(ResourceLocation location) {
+        if (location.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) return location.getPath();
+        return location.toString();
+    }
+
+    private static MutableComponent text(String text, int color) {
+        return Components.literal(text).withStyle(style -> style.withColor(color));
+    }
+
+    private static MutableComponent createTpButton(ResourceLocation origin, ResourceLocation dimension, BlockPos blockPos, int color) {
         String teleport = "/execute in " + dimension.toString() + " run tp @s " + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ();
-        return Components.literal(text).withStyle((p_180514_) -> {
-            return p_180514_.withColor(color)
-                    .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, teleport))
-                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                            Components.literal("Click to teleport")))
-                    .withInsertion(teleport);
-        });
+        return Components.literal("[" + blockPos.toShortString() + "]" + (!origin.equals(dimension) ? " in " + shortString(dimension) : "")).withStyle((style) -> style
+                .withColor(color)
+                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, teleport))
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Components.literal("Click to teleport")))
+                .withInsertion(teleport));
     }
 
 }

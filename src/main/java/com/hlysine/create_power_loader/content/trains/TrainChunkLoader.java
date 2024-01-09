@@ -25,10 +25,10 @@ public class TrainChunkLoader implements ChunkLoader {
     private final Train train;
     public final List<CarriageChunkLoader> carriageLoaders = new LinkedList<>();
     private final Map<ResourceKey<Level>, Set<LoadedChunkPos>> reclaimedChunks = new HashMap<>();
+    private boolean registered = false;
 
     public TrainChunkLoader(Train train) {
         this.train = train;
-        addToManager();
     }
 
     @Override
@@ -64,8 +64,17 @@ public class TrainChunkLoader implements ChunkLoader {
                 .orElse(null);
     }
 
+    @Override
+    public void addToManager() {
+        if (!registered) {
+            ChunkLoader.super.addToManager();
+            registered = true;
+        }
+    }
+
     public void tick(Level level) {
         if (level.isClientSide()) return;
+        addToManager();
 
         // Make sure carriage information is up-to-date
         if (carriageLoaders.size() != train.carriages.size()) {

@@ -85,7 +85,8 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
                 deferredEdgePoint = true; // The GlobalStation is only created in the next tick after the station block is placed
             }
         } else {
-            addToManager();
+            if (!level.isClientSide())
+                addToManager();
         }
     }
 
@@ -101,7 +102,8 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
             if (!(be instanceof StationBlockEntity sbe)) return;
             updateAttachedStation(sbe);
         } else {
-            addToManager();
+            if (!level.isClientSide())
+                addToManager();
         }
     }
 

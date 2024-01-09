@@ -29,11 +29,11 @@ public class StationChunkLoader implements ChunkLoader {
 
     private final Map<ResourceKey<Level>, Set<LoadedChunkPos>> reclaimedChunks = new HashMap<>();
     public final Set<LoadedChunkPos> forcedChunks = new HashSet<>();
+    private boolean registered = false;
 
 
     public StationChunkLoader(GlobalStation station) {
         this.station = station;
-        addToManager();
     }
 
     @Override
@@ -56,13 +56,25 @@ public class StationChunkLoader implements ChunkLoader {
 
     @Override
     public @Nullable Pair<ResourceLocation, BlockPos> getLocation() {
-        return Pair.of(station.edgeLocation.getFirst().dimension.location(), BlockPos.containing(station.edgeLocation.getFirst().getLocation()));
+        return Pair.of(
+                station.edgeLocation.getFirst().dimension.location(),
+                BlockPos.containing(station.edgeLocation.getFirst().getLocation().add(station.edgeLocation.getSecond().getLocation()).scale(0.5))
+        );
+    }
+
+    @Override
+    public void addToManager() {
+        if (!registered) {
+            ChunkLoader.super.addToManager();
+            registered = true;
+        }
     }
 
     public void tick(TrackGraph graph, boolean preTrains) {
         if (preTrains) return;
         Level level = ChunkLoadManager.tickLevel;
         if (level == null || level.isClientSide()) return;
+        addToManager();
 
         ChunkLoadManager.reclaimChunks(level, station.id, reclaimedChunks);
 
