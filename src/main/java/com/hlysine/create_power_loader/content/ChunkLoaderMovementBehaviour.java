@@ -160,13 +160,13 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
         }
     }
 
-    static class SavedState implements ChunkLoader {
+    public static class SavedState implements ChunkLoader {
         private final LoaderType loaderType;
         @Nullable
         public LoadedChunkPos chunkPos;
         @Nullable
         public BlockPos blockPos;
-        private final boolean isTrain;
+        public final boolean isTrain;
         public Set<LoadedChunkPos> forcedChunks;
         public boolean registered = false;
 
