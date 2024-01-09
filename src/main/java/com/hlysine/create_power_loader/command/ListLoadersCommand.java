@@ -99,7 +99,6 @@ public class ListLoadersCommand {
         int blue = 0xD3DEDC;
         int darkBlue = 0x5955A1;
         int orange = 0xFFAD60;
-        int darkOrange = 0xB27943;
 
         List<ChunkLoader> loaders = new LinkedList<>();
         if (mode == null) {
@@ -165,7 +164,7 @@ public class ListLoadersCommand {
                     Pair<ResourceLocation, BlockPos> carriageLocation = carriageLoader.getLocation();
                     chatRaw.accept(
                             text("    Carriage " + (i + 1) + " - ", gray)
-                                    .append(text(carriageLoader.getLoaderType().getSerializedName() + " - ", darkOrange))
+                                    .append(text(carriageLoader.getLoaderType().getSerializedName() + " - ", orange))
                                     .append(text(carriageLoader.getForcedChunks().size() + " chunks", colorForCount(carriageLoader.getForcedChunks().size())))
                     );
                     chatRaw.accept(
@@ -178,7 +177,7 @@ public class ListLoadersCommand {
                     chatRaw.accept(
                             text("    ", gray)
                                     .append(text("Attached - ", gray))
-                                    .append(text(attachment.type().getSerializedName(), darkOrange))
+                                    .append(text(attachment.type().getSerializedName(), orange))
                     );
                     chatRaw.accept(
                             text("                    ↳ ", darkBlue)
