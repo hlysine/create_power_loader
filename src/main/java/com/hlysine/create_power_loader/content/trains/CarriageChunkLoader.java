@@ -62,7 +62,7 @@ public class CarriageChunkLoader implements ChunkLoader {
         if (carriage.train.graph == null) return null;
         return Pair.of(
                 carriage.leadingBogey().trailing().node1.getLocation().getDimension().location(),
-                BlockPos.containing(carriage.leadingBogey().trailing().getPosition(carriage.train.graph))
+                blockPosContaining(carriage.leadingBogey().trailing().getPosition(carriage.train.graph))
         );
     }
 

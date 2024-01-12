@@ -16,7 +16,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
@@ -34,6 +34,8 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
+import static com.hlysine.create_power_loader.content.Helper.blockPosContaining;
 
 public class ListLoadersCommand {
 
@@ -81,8 +83,8 @@ public class ListLoadersCommand {
                     hasMode ? ctx.getArgument("type", LoaderMode.class) : null,
                     hasLimit ? ctx.getArgument("limit", Integer.class) : 20,
                     activeOnly,
-                    (s, f) -> source.sendSuccess(() -> Components.literal(s).withStyle(st -> st.withColor(f)), false),
-                    (c) -> source.sendSuccess(() -> c, false));
+                    (s, f) -> source.sendSuccess(Components.literal(s).withStyle(st -> st.withColor(f)), false),
+                    (c) -> source.sendSuccess(c, false));
             return Command.SINGLE_SUCCESS;
         };
     }
@@ -125,7 +127,7 @@ public class ListLoadersCommand {
 
         Map<ResourceLocation, DimensionType> typeCache = new HashMap<>();
         MinecraftServer server = level.getServer();
-        Function<ResourceLocation, DimensionType> computeType = key -> server.getLevel(ResourceKey.create(Registries.DIMENSION, key)).dimensionType();
+        Function<ResourceLocation, DimensionType> computeType = key -> server.getLevel(ResourceKey.create(Registry.DIMENSION_REGISTRY, key)).dimensionType();
         List<Pair<ChunkLoader, Pair<ResourceLocation, Vec3>>> pairs = loaders.stream()
                 .map(loader -> Pair.of(loader, loader.getLocation()))
                 .map(pair -> Pair.of(pair.getFirst(), Pair.of(pair.getSecond().getFirst(), Vec3.atCenterOf(pair.getSecond().getSecond()))))
@@ -145,7 +147,7 @@ public class ListLoadersCommand {
         for (Pair<ChunkLoader, Pair<ResourceLocation, Vec3>> pair : pairs) {
             ChunkLoader loader = pair.getFirst();
             ResourceLocation dimension = pair.getSecond().getFirst();
-            BlockPos pos = BlockPos.containing(pair.getSecond().getSecond());
+            BlockPos pos = blockPosContaining(pair.getSecond().getSecond());
 
             chatRaw.accept(
                     text(mode == null ? loader.getLoaderMode().getSerializedName() + " - " : "", white)

@@ -23,6 +23,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+import static com.hlysine.create_power_loader.content.Helper.blockPosContaining;
+
 public class StationChunkLoader implements ChunkLoader {
     private final GlobalStation station;
     public final Set<AttachedLoader> attachments = new HashSet<>();
@@ -58,7 +60,7 @@ public class StationChunkLoader implements ChunkLoader {
     public @Nullable Pair<ResourceLocation, BlockPos> getLocation() {
         return Pair.of(
                 station.edgeLocation.getFirst().dimension.location(),
-                BlockPos.containing(station.edgeLocation.getFirst().getLocation().add(station.edgeLocation.getSecond().getLocation()).scale(0.5))
+                blockPosContaining(station.edgeLocation.getFirst().getLocation().add(station.edgeLocation.getSecond().getLocation()).scale(0.5))
         );
     }
 

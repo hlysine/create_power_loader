@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 import static com.hlysine.create_power_loader.content.ChunkLoadManager.LoadedChunkPos;
+import static com.hlysine.create_power_loader.content.Helper.blockPosContaining;
 
 public class TrainChunkLoader implements ChunkLoader {
     private final Train train;
@@ -59,7 +60,7 @@ public class TrainChunkLoader implements ChunkLoader {
         return train.carriages.stream().findFirst()
                 .map(carriage -> Pair.of(
                         carriage.leadingBogey().trailing().node1.getLocation().getDimension().location(),
-                        BlockPos.containing(carriage.leadingBogey().trailing().getPosition(train.graph))
+                        blockPosContaining(carriage.leadingBogey().trailing().getPosition(train.graph))
                 ))
                 .orElse(null);
     }
