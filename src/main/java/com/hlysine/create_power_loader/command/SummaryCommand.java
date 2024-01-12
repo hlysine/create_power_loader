@@ -100,17 +100,14 @@ public class SummaryCommand {
         if (mode == LoaderMode.CONTRAPTION || mode == null) {
             chat.accept("", white);
             chat.accept("Contraption chunk loaders", white);
-            int contraptions = 0;
             int nonTrain = 0;
             Set<ChunkLoadManager.LoadedChunkPos> chunks = new HashSet<>();
             for (ChunkLoader loader : loaders) {
                 if (loader instanceof ChunkLoaderMovementBehaviour.SavedState state) {
-                    contraptions++;
                     if (!state.isTrain) nonTrain++;
                     chunks.addAll(state.forcedChunks);
                 }
             }
-            chatRaw.accept(line("Total contraptions", contraptions));
             chatRaw.accept(line("Non-train contraptions", nonTrain));
             chatRaw.accept(line("Loaded chunks", chunks.size()));
         }
