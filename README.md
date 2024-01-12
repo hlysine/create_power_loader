@@ -27,6 +27,13 @@ New configs are added for you to toggle this function on the andesite/brass chun
 The entire chunk loading logic has been rewritten to take dimensions into account, and chunk loaders on trains now use
 Create's track graph to provide reliable chunk loading.
 
+**Operator commands**
+
+The `/powerloader list` and `/powerloader summary` commands track all reachable chunk loaders for easy moderation on
+servers.
+
+![powerloader list command](https://github.com/hlysine/create_power_loader/assets/25472513/e28c9b7c-fa27-4ac1-aaf5-2500771439bd)
+
 ## Features
 
 > Check out the [Wiki](https://github.com/hlysine/create_power_loader/wiki) for more info!
