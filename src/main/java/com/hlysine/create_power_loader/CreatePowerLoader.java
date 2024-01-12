@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.ForgeChunkManager;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -47,6 +48,7 @@ public class CreatePowerLoader {
 
         // Register the commonSetup method for mod loading
         modEventBus.addListener(this::commonSetup);
+        forgeEventBus.addListener(this::registerCommands);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -69,6 +71,10 @@ public class CreatePowerLoader {
             Mods.JEI.executeIfInstalled(() -> CPLRecipes::register);
             ForgeChunkManager.setForcedChunkLoadingCallback(MODID, ChunkLoadManager::validateAllForcedChunks);
         });
+    }
+
+    private void registerCommands(RegisterCommandsEvent event) {
+        CPLCommands.register(event.getDispatcher());
     }
 
     public static CreateRegistrate getRegistrate() {
