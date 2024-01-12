@@ -6,10 +6,12 @@ import com.hlysine.create_power_loader.content.trains.StationChunkLoader;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.trains.station.StationBlockEntity;
+import com.simibubi.create.foundation.utility.Pair;
 import com.simibubi.create.foundation.utility.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -17,6 +19,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
@@ -27,7 +30,7 @@ import static com.hlysine.create_power_loader.content.ChunkLoadManager.LoadedChu
 import static com.hlysine.create_power_loader.content.ChunkLoadManager.unforceAllChunks;
 import static com.simibubi.create.content.kinetics.base.DirectionalKineticBlock.FACING;
 
-public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity {
+public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity implements ChunkLoader {
 
     public final LoaderType type;
     protected BlockPos lastBlockPos;
@@ -46,11 +49,33 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
         this.type = type;
     }
 
+    @Override
+    public @NotNull Set<LoadedChunkPos> getForcedChunks() {
+        return forcedChunks;
+    }
+
+    @Override
+    public LoaderMode getLoaderMode() {
+        return LoaderMode.STATIC;
+    }
+
+    @Override
+    public LoaderType getLoaderType() {
+        return type;
+    }
+
+    @Override
+    public @Nullable Pair<ResourceLocation, BlockPos> getLocation() {
+        return Pair.of(getLevel().dimension().location(), getBlockPos());
+    }
+
     public void updateAttachedStation(StationBlockEntity be) {
         if (attachedStation != null) {
             if (attachedStation.getStation() instanceof CPLGlobalStation station) {
                 station.getLoader().removeAttachment(getBlockPos());
             }
+        } else {
+            removeFromManager();
         }
         attachedStation = be;
         if (attachedStation != null) {
@@ -59,6 +84,9 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
             } else {
                 deferredEdgePoint = true; // The GlobalStation is only created in the next tick after the station block is placed
             }
+        } else {
+            if (!level.isClientSide())
+                addToManager();
         }
     }
 
@@ -73,6 +101,9 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
             BlockEntity be = getLevel().getBlockEntity(getBlockPos().relative(getBlockState().getValue(FACING).getOpposite()));
             if (!(be instanceof StationBlockEntity sbe)) return;
             updateAttachedStation(sbe);
+        } else {
+            if (!level.isClientSide())
+                addToManager();
         }
     }
 
@@ -162,6 +193,7 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
         if (server)
             unforceAllChunks(level.getServer(), getBlockPos(), forcedChunks);
         updateAttachedStation(null);
+        removeFromManager();
     }
 
     @Override
@@ -171,6 +203,7 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
         if (server)
             unforceAllChunks(level.getServer(), getBlockPos(), forcedChunks);
         updateAttachedStation(null);
+        removeFromManager();
     }
 
     @Override

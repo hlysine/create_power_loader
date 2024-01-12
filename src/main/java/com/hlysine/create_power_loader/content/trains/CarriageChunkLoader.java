@@ -3,17 +3,24 @@ package com.hlysine.create_power_loader.content.trains;
 import com.hlysine.create_power_loader.CPLBlocks;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.ChunkLoadManager;
+import com.hlysine.create_power_loader.content.ChunkLoader;
+import com.hlysine.create_power_loader.content.LoaderMode;
+import com.hlysine.create_power_loader.content.LoaderType;
 import com.simibubi.create.content.contraptions.Contraption;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.content.trains.entity.Carriage;
 import com.simibubi.create.content.trains.entity.CarriageContraptionEntity;
 import com.simibubi.create.content.trains.entity.TravellingPoint;
+import com.simibubi.create.foundation.utility.Pair;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import org.apache.commons.lang3.tuple.MutablePair;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +28,7 @@ import java.util.Set;
 import static com.hlysine.create_power_loader.content.ChunkLoadManager.LoadedChunkPos;
 import static com.hlysine.create_power_loader.content.Helper.blockPosContaining;
 
-public class CarriageChunkLoader {
+public class CarriageChunkLoader implements ChunkLoader {
     public final Carriage carriage;
     public boolean known;
     public boolean andesite;
@@ -33,6 +40,30 @@ public class CarriageChunkLoader {
         this.known = known;
         this.andesite = andesite;
         this.brass = brass;
+    }
+
+    @Override
+    public @NotNull Set<LoadedChunkPos> getForcedChunks() {
+        return forcedChunks;
+    }
+
+    @Override
+    public LoaderMode getLoaderMode() {
+        return LoaderMode.TRAIN;
+    }
+
+    @Override
+    public LoaderType getLoaderType() {
+        return brass ? LoaderType.BRASS : LoaderType.ANDESITE;
+    }
+
+    @Override
+    public Pair<ResourceLocation, BlockPos> getLocation() {
+        if (carriage.train.graph == null) return null;
+        return Pair.of(
+                carriage.leadingBogey().trailing().node1.getLocation().getDimension().location(),
+                BlockPos.containing(carriage.leadingBogey().trailing().getPosition(carriage.train.graph))
+        );
     }
 
     public void tick(Level level) {
