@@ -10,6 +10,8 @@
 
 A Create mod add-on adding immersive andesite and brass chunk loaders to Minecraft.
 
+[![BisectHosting](https://www.bisecthosting.com/partners/custom-banners/cd02548b-be01-4a01-b707-ffcb913f5299.webp)](https://bisecthosting.com/lysine)
+
 > **Want more Create-esque QoL items? Check out [Create: Connected](https://modrinth.com/mod/create-connected)**
 
 ## What's new in 1.3.0
