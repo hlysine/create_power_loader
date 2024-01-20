@@ -1,0 +1,51 @@
+{
+  "itemGroup.create_power_loader.main": "Create: Power Loader",
+
+  "block.create_power_loader.empty_andesite_chunk_loader": "空の安山岩チャンクローダー",
+  "block.create_power_loader.andesite_chunk_loader": "安山岩チャンクローダー",
+
+  "block.create_power_loader.empty_brass_chunk_loader": "空の真鍮チャンクローダー",
+  "block.create_power_loader.brass_chunk_loader": "真鍮チャンクローダー",
+  "create_power_loader.brass_chunk_loader.loading_range": "チャンクの読み込み半径",
+  "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1の四角形",
+  "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3の四角形",
+  "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5の四角形",
+
+  "create_power_loader.ponder.empty_chunk_loader_basic.header": "空のチャンクローダーの使い方",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "空のチャンクローダーで右クリックするとガストを捕獲できます",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_2": "回転力が供給されると、捕獲したガストがポータルコアを照らし…",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_3": "…チャンクローダーを活性化させます",
+
+  "create_power_loader.ponder.andesite_chunk_loader_basic.header": "安山岩チャンクローダーの基本的な使い方",
+  "create_power_loader.ponder.andesite_chunk_loader_basic.text_1": "回転力を与えると、チャンクローダーは現在のチャンクを読み込んだままに保ちます",
+  "create_power_loader.ponder.andesite_chunk_loader_basic.text_2": "回転速度が遅すぎる場合は動作しません",
+
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.header": "レッドストーンと安山岩チャンクローダー",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_1": "チャンクローダーは稼働しているとき、コンパレーター出力を発します",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_2": "回転力が失われた後、チャンクの読み込みが解除されるまでに短い遅延があります（設定可能）",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_3": "この遅延中に回転力が再び供給されると、チャンクは読み込まれたままになります",
+
+  "create_power_loader.ponder.brass_chunk_loader_basic.header": "真鍮チャンクローダーの基本的な使い方",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_1": "回転力を与えると、チャンクローダーは現在のチャンクを読み込まれたままに保ちます",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_2": "回転速度が遅すぎる場合は動作しません",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_3": "設定パネルで読み込む範囲を調整できます…",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_4": "…ただし、広い範囲に設定するにはより大きな回転速度が必要です",
+
+  "create_power_loader.ponder.brass_chunk_loader_redstone.header": "レッドストーンと真鍮チャンクローダー",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_1": "チャンクローダーは稼働しているとき、コンパレーター出力を発します",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_2": "回転力が失われた後、チャンクの読み込みが解除されるまでに短い遅延があります（設定可能）",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_3": "この遅延中に回転力が再び供給されると、チャンクは読み込まれたままになります",
+
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.header": "動くからくりの周囲でのチャンク読み込み",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_1": "真鍮チャンクローダーはからくりでも動作します",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "常にからくりの周囲3x3チャンクを読み込みます",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_3": "組み立てた状態では、機能するための回転力は必要ありません",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_4": "停止しているからくりでも機能します",
+
+  "create_power_loader.ponder.brass_chunk_loader_station.header": "鉄道駅でのチャンク読み込み",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_1": "真鍮チャンクローダーは鉄道駅ブロックに取り付けられます",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_2": "適切な方向で鉄道駅ブロックの横に設置してください",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_3": "回転力は必要ありませんが、通常は稼働していません",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "列車が駅に到着すると、チャンクローダーの周囲3x3チャンクを読み込みます",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_5": "列車が出発すると、チャンクの読み込みは再び解除されます"
+}
