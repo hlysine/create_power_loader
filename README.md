@@ -75,6 +75,13 @@ Find this mod on [**Modrinth**](https://modrinth.com/mod/create-power-loader) or
 This mod is open to suggestions, so if you have made any modification to the mod, please leave an issue/PR so I can
 consider adding your use case to the mod.
 
+## Support
+
+The best way to support my work is to simply download this mod on [**Modrinth**](https://modrinth.com/mod/create-power-loader).
+Enjoy a smoother download experience and support open source software with a single click.
+
+If you would like to offer more direct support, you can [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O2TL8YV)
+
 ## Credits
 
 **Translation**
