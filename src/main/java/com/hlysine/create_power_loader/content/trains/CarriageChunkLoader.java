@@ -80,7 +80,7 @@ public class CarriageChunkLoader implements ChunkLoader {
         addLoadTargets(loadTargets, carriage.leadingBogey().trailing());
         addLoadTargets(loadTargets, carriage.trailingBogey().leading());
 
-        ChunkLoadManager.updateForcedChunks(level.getServer(), loadTargets, carriage.train.id, 2, forcedChunks);
+        ChunkLoadManager.updateForcedChunks(level.getServer(), loadTargets, carriage.train.id, CPLConfigs.server().getFor(getLoaderType()).rangeOnTrain.get(), forcedChunks);
     }
 
     public void onRemove() {
@@ -131,7 +131,7 @@ public class CarriageChunkLoader implements ChunkLoader {
 
     private boolean canLoadChunks() {
         if (carriage.train.graph == null) return false;
-        return andesite && CPLConfigs.server().andesiteOnContraption.get() || brass && CPLConfigs.server().brassOnContraption.get();
+        return andesite && CPLConfigs.server().andesite.enableTrain.get() || brass && CPLConfigs.server().brass.enableTrain.get();
     }
 
     public CompoundTag write() {

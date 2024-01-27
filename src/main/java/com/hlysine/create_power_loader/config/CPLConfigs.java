@@ -1,5 +1,6 @@
 package com.hlysine.create_power_loader.config;
 
+import com.simibubi.create.content.kinetics.BlockStressValues;
 import com.simibubi.create.foundation.config.ConfigBase;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,10 +22,12 @@ import java.util.function.Supplier;
 public class CPLConfigs {
 
     public static void register(ModLoadingContext context) {
-        CPLConfigs.registerCommon();
+        server = register(CServer::new, ModConfig.Type.SERVER);
 
         for (Map.Entry<ModConfig.Type, ConfigBase> pair : CPLConfigs.CONFIGS.entrySet())
             context.registerConfig(pair.getKey(), pair.getValue().specification);
+
+        BlockStressValues.registerProvider(context.getActiveNamespace(), server());
     }
 
     @SubscribeEvent
@@ -66,11 +69,6 @@ public class CPLConfigs {
         config.specification = specPair.getRight();
         CONFIGS.put(side, config);
         return config;
-    }
-
-    @ApiStatus.Internal
-    public static void registerCommon() {
-        server = register(CServer::new, ModConfig.Type.SERVER);
     }
 
     public static void onLoad(ModConfig modConfig) {
