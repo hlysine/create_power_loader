@@ -75,7 +75,11 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
         savedState.blockPos = entityBlockPos;
 
         if (shouldFunction(context)) {
-            updateForcedChunks(context.world.getServer(), entityChunkPos, context.contraption.entity.getUUID(), 2, savedState.forcedChunks);
+            updateForcedChunks(context.world.getServer(),
+                    entityChunkPos,
+                    context.contraption.entity.getUUID(),
+                    CPLConfigs.server().getFor(savedState.loaderType).rangeOnContraption.get(),
+                    savedState.forcedChunks);
             LOGGER.debug("CPL: Entity {} at new chunk {}, loaded {} chunks", context.contraption.entity, entityChunkPos, savedState.forcedChunks.size());
         } else {
             unforceAllChunks(context.world.getServer(), context.contraption.entity.getUUID(), savedState.forcedChunks);
@@ -109,7 +113,11 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
             }
 
             if (shouldFunction(context)) {
-                updateForcedChunks(context.world.getServer(), entityChunkPos, context.contraption.entity.getUUID(), 2, savedState.forcedChunks);
+                updateForcedChunks(context.world.getServer(),
+                        entityChunkPos,
+                        context.contraption.entity.getUUID(),
+                        CPLConfigs.server().getFor(savedState.loaderType).rangeOnContraption.get(),
+                        savedState.forcedChunks);
                 LOGGER.debug("CPL: Entity {} starts moving at chunk {}, loaded {} chunks", context.contraption.entity, entityChunkPos, savedState.forcedChunks.size());
             } else
                 unforceAllChunks(context.world.getServer(), context.contraption.entity.getUUID(), savedState.forcedChunks);

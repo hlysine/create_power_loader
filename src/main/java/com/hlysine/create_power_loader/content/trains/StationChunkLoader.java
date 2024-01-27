@@ -92,7 +92,7 @@ public class StationChunkLoader implements ChunkLoader {
             if (isEnabledForStation(attachment.type()))
                 loadTargets.add(new LoadedChunkPos(station.blockEntityDimension.location(), new ChunkPos(attachment.pos())));
         }
-        ChunkLoadManager.updateForcedChunks(level.getServer(), loadTargets, station.id, 2, forcedChunks);
+        ChunkLoadManager.updateForcedChunks(level.getServer(), loadTargets, station.id, CPLConfigs.server().getFor(getLoaderType()).rangeOnStation.get(), forcedChunks);
     }
 
     public static boolean isEnabledForStation(LoaderType type) {

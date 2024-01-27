@@ -17,10 +17,13 @@ public class CLoader extends ConfigBase {
     public final ConfigBool enableStatic = b(true, "enableStatic", Comments.enableStatic);
 
     public final ConfigBool enableContraption;
+    public final ConfigInt rangeOnContraption = i(2, 1, 10, "rangeOnContraption", Comments.rangeOnContraption);
 
     public final ConfigBool enableTrain;
+    public final ConfigInt rangeOnTrain = i(2, 1, 10, "rangeOnTrain", Comments.rangeOnTrain);
 
     public final ConfigBool enableStation;
+    public final ConfigInt rangeOnStation = i(2, 1, 10, "rangeOnStation", Comments.rangeOnStation);
 
     private final LoaderType type;
 
@@ -52,7 +55,10 @@ public class CLoader extends ConfigBase {
         static String stressImpact = "The stress impact of a chunk loader when it is at 1 RPM";
         static String enableStatic = "Whether the chunk loader functions on the ground when given rotational power";
         static String enableContraption = "Whether the chunk loader functions on contraptions other than trains. WARNING: does not update contraptions that are currently unloaded";
+        static String rangeOnContraption = "Chunk loading radius on contraptions. 1 = 1 chunk, 2 = 9 chunks. Contraptions require a minimum radius of 2 for reliable loading";
         static String enableTrain = "Whether the chunk loader functions on trains";
+        static String rangeOnTrain = "Chunk loading radius on trains. 1 = 1 chunk, 2 = 9 chunks";
         static String enableStation = "Whether the chunk loader functions when attached to train stations.";
+        static String rangeOnStation = "Chunk loading radius on train stations. 1 = 1 chunk, 2 = 9 chunks";
     }
 }

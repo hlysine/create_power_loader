@@ -79,7 +79,7 @@ public class CarriageChunkLoader implements ChunkLoader {
         addLoadTargets(loadTargets, carriage.leadingBogey().trailing());
         addLoadTargets(loadTargets, carriage.trailingBogey().leading());
 
-        ChunkLoadManager.updateForcedChunks(level.getServer(), loadTargets, carriage.train.id, 2, forcedChunks);
+        ChunkLoadManager.updateForcedChunks(level.getServer(), loadTargets, carriage.train.id, CPLConfigs.server().getFor(getLoaderType()).rangeOnTrain.get(), forcedChunks);
     }
 
     public void onRemove() {
