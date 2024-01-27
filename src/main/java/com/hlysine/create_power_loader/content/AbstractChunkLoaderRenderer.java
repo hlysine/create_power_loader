@@ -40,7 +40,7 @@ public abstract class AbstractChunkLoaderRenderer extends KineticBlockEntityRend
         Direction direction = be.getBlockState()
                 .getValue(FACING);
         boolean attached = be.getBlockState().getValue(ATTACHED);
-        boolean active = attached ? be.isLoaderActive : be.isSpeedRequirementFulfilled();
+        boolean active = attached ? be.isLoaderActive : be.canLoadChunks();
         VertexConsumer vb = buffer.getBuffer(RenderType.cutoutMipped());
 
         SuperByteBuffer shaftHalf =

@@ -130,7 +130,7 @@ public class CarriageChunkLoader implements ChunkLoader {
 
     private boolean canLoadChunks() {
         if (carriage.train.graph == null) return false;
-        return andesite && CPLConfigs.server().andesiteOnContraption.get() || brass && CPLConfigs.server().brassOnContraption.get();
+        return andesite && CPLConfigs.server().andesite.enableTrain.get() || brass && CPLConfigs.server().brass.enableTrain.get();
     }
 
     public CompoundTag write() {

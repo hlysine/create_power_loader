@@ -61,11 +61,6 @@ public class BrassChunkLoaderBlockEntity extends AbstractChunkLoaderBlockEntity 
         loadingRange.setValue(range - 1);
     }
 
-    @Override
-    protected double getSpeedMultiplierConfig() {
-        return CPLConfigs.server().brassSpeedMultiplier.get();
-    }
-
     private static class LoadingRangeValueBox extends CenteredSideValueBoxTransform {
         public LoadingRangeValueBox() {
             super((blockState, direction) -> {

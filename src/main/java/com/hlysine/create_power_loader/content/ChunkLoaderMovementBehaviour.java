@@ -151,12 +151,8 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
     private boolean shouldFunction(MovementContext context) {
         if (context.contraption instanceof CarriageContraption) {
             return false; // train loading is handled with special logic
-        } else if (type == LoaderType.ANDESITE) {
-            return CPLConfigs.server().andesiteOnContraption.get();
-        } else if (type == LoaderType.BRASS) {
-            return CPLConfigs.server().brassOnContraption.get();
         } else {
-            return false;
+            return CPLConfigs.server().getFor(type).enableContraption.get();
         }
     }
 

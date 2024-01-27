@@ -122,7 +122,7 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
         }
 
         if (server && chunkUpdateCooldown-- <= 0) {
-            chunkUpdateCooldown = CPLConfigs.server().chunkUpdateInterval.get();
+            chunkUpdateCooldown = CPLConfigs.server().getFor(type).chunkUpdateInterval.get();
             if (needsUpdate()) {
                 setChanged();
                 updateForcedChunks();
@@ -149,25 +149,29 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
 
     private boolean needsUpdate() {
         if (lastBlockPos == null) return true;
-        return !lastBlockPos.equals(getBlockPos()) || lastEnabled != isSpeedRequirementFulfilled() || lastRange != getLoadingRange() || chunkUnloadCooldown > 0;
+        return !lastBlockPos.equals(getBlockPos()) || lastEnabled != canLoadChunks() || lastRange != getLoadingRange() || chunkUnloadCooldown > 0;
     }
 
     protected void updateForcedChunks() {
         boolean resetStates = true;
-        if (isSpeedRequirementFulfilled()) {
+        if (canLoadChunks()) {
             ChunkLoadManager.updateForcedChunks(level.getServer(), new LoadedChunkPos(getLevel(), getBlockPos()), getBlockPos(), getLoadingRange(), forcedChunks);
-        } else if (chunkUnloadCooldown >= CPLConfigs.server().unloadGracePeriod.get()) {
+        } else if (chunkUnloadCooldown >= CPLConfigs.server().getFor(type).unloadGracePeriod.get()) {
             unforceAllChunks(level.getServer(), getBlockPos(), forcedChunks);
         } else {
-            chunkUnloadCooldown += CPLConfigs.server().chunkUpdateInterval.get();
+            chunkUnloadCooldown += CPLConfigs.server().getFor(type).chunkUpdateInterval.get();
             resetStates = false;
         }
         if (resetStates) {
             chunkUnloadCooldown = 0;
             lastBlockPos = getBlockPos().immutable();
-            lastEnabled = isSpeedRequirementFulfilled();
+            lastEnabled = canLoadChunks();
             lastRange = getLoadingRange();
         }
+    }
+
+    public boolean canLoadChunks() {
+        return isSpeedRequirementFulfilled() && CPLConfigs.server().getFor(type).enableStatic.get();
     }
 
     @Override
@@ -182,7 +186,7 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
         IRotate.SpeedLevel minimumRequiredSpeedLevel = def.getMinimumRequiredSpeedLevel();
         float minSpeed = minimumRequiredSpeedLevel.getSpeedValue();
 
-        double requirement = minSpeed * (float) Math.pow(2, getLoadingRange()) * getSpeedMultiplierConfig();
+        double requirement = minSpeed * (float) Math.pow(2, getLoadingRange()) * CPLConfigs.server().getFor(type).speedMultiplier.get();
         return Math.abs(getSpeed()) >= requirement;
     }
 
@@ -220,12 +224,10 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
 
     public abstract int getLoadingRange();
 
-    protected abstract double getSpeedMultiplierConfig();
-
     protected void spawnParticles() {
         if (level == null)
             return;
-        if (!isSpeedRequirementFulfilled())
+        if (!canLoadChunks())
             return;
 
         RandomSource r = level.getRandom();

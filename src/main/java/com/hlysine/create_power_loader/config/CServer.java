@@ -1,24 +1,52 @@
 package com.hlysine.create_power_loader.config;
 
+import com.hlysine.create_power_loader.content.AbstractChunkLoaderBlock;
+import com.hlysine.create_power_loader.content.LoaderType;
+import com.simibubi.create.content.kinetics.BlockStressValues;
 import com.simibubi.create.foundation.config.ConfigBase;
+import com.simibubi.create.foundation.utility.Couple;
+import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Nullable;
 
-public class CServer extends ConfigBase {
+public class CServer extends ConfigBase implements BlockStressValues.IStressValueProvider {
 
-    public final ConfigInt chunkUpdateInterval = i(10, 0, 200, "chunkUpdateInterval", Comments.chunkUpdateInterval);
+    public final CLoader andesite = nested(0, () -> new CLoader(LoaderType.ANDESITE), Comments.andesite);
 
-    public final ConfigInt unloadGracePeriod = i(20, 0, 20 * 60, "unloadGracePeriod", Comments.unloadGracePeriod);
+    public final CLoader brass = nested(0, () -> new CLoader(LoaderType.BRASS), Comments.brass);
 
+    public CLoader getFor(LoaderType type) {
+        return switch (type) {
+            case ANDESITE -> andesite;
+            case BRASS -> brass;
+        };
+    }
 
-    public final ConfigBool andesiteOnContraption = b(false, "andesiteOnContraption", Comments.andesiteOnContraption);
-    public final ConfigBool andesiteOnStation = b(false, "andesiteOnStation", Comments.andesiteOnStation);
+    @Override
+    public double getImpact(Block block) {
+        if (!(block instanceof AbstractChunkLoaderBlock loader)) return 0;
+        return getFor(loader.loaderType).stressImpact.get();
+    }
 
-    public final ConfigFloat andesiteSpeedMultiplier = f(1, 0, 128, "andesiteSpeedMultiplier", Comments.andesiteSpeedMultiplier);
+    @Override
+    public double getCapacity(Block block) {
+        return 0;
+    }
 
+    @Override
+    public boolean hasImpact(Block block) {
+        return block instanceof AbstractChunkLoaderBlock loader;
+    }
 
-    public final ConfigBool brassOnContraption = b(true, "brassOnContraption", Comments.brassOnContraption);
-    public final ConfigBool brassOnStation = b(true, "brassOnStation", Comments.brassOnStation);
+    @Override
+    public boolean hasCapacity(Block block) {
+        return false;
+    }
 
-    public final ConfigFloat brassSpeedMultiplier = f(1, 0, 128, "brassSpeedMultiplier", Comments.brassSpeedMultiplier);
+    @Nullable
+    @Override
+    public Couple<Integer> getGeneratedRPM(Block block) {
+        return null;
+    }
 
     @Override
     public String getName() {
@@ -26,13 +54,7 @@ public class CServer extends ConfigBase {
     }
 
     private static class Comments {
-        static String chunkUpdateInterval = "Number of ticks between chunk loading checks. Does not affect contraptions";
-        static String unloadGracePeriod = "Minimum number of ticks between loss of power and chunk unloading. Rounds up to multiples of update interval";
-        static String andesiteOnContraption = "Whether andesite chunk loaders function on contraptions. WARNING: does not update existing contraptions";
-        static String andesiteOnStation = "Whether andesite chunk loaders function when attached to train stations";
-        static String andesiteSpeedMultiplier = "A multiplier for the speed requirements for andesite chunk loaders";
-        static String brassOnContraption = "Whether brass chunk loaders function on contraptions. WARNING: does not update existing contraptions";
-        static String brassOnStation = "Whether brass chunk loaders function when attached to train stations";
-        static String brassSpeedMultiplier = "A multiplier for the speed requirements for brass chunk loaders";
+        static String andesite = "Configure the Andesite Chunk Loader";
+        static String brass = "Configure the Brass Chunk Loader";
     }
 }

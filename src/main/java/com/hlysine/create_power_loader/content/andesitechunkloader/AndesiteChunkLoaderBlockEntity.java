@@ -21,9 +21,4 @@ public class AndesiteChunkLoaderBlockEntity extends AbstractChunkLoaderBlockEnti
     public int getLoadingRange() {
         return LOADING_RANGE;
     }
-
-    @Override
-    protected double getSpeedMultiplierConfig() {
-        return CPLConfigs.server().andesiteSpeedMultiplier.get();
-    }
 }

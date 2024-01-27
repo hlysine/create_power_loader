@@ -96,11 +96,7 @@ public class StationChunkLoader implements ChunkLoader {
     }
 
     public static boolean isEnabledForStation(LoaderType type) {
-        if (type == LoaderType.ANDESITE)
-            return CPLConfigs.server().andesiteOnStation.get();
-        else if (type == LoaderType.BRASS)
-            return CPLConfigs.server().brassOnStation.get();
-        else throw new IllegalArgumentException("Unknown LoaderType " + type);
+        return CPLConfigs.server().getFor(type).enableStation.get();
     }
 
     public void removeAttachment(BlockPos pos) {
