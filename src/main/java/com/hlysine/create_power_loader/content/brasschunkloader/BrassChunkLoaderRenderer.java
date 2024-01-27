@@ -7,6 +7,7 @@ import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.AbstractChunkLoaderRenderer;
 import com.jozufozu.flywheel.core.PartialModel;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
+import com.simibubi.create.content.trains.entity.CarriageContraption;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
 
@@ -31,8 +32,12 @@ public class BrassChunkLoaderRenderer extends AbstractChunkLoaderRenderer {
 
     @Override
     protected boolean shouldFunctionOnContraption(MovementContext context) {
-        return CPLConfigs.server().brassOnContraption.get() &&
-                !context.contraption.isActorTypeDisabled(CPLBlocks.BRASS_CHUNK_LOADER.asStack()) &&
+        if (context.contraption instanceof CarriageContraption) {
+            if (!CPLConfigs.server().brass.enableTrain.get()) return false;
+        } else {
+            if (!CPLConfigs.server().brass.enableContraption.get()) return false;
+        }
+        return !context.contraption.isActorTypeDisabled(CPLBlocks.BRASS_CHUNK_LOADER.asStack()) &&
                 !context.contraption.isActorTypeDisabled(ItemStack.EMPTY);
     }
 }

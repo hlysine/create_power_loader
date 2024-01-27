@@ -22,10 +22,12 @@ import javax.annotation.Nullable;
 
 public abstract class AbstractChunkLoaderBlock extends DirectionalKineticBlock {
     public static final BooleanProperty ATTACHED = BlockStateProperties.ATTACHED;
+    public final LoaderType loaderType;
 
 
-    public AbstractChunkLoaderBlock(Properties properties) {
+    public AbstractChunkLoaderBlock(Properties properties, LoaderType loaderType) {
         super(properties);
+        this.loaderType = loaderType;
         registerDefaultState(defaultBlockState().setValue(ATTACHED, false));
     }
 
@@ -131,7 +133,7 @@ public abstract class AbstractChunkLoaderBlock extends DirectionalKineticBlock {
         BlockEntity be = pLevel.getBlockEntity(pPos);
         if (be instanceof AbstractChunkLoaderBlockEntity chunkLoader) {
             boolean attached = pState.getValue(ATTACHED);
-            return (attached ? chunkLoader.isLoaderActive : chunkLoader.isSpeedRequirementFulfilled()) ? 15 : 0;
+            return (attached ? chunkLoader.isLoaderActive : chunkLoader.canLoadChunks()) ? 15 : 0;
         }
         return 0;
     }

@@ -94,15 +94,11 @@ public class StationChunkLoader implements ChunkLoader {
             if (isEnabledForStation(attachment.type()))
                 loadTargets.add(new LoadedChunkPos(station.blockEntityDimension.location(), new ChunkPos(attachment.pos())));
         }
-        ChunkLoadManager.updateForcedChunks(level.getServer(), loadTargets, station.id, 2, forcedChunks);
+        ChunkLoadManager.updateForcedChunks(level.getServer(), loadTargets, station.id, CPLConfigs.server().getFor(getLoaderType()).rangeOnStation.get(), forcedChunks);
     }
 
     public static boolean isEnabledForStation(LoaderType type) {
-        if (type == LoaderType.ANDESITE)
-            return CPLConfigs.server().andesiteOnStation.get();
-        else if (type == LoaderType.BRASS)
-            return CPLConfigs.server().brassOnStation.get();
-        else throw new IllegalArgumentException("Unknown LoaderType " + type);
+        return CPLConfigs.server().getFor(type).enableStation.get();
     }
 
     public void removeAttachment(BlockPos pos) {
