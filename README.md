@@ -14,27 +14,15 @@ A Create mod add-on adding immersive andesite and brass chunk loaders to Minecra
 
 > **Want more Create-esque QoL items? Check out [Create: Connected](https://modrinth.com/mod/create-connected)**
 
-## What's new in 1.3.0
+## What's new in 1.4.0
 
-**Train Station attachment**
+**Config Overhaul**
 
-You can now attach Chunk Loaders to a Train Station to only load chunks when a train arrives!
+The server config has been split into two sections for the andesite and brass chunk loaders, 
+allowing fine-grained control over the function of both chunk loaders in each use case.
+An example use case would be to create a chunk loader dedicated to train stations by disabling all other modes of function.
 
-![Train Attachment Ponder](https://cdn.modrinth.com/data/wPQ6GgFE/images/0cdf2fecd6253f267cf32103e51a062b78ffaace.png)
-
-New configs are added for you to toggle this function on the andesite/brass chunk loader.
-
-**Reliable interdimensional chunk loading**
-
-The entire chunk loading logic has been rewritten to take dimensions into account, and chunk loaders on trains now use
-Create's track graph to provide reliable chunk loading.
-
-**Operator commands**
-
-The `/powerloader list` and `/powerloader summary` commands track all reachable chunk loaders for easy moderation on
-servers.
-
-![powerloader list command](https://github.com/hlysine/create_power_loader/assets/25472513/e28c9b7c-fa27-4ac1-aaf5-2500771439bd)
+**Important: the server config will reset upon updating to v1.4.0! Please reconfigure everything if you have applied custom configs before.**
 
 ## Features
 
@@ -50,6 +38,10 @@ servers.
 - Reliable chunk loading and unloading
 - Lots of configs for customization
 - Complete ponder scenes
+
+![Train Attachment Ponder](https://cdn.modrinth.com/data/wPQ6GgFE/images/0cdf2fecd6253f267cf32103e51a062b78ffaace.png)
+
+![powerloader list command](https://github.com/hlysine/create_power_loader/assets/25472513/e28c9b7c-fa27-4ac1-aaf5-2500771439bd)
 
 *If the provided crafting recipes do not suit your needs, you can override the provided recipes by creating your own
 datapack.*
@@ -86,7 +78,8 @@ If you would like to offer more direct support, you can [![ko-fi](https://ko-fi.
 
 **Translation**
 
-[Huantanhua](https://github.com/Huantanhua) for Simplified Chinese translation
+- [Huantanhua](https://github.com/Huantanhua) for Simplified Chinese translations
+- [Abbage230](https://github.com/Abbage230) for Japanese translations
 
 **Inspiration**
 
