@@ -87,6 +87,9 @@ minecraft {
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
 
+            //Allows for reloading the project during runtime with compatible java
+            jvmArg "-XX:+AllowEnhancedClassRedefinition"
+
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
@@ -265,7 +268,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 wrapper {
-    gradleVersion = '8.1.1'
+    gradleVersion = '8.4'
     distributionType = Wrapper.DistributionType.BIN
 }
 
@@ -278,7 +281,7 @@ publishMods {
     github {
         accessToken = secrets.GITHUB_TOKEN
         repository = "hlysine/create_power_loader"
-        commitish = "main"
+        commitish = "mc1.19.2/main"
     }
 
     modrinth {
