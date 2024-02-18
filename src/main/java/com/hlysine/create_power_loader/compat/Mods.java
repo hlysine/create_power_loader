@@ -1,9 +1,9 @@
 package com.hlysine.create_power_loader.compat;
 
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -32,14 +32,14 @@ public enum Mods {
     }
 
     public Block getBlock(String id) {
-        return ForgeRegistries.BLOCKS.getValue(rl(id));
+        return BuiltInRegistries.BLOCK.get(rl(id));
     }
 
     /**
      * @return a boolean of whether the mod is loaded or not based on mod id
      */
     public boolean isLoaded() {
-        return ModList.get().isLoaded(id);
+        return FabricLoader.getInstance().isModLoaded(id);
     }
 
     /**
