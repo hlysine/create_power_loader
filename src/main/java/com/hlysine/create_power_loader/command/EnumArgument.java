@@ -2,6 +2,7 @@ package com.hlysine.create_power_loader.command;
 
 
 import com.google.gson.JsonObject;
+import com.hlysine.create_power_loader.CreatePowerLoader;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -12,6 +13,8 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.synchronization.ArgumentTypeInfo;
+import net.minecraft.commands.synchronization.ArgumentTypeInfos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 
@@ -22,6 +25,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class EnumArgument<T extends Enum<T>> implements ArgumentType<T> {
+    public static void register() {
+        ArgumentTypeInfos.register(BuiltInRegistries.COMMAND_ARGUMENT_TYPE,
+                CreatePowerLoader.asResource("enum").toString(),
+                EnumArgument.class,
+                new EnumArgument.Info());
+    }
+
     private static final Dynamic2CommandExceptionType INVALID_ENUM = new Dynamic2CommandExceptionType(
             (found, constants) -> Component.translatable("commands.forge.arguments.enum.invalid", constants, found));
     private final Class<T> enumClass;

@@ -1,5 +1,6 @@
 package com.hlysine.create_power_loader;
 
+import com.hlysine.create_power_loader.command.EnumArgument;
 import com.hlysine.create_power_loader.compat.Mods;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.ChunkLoadManager;
@@ -44,6 +45,7 @@ public class CreatePowerLoader implements ModInitializer {
         PortingLibChunkManager.setForcedChunkLoadingCallback(MODID, ChunkLoadManager::validateAllForcedChunks);
 
         CommonEvents.register();
+        EnumArgument.register();
     }
 
     public static CreateRegistrate getRegistrate() {
