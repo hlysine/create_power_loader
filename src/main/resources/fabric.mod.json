@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": [
+    "${mod_authors}"
+  ],
+  "contact": {},
+  "license": "${mod_license}",
+  "icon": "create_power_loader_icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "com.hlysine.create_power_loader.CPLDatagen"
+    ],
+    "main": [
+      "com.hlysine.create_power_loader.CreatePowerLoader"
+    ],
+    "client": [
+      "com.hlysine.create_power_loader.CreatePowerLoaderClient"
+    ]
+  },
+  "mixins": [
+    "create_power_loader.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "${loader_version_range}",
+    "minecraft": "${minecraft_version_range}",
+    "create": "${create_version_range}",
+    "forgeconfigapiport": "${config_api_version_range}"
+  }
+}
