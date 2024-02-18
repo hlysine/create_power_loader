@@ -225,7 +225,7 @@ publishMods {
 
     modrinth {
         accessToken = secrets.MODRINTH_TOKEN
-        projectId = "wPQ6GgFE"
+        projectId = "E9MuZ1zB"
         minecraftVersions.add(minecraft_version)
 
         requires {
@@ -238,7 +238,7 @@ publishMods {
 
     curseforge {
         accessToken = secrets.CURSEFORGE_TOKEN
-        projectId = "936020"
+        projectId = "976304"
         minecraftVersions.add(minecraft_version)
     }
 }
