@@ -14,11 +14,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.UUID;
 
-@Mixin(value = GlobalRailwayManager.class, remap = false)
+@Mixin(value = GlobalRailwayManager.class)
 public class GlobalRailwayManagerMixin {
     @Inject(
             at = @At("HEAD"),
-            method = "removeTrain(Ljava/util/UUID;)V"
+            method = "removeTrain(Ljava/util/UUID;)V",
+            remap = false
     )
     private void cpl$removeTrain(UUID id, CallbackInfo ci) {
         Train train = Create.RAILWAYS.trains.get(id);

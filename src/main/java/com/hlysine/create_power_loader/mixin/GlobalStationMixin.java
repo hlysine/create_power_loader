@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = GlobalStation.class, remap = false)
+@Mixin(value = GlobalStation.class)
 public class GlobalStationMixin implements CPLGlobalStation {
     @Unique
     public StationChunkLoader cpl$chunkLoader;

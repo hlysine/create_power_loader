@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Map;
 import java.util.UUID;
 
-@Mixin(value = Train.class, remap = false)
+@Mixin(value = Train.class)
 public class TrainMixin implements CPLTrain {
     @Unique
     public TrainChunkLoader cpl$chunkLoader;

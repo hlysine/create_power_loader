@@ -8,11 +8,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = TrackEdgePoint.class, remap = false)
+@Mixin(value = TrackEdgePoint.class)
 public class TrackEdgePointMixin {
     @Inject(
             at = @At("HEAD"),
-            method = "tick(Lcom/simibubi/create/content/trains/graph/TrackGraph;Z)V"
+            method = "tick(Lcom/simibubi/create/content/trains/graph/TrackGraph;Z)V",
+            remap = false
     )
     public void cpl$tick(TrackGraph graph, boolean preTrains, CallbackInfo ci) {
         if (this instanceof CPLGlobalStation station) {
@@ -22,7 +23,8 @@ public class TrackEdgePointMixin {
 
     @Inject(
             at = @At("HEAD"),
-            method = "removeFromAllGraphs()V"
+            method = "removeFromAllGraphs()V",
+            remap = false
     )
     public void cpl$remove(CallbackInfo ci) {
         if (this instanceof CPLGlobalStation station) {
