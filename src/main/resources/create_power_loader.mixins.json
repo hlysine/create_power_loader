@@ -3,7 +3,7 @@
   "package": "com.hlysine.create_power_loader.mixin",
   "compatibilityLevel": "JAVA_8",
   "minVersion": "0.8",
-  "refmap": "create_power_loader.refmap.json",
+  "refmap": "create_power_loader-refmap.json",
   "plugin": "com.hlysine.create_power_loader.mixin.MixinPlugin",
   "mixins": [
     "GlobalRailwayManagerMixin",
