@@ -130,7 +130,7 @@ dependencies {
     modCompileOnly("com.simibubi.create:create-fabric-${create_minecraft_version}:${create_version}") { transitive = false }
     modRuntimeOnly("com.simibubi.create:create-fabric-${create_minecraft_version}:${create_version}")
     for (String module in port_lib_modules.split(",")) {
-        modImplementation("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version")
+        modImplementation(include("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
     }
 
     modImplementation("curse.maven:forge-config-api-port-fabric-547434:$config_api_file_id")
