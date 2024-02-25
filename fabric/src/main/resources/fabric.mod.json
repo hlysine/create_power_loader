@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "create_power_loader",
+  "version": "${version}",
+  "name": "Example Mod",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "Me!"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "Insert License Here",
+  "icon": "assets/create_power_loader/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.hlysine.create_power_loader.fabric.CreatePowerLoaderFabric"
+    ]
+  },
+  "mixins": [
+    "create_power_loader.mixins.json",
+    "create_power_loader-common.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.20.1"
+  }
+}
