@@ -3,7 +3,7 @@
   "acceptMirrored": false,
   "key": {
     "G": {
-      "tag": "forge:glass"
+      "tag": "c:glass_blocks"
     },
     "R": {
       "item": "minecraft:respawn_anchor"
