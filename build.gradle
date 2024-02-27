@@ -229,7 +229,7 @@ publishMods {
         minecraftVersions.add(minecraft_version)
 
         requires {
-            id = "LNytGWDc"
+            id = "Xbc0uyRg"
         }
         optional {
             id = "u6dRKJwZ"
