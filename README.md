@@ -16,6 +16,11 @@ A Create mod add-on adding immersive andesite and brass chunk loaders to Minecra
 
 ## What's new in 1.4.0
 
+**Create 0.5.1f support**
+
+Create: Power Loader v1.4.3 now targets Create 0.5.1f.
+**Version requirement is strict and patch-d/f versions are not cross-compatible!**
+
 **Config Overhaul**
 
 The server config has been split into two sections for the andesite and brass chunk loaders, 
