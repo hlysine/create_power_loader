@@ -2,7 +2,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'fabric-loom' version '1.4-SNAPSHOT'
+    id 'fabric-loom' version '1.5.+'
     id 'me.modmuss50.mod-publish-plugin' version '0.4.5'
 }
 
@@ -93,13 +93,20 @@ repositories {
         url = 'https://maven.parchmentmc.org'
     }
     maven {
+        // Registrate, Forge Tags, Milk Lib
         url = "https://mvn.devos.one/snapshots/"
     }
     maven {
-        url = "https://cursemaven.com"
+        // Porting Lib
+        url = "https://mvn.devos.one/releases/"
+    }
+    maven {
+        // Forge Config API Port
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
     }
     maven {
         url = "https://jitpack.io"
+        content { includeGroupAndSubgroups("com.github") }
     }
     maven { // Reach Entity Attributes
         url = "https://maven.jamieswhiteshirt.com/libs-release"
@@ -122,7 +129,6 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    modImplementation("net.fabricmc.fabric-api:fabric-api-deprecated:$fabric_version")
 
     modImplementation("com.tterrag.registrate_fabric:Registrate:${registrate_version}")
     modImplementation("com.jozufozu.flywheel:flywheel-fabric-${flywheel_minecraft_version}:${flywheel_version}")
@@ -133,7 +139,7 @@ dependencies {
         modImplementation(include("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
     }
 
-    modImplementation("curse.maven:forge-config-api-port-fabric-547434:$config_api_file_id")
+    modImplementation("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:$config_api_version")
 
     // Example mod dependency with JEI - using the mod prefix ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -207,7 +213,7 @@ tasks.publishMods.dependsOn(tasks.assemble)
 tasks.publishMods.mustRunAfter(tasks.build)
 
 wrapper {
-    gradleVersion = '8.4'
+    gradleVersion = '8.5'
     distributionType = Wrapper.DistributionType.BIN
 }
 
