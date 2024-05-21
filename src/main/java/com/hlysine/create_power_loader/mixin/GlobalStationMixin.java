@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = GlobalStation.class, remap = false)
+@Mixin(value = GlobalStation.class)
 public class GlobalStationMixin implements CPLGlobalStation {
     @Unique
     public StationChunkLoader cpl$chunkLoader;
@@ -34,30 +34,35 @@ public class GlobalStationMixin implements CPLGlobalStation {
 
     @Inject(
             at = @At("RETURN"),
-            method = "read(Lnet/minecraft/nbt/CompoundTag;ZLcom/simibubi/create/content/trains/graph/DimensionPalette;)V"
+            method = "read(Lnet/minecraft/nbt/CompoundTag;ZLcom/simibubi/create/content/trains/graph/DimensionPalette;)V",
+            remap = false
     )
     private void cpl$read(CompoundTag nbt, boolean migration, DimensionPalette dimensions, CallbackInfo ci) {
-        cpl$chunkLoader = StationChunkLoader.read((GlobalStation) (Object) this, nbt.getCompound("CPLData"));
+        CompoundTag data = nbt.getCompound("CPLData");
+        cpl$chunkLoader = StationChunkLoader.read((GlobalStation) (Object) this, data);
     }
 
     @Inject(
-            at = @At("RETURN"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/network/FriendlyByteBuf;readUtf()Ljava/lang/String;"),
             method = "read(Lnet/minecraft/network/FriendlyByteBuf;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)V"
     )
     private void cpl$read(FriendlyByteBuf buffer, DimensionPalette dimensions, CallbackInfo ci) {
-        cpl$chunkLoader = StationChunkLoader.read((GlobalStation) (Object) this, buffer.readAnySizeNbt());
+        CompoundTag nbt = buffer.readAnySizeNbt();
+        if (nbt != null)
+            cpl$chunkLoader = StationChunkLoader.read((GlobalStation) (Object) this, nbt);
     }
 
     @Inject(
             at = @At("RETURN"),
-            method = "write(Lnet/minecraft/nbt/CompoundTag;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)V"
+            method = "write(Lnet/minecraft/nbt/CompoundTag;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)V",
+            remap = false
     )
     private void cpl$write(CompoundTag nbt, DimensionPalette dimensions, CallbackInfo ci) {
         nbt.put("CPLData", getLoader().write());
     }
 
     @Inject(
-            at = @At("RETURN"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/network/FriendlyByteBuf;writeUtf(Ljava/lang/String;)Lnet/minecraft/network/FriendlyByteBuf;"),
             method = "write(Lnet/minecraft/network/FriendlyByteBuf;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)V"
     )
     private void cpl$write(FriendlyByteBuf buffer, DimensionPalette dimensions, CallbackInfo ci) {

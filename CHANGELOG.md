@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.5.0 - 2024-05-21
+
+### Changed
+
+- Target Forge version for 1.20.1 is now 47.2.0
+- Target Create version for 1.20.1 is now 0.5.1.f-26
+- Improved translations for Simplified Chinese (thanks @PopSlime)
+
+### Fixed
+
+- Incompatibility with other mods causing clients to be kicked from server when a train station is placed
+  - This fix introduces breaking changes in the networking code of Power Loader. Update is required on both the client and server.
+
 ## 1.4.0 - 2024-01-27
 
 ### Added
