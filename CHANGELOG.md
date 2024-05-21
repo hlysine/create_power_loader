@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Target Create version for 1.19.2 is now 0.5.1.f-46
+- Target Create version for 1.18.2 is now 0.5.1.f-332
 - Improved translations for Simplified Chinese (thanks @PopSlime)
 
 ### Fixed
