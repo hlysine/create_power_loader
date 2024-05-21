@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Target Forge version for 1.20.1 is now 47.2.0
 - Target Create version for 1.20.1 is now 0.5.1.f-26
+- Improved translations for Simplified Chinese (thanks @PopSlime)
 
 ### Fixed
 
