@@ -156,6 +156,9 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
+    maven {
+        url "https://cursemaven.com"
+    }
 
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:flat_dir_resolver
@@ -183,6 +186,14 @@ dependencies {
     compileOnly(fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge-api:${jei_version}"))
     // at runtime, use the full JEI jar for Forge
     runtimeOnly(fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}"))
+
+    // references to other mods to debug compatibility
+//    implementation fg.deobf("curse.maven:create-steam-n-rails-688231:5331300")
+//    implementation fg.deobf("curse.maven:botarium-704113:5118353")
+//    implementation fg.deobf("curse.maven:create-new-age-905861:5080957")
+//    implementation fg.deobf("curse.maven:cloth-config-348521:4973441")
+//    implementation fg.deobf("curse.maven:appleskin-248787:4770828")
+//    implementation fg.deobf("curse.maven:betterf3-401648:4863626")
 
     // Example mod dependency using a mod jar from ./libs with a flat dir repository
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
