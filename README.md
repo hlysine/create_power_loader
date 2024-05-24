@@ -14,20 +14,12 @@ A Create mod add-on adding immersive andesite and brass chunk loaders to Minecra
 
 > **Want more Create-esque QoL items? Check out [Create: Connected](https://modrinth.com/mod/create-connected)**
 
-## What's new in 1.4.0
+## What's new in 1.5.0
 
-**Create 0.5.1f support**
+**Compatibility fix**
 
-Create: Power Loader v1.4.3 now targets Create 0.5.1f.
-**Version requirement is strict and patch-d/f versions are not cross-compatible!**
-
-**Config Overhaul**
-
-The server config has been split into two sections for the andesite and brass chunk loaders, 
-allowing fine-grained control over the function of both chunk loaders in each use case.
-An example use case would be to create a chunk loader dedicated to train stations by disabling all other modes of function.
-
-**Important: the server config will reset upon updating to v1.4.0! Please reconfigure everything if you have applied custom configs before.**
+This version introduces changes to the networking code of Power Loader, which fix the issue where clients are kicked from server
+when a train station is placed. Note that you **must update Power Loader on both the client and server for this fix to work**. 
 
 ## Features
 

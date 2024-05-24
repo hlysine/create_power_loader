@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.5.0 - 2024-05-21
+
+### Fixed
+
+- Incompatibility with other mods causing clients to be kicked from server when a train station is placed
+  - This fix introduces breaking changes in the networking code of Power Loader. Update is required on both the client and server.
+
 ## 1.4.3 - 2024-03-18 [Fabric only]
 
 ### Changed
