@@ -9,7 +9,8 @@
     "GlobalRailwayManagerMixin",
     "GlobalStationMixin",
     "TrackEdgePointMixin",
-    "TrainMixin"
+    "TrainMixin",
+    "portinglib.PortingLibChunkManagerMixin"
   ],
   "client": [
   ],
