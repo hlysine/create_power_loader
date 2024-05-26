@@ -23,12 +23,21 @@
     ]
   },
   "mixins": [
-    "create_power_loader.mixins.json"
+    "create_power_loader.mixins.json",
+    "porting_lib_chunk_loading.mixins.json"
   ],
   "depends": {
     "fabricloader": "${loader_version_range}",
     "minecraft": "${minecraft_version_range}",
     "create": "${create_version_range}",
     "forgeconfigapiport": "${config_api_version_range}"
+  },
+  "custom": {
+    "loom:injected_interfaces": {
+      "net/minecraft/class_1932": ["io/github/fabricators_of_create/porting_lib/chunk/loading/extensions/ForcedChunksSavedDataExtension"],
+      "net/minecraft/class_3204": ["io/github/fabricators_of_create/porting_lib/chunk/loading/extensions/DistanceManagerExtension"],
+      "net/minecraft/class_3215": ["io/github/fabricators_of_create/porting_lib/chunk/loading/extensions/ServerChunkCacheExtension"],
+      "net/minecraft/class_3228": ["io/github/fabricators_of_create/porting_lib/chunk/loading/extensions/TicketExtension"]
+    }
   }
 }

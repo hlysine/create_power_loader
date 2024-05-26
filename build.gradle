@@ -135,9 +135,10 @@ dependencies {
     modImplementation("com.jamieswhiteshirt:reach-entity-attributes:$reach_entity_attributes_version")
     modCompileOnly("com.simibubi.create:create-fabric-${create_minecraft_version}:${create_version}") { transitive = false }
     modRuntimeOnly("com.simibubi.create:create-fabric-${create_minecraft_version}:${create_version}")
-    for (String module in port_lib_modules.split(",")) {
-        modImplementation(include("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
-    }
+    // todo: use porting lib when chunk_loading module gets backported
+//    for (String module in port_lib_modules.split(",")) {
+//        modImplementation(include("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
+//    }
 
     modImplementation("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:$config_api_version")
 
@@ -218,7 +219,7 @@ wrapper {
 }
 
 publishMods {
-    changelog = "Check out the detailed changelog at https://github.com/hlysine/create_power_loader/blob/fabric/CHANGELOG.md"
+    changelog = "Check out the detailed changelog at https://github.com/hlysine/create_power_loader/blob/mc1.19.2/fabric/CHANGELOG.md"
     type = BETA
     file = tasks.remapJar.archiveFile
     modLoaders.add("fabric")
@@ -226,7 +227,7 @@ publishMods {
     github {
         accessToken = secrets.GITHUB_TOKEN
         repository = "hlysine/create_power_loader"
-        commitish = "fabric"
+        commitish = "mc1.19.2/fabric"
     }
 
     modrinth {
