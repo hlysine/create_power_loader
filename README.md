@@ -14,12 +14,13 @@ A Create mod add-on adding immersive andesite and brass chunk loaders to Minecra
 
 > **Want more Create-esque QoL items? Check out [Create: Connected](https://modrinth.com/mod/create-connected)**
 
-## What's new in 1.5.0
+> **Looking for the [Forge version of Create: Power Loader](https://modrinth.com/mod/create-power-loader)?**
 
-**Compatibility fix**
+## What's new in 1.5.1
 
-This version introduces changes to the networking code of Power Loader, which fix the issue where clients are kicked from server
-when a train station is placed. Note that you **must update Power Loader on both the client and server for this fix to work**. 
+**Chunk loading fix**
+
+A bug in Porting Lib has been fixed. Chunk loading across dimensions is now reliable again.
 
 ## Features
 
@@ -66,10 +67,12 @@ consider adding your use case to the mod.
 
 ## Support
 
-The best way to support my work is to simply download this mod on [**Modrinth**](https://modrinth.com/mod/create-power-loader).
+The best way to support my work is to simply download this mod on [**Modrinth
+**](https://modrinth.com/mod/create-power-loader).
 Enjoy a smoother download experience and support open source software with a single click.
 
-If you would like to offer more direct support, you can [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O2TL8YV)
+If you would like to offer more direct support, you
+can [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O2TL8YV)
 
 ## Credits
 
