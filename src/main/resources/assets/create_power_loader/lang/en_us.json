@@ -47,7 +47,5 @@
   "create_power_loader.ponder.brass_chunk_loader_station.text_2": "Place them next to Train Stations in the correct direction",
   "create_power_loader.ponder.brass_chunk_loader_station.text_3": "They do not require rotational power, but are normally inactive",
   "create_power_loader.ponder.brass_chunk_loader_station.text_4": "When a train arrives at the station, a 3x3 area around the chunk loader is loaded",
-  "create_power_loader.ponder.brass_chunk_loader_station.text_5": "When the train leaves, the area is unloaded again",
-
-  "commands.forge.arguments.enum.invalid": "Enum constant must be one of {0}, found {1}"
+  "create_power_loader.ponder.brass_chunk_loader_station.text_5": "When the train leaves, the area is unloaded again"
 }

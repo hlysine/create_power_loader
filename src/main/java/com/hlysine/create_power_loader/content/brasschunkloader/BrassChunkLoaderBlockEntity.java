@@ -18,6 +18,7 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,7 +42,7 @@ public class BrassChunkLoaderBlockEntity extends AbstractChunkLoaderBlockEntity 
         super.addBehaviours(behaviours);
 
         loadingRange = new ScrollOptionBehaviour<>(LoadingRange.class,
-                Component.translatable(CreatePowerLoader.MODID + ".brass_chunk_loader.loading_range"), this, new LoadingRangeValueBox());
+                new TranslatableComponent(CreatePowerLoader.MODID + ".brass_chunk_loader.loading_range"), this, new LoadingRangeValueBox());
         loadingRange.value = 0;
         loadingRange.withCallback(i -> {
             boolean server = (!level.isClientSide || isVirtual()) && (level instanceof ServerLevel);
