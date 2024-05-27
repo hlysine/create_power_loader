@@ -14,6 +14,8 @@ A Create mod add-on adding immersive andesite and brass chunk loaders to Minecra
 
 > **Want more Create-esque QoL items? Check out [Create: Connected](https://modrinth.com/mod/create-connected)**
 
+> **Looking for the [Fabric version of Create: Power Loader](https://modrinth.com/mod/create-power-loader-fabric)?**
+
 ## What's new in 1.5.0
 
 **Compatibility fix**
