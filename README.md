@@ -16,11 +16,15 @@ A Create mod add-on adding immersive andesite and brass chunk loaders to Minecra
 
 > **Looking for the [Forge version of Create: Power Loader](https://modrinth.com/mod/create-power-loader)?**
 
-## What's new in 1.5.1
+## What's new in 1.5.0+
 
 **Chunk loading fix**
 
 A bug in Porting Lib has been fixed. Chunk loading across dimensions is now reliable again.
+
+**Optimized dependencies**
+
+The jar size of Power Loader is small because unnecessary modules have been removed.
 
 ## Features
 
