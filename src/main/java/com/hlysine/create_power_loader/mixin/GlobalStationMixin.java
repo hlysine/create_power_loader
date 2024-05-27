@@ -34,8 +34,7 @@ public class GlobalStationMixin implements CPLGlobalStation {
 
     @Inject(
             at = @At("RETURN"),
-            method = "read(Lnet/minecraft/nbt/CompoundTag;ZLcom/simibubi/create/content/trains/graph/DimensionPalette;)V",
-            remap = false
+            method = "read(Lnet/minecraft/nbt/CompoundTag;ZLcom/simibubi/create/content/trains/graph/DimensionPalette;)V"
     )
     private void cpl$read(CompoundTag nbt, boolean migration, DimensionPalette dimensions, CallbackInfo ci) {
         CompoundTag data = nbt.getCompound("CPLData");
@@ -54,8 +53,7 @@ public class GlobalStationMixin implements CPLGlobalStation {
 
     @Inject(
             at = @At("RETURN"),
-            method = "write(Lnet/minecraft/nbt/CompoundTag;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)V",
-            remap = false
+            method = "write(Lnet/minecraft/nbt/CompoundTag;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)V"
     )
     private void cpl$write(CompoundTag nbt, DimensionPalette dimensions, CallbackInfo ci) {
         nbt.put("CPLData", getLoader().write());
