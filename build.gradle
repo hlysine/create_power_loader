@@ -239,7 +239,7 @@ wrapper {
 }
 
 publishMods {
-    changelog = "Check out the detailed changelog at https://github.com/hlysine/create_power_loader/blob/mc1.19.2/fabric/CHANGELOG.md"
+    changelog = "Check out the detailed changelog at https://github.com/hlysine/create_power_loader/blob/fabric/CHANGELOG.md"
     type = BETA
     file = tasks.remapJar.archiveFile
     modLoaders.add("fabric")
