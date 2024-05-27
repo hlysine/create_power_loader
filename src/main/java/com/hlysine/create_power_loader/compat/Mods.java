@@ -1,7 +1,7 @@
 package com.hlysine.create_power_loader.compat;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 
@@ -32,7 +32,7 @@ public enum Mods {
     }
 
     public Block getBlock(String id) {
-        return BuiltInRegistries.BLOCK.get(rl(id));
+        return Registry.BLOCK.get(rl(id));
     }
 
     /**

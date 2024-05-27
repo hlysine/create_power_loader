@@ -13,7 +13,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.MaterialColor;
 
 import static com.simibubi.create.AllMovementBehaviours.movementBehaviour;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
@@ -26,7 +26,7 @@ public class CPLBlocks {
             .block("empty_andesite_chunk_loader", props -> new EmptyChunkLoaderBlock(props, CPLBlockEntityTypes.EMPTY_ANDESITE_CHUNK_LOADER))
             .initialProperties(() -> Blocks.BEACON)
             .properties(p -> p
-                    .mapColor(MapColor.PODZOL)
+                    .color(MaterialColor.PODZOL)
                     .isRedstoneConductor((state, getter, pos) -> false)
                     .noOcclusion()
             )
@@ -42,7 +42,7 @@ public class CPLBlocks {
             .block("andesite_chunk_loader", AndesiteChunkLoaderBlock::new)
             .initialProperties(() -> Blocks.BEACON)
             .properties(p -> p
-                    .mapColor(MapColor.PODZOL)
+                    .color(MaterialColor.PODZOL)
                     .isRedstoneConductor((state, getter, pos) -> false)
                     .noOcclusion()
                     .lightLevel((state) -> 4)
@@ -61,7 +61,7 @@ public class CPLBlocks {
             .block("empty_brass_chunk_loader", props -> new EmptyChunkLoaderBlock(props, CPLBlockEntityTypes.EMPTY_BRASS_CHUNK_LOADER))
             .initialProperties(() -> Blocks.BEACON)
             .properties(p -> p
-                    .mapColor(MapColor.TERRACOTTA_YELLOW)
+                    .color(MaterialColor.TERRACOTTA_YELLOW)
                     .isRedstoneConductor((state, getter, pos) -> false)
                     .noOcclusion()
             )
@@ -77,7 +77,7 @@ public class CPLBlocks {
             .block("brass_chunk_loader", BrassChunkLoaderBlock::new)
             .initialProperties(() -> Blocks.BEACON)
             .properties(p -> p
-                    .mapColor(MapColor.TERRACOTTA_YELLOW)
+                    .color(MaterialColor.TERRACOTTA_YELLOW)
                     .isRedstoneConductor((state, getter, pos) -> false)
                     .noOcclusion()
                     .lightLevel((state) -> 6)

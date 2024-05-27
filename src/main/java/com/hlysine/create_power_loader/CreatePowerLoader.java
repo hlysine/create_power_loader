@@ -32,11 +32,12 @@ public class CreatePowerLoader implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        REGISTRATE.creativeModeTab(() -> CPLCreativeTabs.MAIN);
+        CPLCreativeTabs.register();
         CPLTags.register();
         CPLBlocks.register();
         CPLBlockEntityTypes.register();
         REGISTRATE.register();
-        CPLCreativeTabs.register();
 
         CPLConfigs.register();
 

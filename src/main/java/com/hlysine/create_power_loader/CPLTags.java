@@ -2,8 +2,6 @@ package com.hlysine.create_power_loader;
 
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -23,15 +21,15 @@ public class CPLTags {
     }
 
     public static TagKey<Block> forgeBlockTag(String path) {
-        return forgeTag(BuiltInRegistries.BLOCK, path);
+        return forgeTag(Registry.BLOCK, path);
     }
 
     public static TagKey<Item> forgeItemTag(String path) {
-        return forgeTag(BuiltInRegistries.ITEM, path);
+        return forgeTag(Registry.ITEM, path);
     }
 
     public static TagKey<Fluid> forgeFluidTag(String path) {
-        return forgeTag(BuiltInRegistries.FLUID, path);
+        return forgeTag(Registry.FLUID, path);
     }
 
     public enum NameSpace {
@@ -83,9 +81,9 @@ public class CPLTags {
         AllEntityTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
             ResourceLocation id = new ResourceLocation(namespace.id, path == null ? Lang.asId(name()) : path);
             if (optional) {
-                tag = optionalTag(BuiltInRegistries.ENTITY_TYPE, id);
+                tag = optionalTag(Registry.ENTITY_TYPE, id);
             } else {
-                tag = TagKey.create(Registries.ENTITY_TYPE, id);
+                tag = TagKey.create(Registry.ENTITY_TYPE.key(), id);
             }
             this.alwaysDatagen = alwaysDatagen;
         }

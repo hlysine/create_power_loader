@@ -3,8 +3,8 @@ package com.hlysine.create_power_loader.config;
 import com.hlysine.create_power_loader.CreatePowerLoader;
 import com.simibubi.create.content.kinetics.BlockStressValues;
 import com.simibubi.create.foundation.config.ConfigBase;
-import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
-import fuzs.forgeconfigapiport.api.config.v2.ModConfigEvents;
+import net.minecraftforge.api.ModLoadingContext;
+import net.minecraftforge.api.fml.event.config.ModConfigEvents;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
@@ -45,7 +45,7 @@ public class CPLConfigs {
         server = register(CServer::new, ModConfig.Type.SERVER);
 
         for (Entry<ModConfig.Type, ConfigBase> pair : CONFIGS.entrySet())
-            ForgeConfigRegistry.INSTANCE.register(CreatePowerLoader.MODID, pair.getKey(), pair.getValue().specification);
+            ModLoadingContext.registerConfig(CreatePowerLoader.MODID, pair.getKey(), pair.getValue().specification);
 
         BlockStressValues.registerProvider(CreatePowerLoader.MODID, server());
 

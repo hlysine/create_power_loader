@@ -13,7 +13,6 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.entity.Entity;
@@ -29,7 +28,6 @@ import net.minecraft.server.level.TicketType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@ParametersAreNonnullByDefault
 public class PortingLibChunkManager {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final TicketType<TicketOwner<BlockPos>> BLOCK = TicketType.create("forge:block", Comparator.comparing(info -> info));

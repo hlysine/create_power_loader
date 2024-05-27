@@ -11,13 +11,13 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ServerLevel.class)
 public abstract class ServerLevelMixin {
-	@Shadow
-	public abstract LongSet getForcedChunks();
+    @Shadow
+    public abstract LongSet getForcedChunks();
 
-	// Future me see if this can be replaced with a modify expression
-	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/longs/LongSet;isEmpty()Z"))
-	private boolean hasChunks(LongSet instance) {
-		//noinspection ConstantValue
-		return getForcedChunks().isEmpty() && !PortingLibChunkManager.hasForcedChunks((ServerLevel) (Object) this);
-	}
+    // Future me see if this can be replaced with a modify expression
+    @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/longs/LongSet;isEmpty()Z", remap = false))
+    private boolean hasChunks(LongSet instance) {
+        //noinspection ConstantValue
+        return getForcedChunks().isEmpty() && !PortingLibChunkManager.hasForcedChunks((ServerLevel) (Object) this);
+    }
 }

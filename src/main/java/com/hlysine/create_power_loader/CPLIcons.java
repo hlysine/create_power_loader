@@ -3,18 +3,18 @@ package com.hlysine.create_power_loader;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.element.DelegatedStencilElement;
 import com.simibubi.create.foundation.utility.Color;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Matrix4f;
 
 public class CPLIcons extends AllIcons {
 
@@ -52,8 +52,15 @@ public class CPLIcons extends AllIcons {
 
     @Environment(EnvType.CLIENT)
     @Override
-    public void render(GuiGraphics graphics, int x, int y) {
-        graphics.blit(ICON_ATLAS, x, y, 0, iconX, iconY, 16, 16, ICON_ATLAS_SIZE, ICON_ATLAS_SIZE);
+    public void render(PoseStack matrixStack, int x, int y) {
+        bind();
+        GuiComponent.blit(matrixStack, x, y, 0, iconX, iconY, 16, 16, ICON_ATLAS_SIZE, ICON_ATLAS_SIZE);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public void render(PoseStack matrixStack, int x, int y, GuiComponent component) {
+        bind();
+        component.blit(matrixStack, x, y, iconX, iconY, 16, 16);
     }
 
     @Environment(EnvType.CLIENT)

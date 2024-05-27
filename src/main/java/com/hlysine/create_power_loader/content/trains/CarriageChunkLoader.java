@@ -25,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.hlysine.create_power_loader.BackportUtils.blockPosContaining;
 import static com.hlysine.create_power_loader.content.ChunkLoadManager.LoadedChunkPos;
 
 public class CarriageChunkLoader implements ChunkLoader {
@@ -61,7 +62,7 @@ public class CarriageChunkLoader implements ChunkLoader {
         if (carriage.train.graph == null) return null;
         return Pair.of(
                 carriage.leadingBogey().trailing().node1.getLocation().getDimension().location(),
-                BlockPos.containing(carriage.leadingBogey().trailing().getPosition(carriage.train.graph))
+                blockPosContaining(carriage.leadingBogey().trailing().getPosition(carriage.train.graph))
         );
     }
 
@@ -90,16 +91,16 @@ public class CarriageChunkLoader implements ChunkLoader {
         if (point.edge.isInterDimensional()) {
             loadTargets.add(new LoadedChunkPos(
                     point.node1.getLocation().getDimension().location(),
-                    new ChunkPos(BlockPos.containing(point.node1.getLocation().getLocation()))
+                    new ChunkPos(blockPosContaining(point.node1.getLocation().getLocation()))
             ));
             loadTargets.add(new LoadedChunkPos(
                     point.node2.getLocation().getDimension().location(),
-                    new ChunkPos(BlockPos.containing(point.node2.getLocation().getLocation()))
+                    new ChunkPos(blockPosContaining(point.node2.getLocation().getLocation()))
             ));
         } else {
             loadTargets.add(new LoadedChunkPos(
                     point.node1.getLocation().getDimension().location(),
-                    new ChunkPos(BlockPos.containing(point.getPosition(carriage.train.graph)))
+                    new ChunkPos(blockPosContaining(point.getPosition(carriage.train.graph)))
             ));
         }
     }
@@ -116,10 +117,10 @@ public class CarriageChunkLoader implements ChunkLoader {
 
         boolean hasAndesite = false, hasBrass = false;
         for (MutablePair<StructureTemplate.StructureBlockInfo, MovementContext> actor : entity.getContraption().getActors()) {
-            if (!hasAndesite && actor.left.state().is(CPLBlocks.ANDESITE_CHUNK_LOADER.get())) {
+            if (!hasAndesite && actor.left.state.is(CPLBlocks.ANDESITE_CHUNK_LOADER.get())) {
                 hasAndesite = true;
             }
-            if (!hasBrass && actor.left.state().is(CPLBlocks.BRASS_CHUNK_LOADER.get())) {
+            if (!hasBrass && actor.left.state.is(CPLBlocks.BRASS_CHUNK_LOADER.get())) {
                 hasBrass = true;
             }
             if (hasAndesite && hasBrass) break;

@@ -32,16 +32,16 @@ public class SummaryCommand {
                         .executes(ctx -> {
                             CommandSourceStack source = ctx.getSource();
                             fillReport(ctx.getArgument("dimension", ResourceLocation.class),
-                                    (s, f) -> source.sendSuccess(() -> Components.literal(s).withStyle(st -> st.withColor(f)), false),
-                                    (c) -> source.sendSuccess(() -> c, false));
+                                    (s, f) -> source.sendSuccess(Components.literal(s).withStyle(st -> st.withColor(f)), false),
+                                    (c) -> source.sendSuccess(c, false));
                             return Command.SINGLE_SUCCESS;
                         })
                 )
                 .executes(ctx -> {
                     CommandSourceStack source = ctx.getSource();
                     fillReport(null,
-                            (s, f) -> source.sendSuccess(() -> Components.literal(s).withStyle(st -> st.withColor(f)), false),
-                            (c) -> source.sendSuccess(() -> c, false));
+                            (s, f) -> source.sendSuccess(Components.literal(s).withStyle(st -> st.withColor(f)), false),
+                            (c) -> source.sendSuccess(c, false));
                     return Command.SINGLE_SUCCESS;
                 });
     }
