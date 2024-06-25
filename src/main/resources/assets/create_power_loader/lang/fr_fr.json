@@ -1,0 +1,52 @@
+{
+  "itemGroup.create_power_loader.main": "Create: Power Loader",
+
+  "block.create_power_loader.empty_andesite_chunk_loader": "Chargeur de chunk en andésite vide",
+  "block.create_power_loader.andesite_chunk_loader": "Chargeur de chunk en andésite",
+
+  "block.create_power_loader.empty_brass_chunk_loader": "Chargeur de chunk en laiton vide",
+  "block.create_power_loader.brass_chunk_loader": "Chargeur de chunk en laiton",
+  "create_power_loader.brass_chunk_loader.loading_range": "Rayon de chargement de chunk",
+  "create.create_power_loader.brass_chunk_loader.load_1x1": "Carré de 1x1",
+  "create.create_power_loader.brass_chunk_loader.load_3x3": "Carré de 3x3",
+  "create.create_power_loader.brass_chunk_loader.load_5x5": "Carré de 5x5 ",
+
+  "create_power_loader.ponder.empty_chunk_loader_basic.header": "Utilisation des chargeurs de chunk vides",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "Clic droit sur un ghast avec un chargeur de chunk vide pour le capturer",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_2": "Avec la force de rotation, le ghast capturé alimente les noyaux du portail...",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_3": "...donnant vie au chargeur de chunk",
+
+  "create_power_loader.ponder.andesite_chunk_loader_basic.header": "Utilisation simple du chargeur de chunk en andésite",
+  "create_power_loader.ponder.andesite_chunk_loader_basic.text_1": "Le chargeur de chunk garde le chunk actuel chargé quand alimenté par une force de rotation",
+  "create_power_loader.ponder.andesite_chunk_loader_basic.text_2": "Il ne fonctionne pas si la vitesse de rotation est trop faible",
+
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.header": "Redstone et chargeur de chunk en andésite",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_1": "Le chargeur de chunk génère une sortie de comparateur quand il est actif",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_2": "Quand la force de rotation est perdue, un court laps de temps (configurable) s'écoule avant que le chunk ne soit déchargé",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_3": "Le chunk restera chargé si la force de rotation est rétablie pendant ce délai",
+
+  "create_power_loader.ponder.brass_chunk_loader_basic.header": "Utilisation simple du chargeur de chunk en laiton",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_1": "Le chargeur de chunk garde le chunk actuel chargé quand alimenté par une force de rotation",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_2": "Il ne fonctionne pas si la vitesse de rotation est trop faible",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_3": "La portée de chargement peut être configurée dans le paneau de valeur...",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_4": "...mais une plus grande portée demande une plus grande vitesse de rotation",
+
+  "create_power_loader.ponder.brass_chunk_loader_redstone.header": "Redstone et chargeur de chunk en laiton",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_1": "Le chargeur de chunk génère une sortie de comparateur quand il est actif",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_2": "Quand la force de rotation est perdue, un court laps de temps (configurable) s'écoule avant que les chunks ne soient déchargés",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_3": "Les chunks resteront chargés si la force de rotation est rétablie pendant ce délai",
+
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.header": "Charger des chunks autour de machines en mouvement",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_1": "Les chargeurs de chunk en laiton fonctionnent aussi sur les machines",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "Ils chargent toujours une zone de 3x3 chunks autour de la machine",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_3": "Une fois assemblés, ils n'ont pas besoin de force de rotation pour fonctionner",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_4": "Ils fonctionnent aussi sur les machines immobiles",
+
+  "create_power_loader.ponder.brass_chunk_loader_station.header": "Charger des chunks aux stations de train",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_1": "Les chargeurs de chunk en laiton peuvent s'attacher aux stations de train",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_2": "Placez-les dans la bonne direction à côté d'une station de train",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_3": "Ils n'ont pas besoin de force de rotation, mais sont inactifs de base",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "Quand un train arrive à la station, une zone de 3x3 chunks est chargée autour du chargeur",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_5": "Quand le train repart, la zone est à nouveau déchargée"
+}
+
