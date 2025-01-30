@@ -32,7 +32,7 @@ public class TicketMixin<T> implements TicketExtension {
 
 	@ModifyReturnValue(method = "equals", at = @At(value = "RETURN", ordinal = 2))
 	private boolean extendedEquals(boolean oldEqual, Object other) {
-		Ticket<T> ticket = (Ticket<T>) other;
+		@SuppressWarnings("unchecked") Ticket<T> ticket = (Ticket<T>) other;
 		return oldEqual && this.port_lib$forceTicks == ticket.isForceTicks();
 	}
 
