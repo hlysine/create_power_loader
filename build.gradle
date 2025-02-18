@@ -288,6 +288,7 @@ publishMods {
     type = STABLE
     file = jar.archiveFile
     modLoaders.add("forge")
+    modLoaders.add("neoforge")
 
     github {
         accessToken = secrets.GITHUB_TOKEN
