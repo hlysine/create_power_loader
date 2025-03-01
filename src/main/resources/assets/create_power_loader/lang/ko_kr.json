@@ -1,0 +1,51 @@
+{
+  "itemGroup.create_power_loader.main": "Create: Power Loader",
+
+  "block.create_power_loader.empty_andesite_chunk_loader": "빈 안산암 청크 로더",
+  "block.create_power_loader.andesite_chunk_loader": "안산암 청크 로더",
+
+  "block.create_power_loader.empty_brass_chunk_loader": "빈 황동 청크 로더",
+  "block.create_power_loader.brass_chunk_loader": "황동 청크 로더",
+  "create_power_loader.brass_chunk_loader.loading_range": "청크 로딩 반경",
+  "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1",
+  "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3",
+  "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5",
+
+  "create_power_loader.ponder.empty_chunk_loader_basic.header": "빈 청크 로더의 사용법",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "가스트를 우클릭하여 청크 로더에 가둡니다",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_2": "동력이 제공되면, 포획된 가스트는 지옥 포탈 코어로 변합니다...",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_3": "...청크 로더가 가동하는거죠",
+
+  "create_power_loader.ponder.andesite_chunk_loader_basic.header": "안산암 청크 로더의 기본 사용법",
+  "create_power_loader.ponder.andesite_chunk_loader_basic.text_1": "청크 로더는 동력을 연결하면 현재 청크를 로드된 상태로 유지합니다",
+  "create_power_loader.ponder.andesite_chunk_loader_basic.text_2": "회전속도가 너무 느리면 작동하지 않습니다",
+
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.header": "레드스톤과 안산암 청크 로더",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_1": "청크 로더는 활성화되면 비교기 출력을 제공합니다",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_2": "동력이 끊어지면 청크가 언로드되기 전에 약간의 지연(설정 가능)이 있습니다",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_3": "이 지연 사이에 동력이 복원되면 청크는 로드된 상태로 유지됩니다",
+
+  "create_power_loader.ponder.brass_chunk_loader_basic.header": "황동 청크 로더의 기본 사용법",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_1": "청크 로더는 동력을 연결하면 현재 청크를 로드된 상태로 유지합니다",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_2": "회전속도가 너무 느리면 작동하지 않습니다",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_3": "값 패널을 통해 로드될 범위를 구성할 수 있습니다",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_4": "...하지만 범위가 넓을수록 더 높은 RPM이 필요합니다",
+
+  "create_power_loader.ponder.brass_chunk_loader_redstone.header": "레드스톤과 황동 청크 로더",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_1": "청크 로더는 활성화되면 비교기 출력을 제공합니다",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_2": "동력이 끊어지면 청크가 언로드되기 전에 약간의 지연(설정 가능)이 있습니다",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_3": "이 지연 사이에 동력이 복원되면 청크는 로드된 상태로 유지됩니다",
+
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.header": "움직이는 장치 주변에 청크 로드하기",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_1": "황동 청크 로더는 움직이는 장치에도 작동합니다",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "로더는 항상 장치 주위에 3x3 청크 영역을 로드합니다",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_3": "조립 시 작동하는 데 회전력이 필요하지 않습니다",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_4": "고정 장치에도 작동합니다",
+
+  "create_power_loader.ponder.brass_chunk_loader_station.header": "기차역을 위한 청크 로드",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_1": "황동 청크 로더는 기차역에 부착 할 수 있습니다",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_2": "올바른 방향으로 기차역 옆에 배치하세요.",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_3": "회전력이 필요하지 않지만 일반적으로 비활성 상태입니다.",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "열차가 역에 도착하면 청크로더가 3x3으로 활성화 됩니다",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_5": "열차가 출발하면 청크로더는 비활성화 됩니다."
+}
