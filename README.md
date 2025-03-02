@@ -18,18 +18,15 @@ A Create mod add-on adding immersive andesite and brass chunk loaders to Minecra
 
 ## Create 6 and Minecraft 1.21
 
-**Minecraft 1.20.1: ⏳ In progress**
+**Minecraft 1.20.1: ✅ Available**
 
 **Minecraft 1.21.1: ⏳ Not started** (ETA Apr/May 2025)
 
-This mod will be ported to Create 6 on Minecraft 1.20/1.21, dropping support for Create 0.5 and Minecraft 1.18/1.19.
+## What's new in 2.0.0
 
-## What's new in 1.5.0
+**Support for Create 6.0.0**
 
-**Compatibility fix**
-
-This version introduces changes to the networking code of Power Loader, which fix the issue where clients are kicked from server
-when a train station is placed. Note that you **must update Power Loader on both the client and server for this fix to work**. 
+Support for Create 0.5.1 and Minecraft 1.18/1.19 has been dropped. Please use Create: Power Loader v1 if you are using Create 0.5.1.
 
 ## Features
 

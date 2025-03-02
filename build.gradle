@@ -300,7 +300,7 @@ wrapper {
 }
 
 publishMods {
-    changelog = "Check out the detailed changelog at https://github.com/hlysine/create_power_loader/blob/main/CHANGELOG.md"
+    changelog = "## NOTE: Create: Power Loader 2.0.0 or above only works with Create 6.0.0 or above!\n\nCheck out the detailed changelog at https://github.com/hlysine/create_power_loader/blob/main/CHANGELOG.md"
     type = STABLE
     file = jar.archiveFile
     modLoaders.add("forge")
