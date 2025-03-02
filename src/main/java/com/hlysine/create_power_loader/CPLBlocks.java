@@ -7,7 +7,6 @@ import com.hlysine.create_power_loader.content.brasschunkloader.BrassChunkLoader
 import com.hlysine.create_power_loader.content.emptychunkloader.EmptyChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.emptychunkloader.EmptyChunkLoaderBlockItem;
 import com.simibubi.create.AllTags;
-import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -15,7 +14,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MapColor;
 
-import static com.simibubi.create.AllMovementBehaviours.movementBehaviour;
+import static com.simibubi.create.api.behaviour.movement.MovementBehaviour.movementBehaviour;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 
@@ -32,7 +31,6 @@ public class CPLBlocks {
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
             .addLayer(() -> RenderType::cutoutMipped)
-            .transform(BlockStressDefaults.setImpact(0.0))
             .item(EmptyChunkLoaderBlockItem::createAndesite)
             .transform(customItemModel())
             .transform(axeOrPickaxe())
@@ -50,7 +48,6 @@ public class CPLBlocks {
             .blockstate(BlockStateGen.directionalBlockProvider(true))
             .addLayer(() -> RenderType::cutoutMipped)
             .onRegister(movementBehaviour(new ChunkLoaderMovementBehaviour(LoaderType.ANDESITE)))
-            .transform(BlockStressDefaults.setImpact(16.0))
             .item()
             .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)
             .transform(customItemModel())
@@ -67,7 +64,6 @@ public class CPLBlocks {
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
             .addLayer(() -> RenderType::cutoutMipped)
-            .transform(BlockStressDefaults.setImpact(0.0))
             .item(EmptyChunkLoaderBlockItem::createBrass)
             .transform(customItemModel())
             .transform(axeOrPickaxe())
@@ -85,7 +81,6 @@ public class CPLBlocks {
             .blockstate(BlockStateGen.directionalBlockProvider(true))
             .addLayer(() -> RenderType::cutoutMipped)
             .onRegister(movementBehaviour(new ChunkLoaderMovementBehaviour(LoaderType.BRASS)))
-            .transform(BlockStressDefaults.setImpact(16.0))
             .item()
             .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)
             .transform(customItemModel())

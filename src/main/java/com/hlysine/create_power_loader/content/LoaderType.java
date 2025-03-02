@@ -1,6 +1,6 @@
 package com.hlysine.create_power_loader.content;
 
-import com.simibubi.create.foundation.utility.Lang;
+import net.createmod.catnip.lang.Lang;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 

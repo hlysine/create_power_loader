@@ -5,9 +5,9 @@ import com.hlysine.create_power_loader.CPLBlocks;
 import com.hlysine.create_power_loader.CPLPartialModels;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.AbstractChunkLoaderRenderer;
-import com.jozufozu.flywheel.core.PartialModel;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.content.trains.entity.CarriageContraption;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
 

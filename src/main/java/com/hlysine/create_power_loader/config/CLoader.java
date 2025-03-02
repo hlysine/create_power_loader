@@ -2,7 +2,7 @@ package com.hlysine.create_power_loader.config;
 
 import com.hlysine.create_power_loader.content.LoaderMode;
 import com.hlysine.create_power_loader.content.LoaderType;
-import com.simibubi.create.foundation.config.ConfigBase;
+import net.createmod.catnip.config.ConfigBase;
 
 public class CLoader extends ConfigBase {
 

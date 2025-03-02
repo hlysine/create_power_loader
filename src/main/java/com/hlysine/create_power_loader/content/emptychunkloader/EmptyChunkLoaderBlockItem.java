@@ -2,8 +2,8 @@ package com.hlysine.create_power_loader.content.emptychunkloader;
 
 import com.hlysine.create_power_loader.CPLBlocks;
 import com.hlysine.create_power_loader.CPLTags.AllEntityTags;
-import com.simibubi.create.foundation.utility.VecHelper;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;

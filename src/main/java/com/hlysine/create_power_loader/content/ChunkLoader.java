@@ -1,7 +1,7 @@
 package com.hlysine.create_power_loader.content;
 
 import com.hlysine.create_power_loader.content.ChunkLoadManager.LoadedChunkPos;
-import com.simibubi.create.foundation.utility.Pair;
+import net.createmod.catnip.data.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;

@@ -2,14 +2,13 @@ package com.hlysine.create_power_loader.config;
 
 import com.hlysine.create_power_loader.content.AbstractChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.LoaderType;
-import com.simibubi.create.content.kinetics.BlockStressValues;
-import com.simibubi.create.foundation.config.ConfigBase;
-import com.simibubi.create.foundation.utility.Couple;
+import net.createmod.catnip.config.ConfigBase;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
-public class CServer extends ConfigBase implements BlockStressValues.IStressValueProvider {
+import java.util.function.DoubleSupplier;
 
+public class CServer extends ConfigBase {
     public final CLoader andesite = nested(0, () -> new CLoader(LoaderType.ANDESITE), Comments.andesite);
 
     public final CLoader brass = nested(0, () -> new CLoader(LoaderType.BRASS), Comments.brass);
@@ -21,31 +20,15 @@ public class CServer extends ConfigBase implements BlockStressValues.IStressValu
         };
     }
 
-    @Override
-    public double getImpact(Block block) {
-        if (!(block instanceof AbstractChunkLoaderBlock loader)) return 0;
-        return getFor(loader.loaderType).stressImpact.get();
-    }
-
-    @Override
-    public double getCapacity(Block block) {
-        return 0;
-    }
-
-    @Override
-    public boolean hasImpact(Block block) {
-        return block instanceof AbstractChunkLoaderBlock loader;
-    }
-
-    @Override
-    public boolean hasCapacity(Block block) {
-        return false;
+    @Nullable
+    public DoubleSupplier getImpact(Block block) {
+        if (!(block instanceof AbstractChunkLoaderBlock loader)) return () -> 0;
+        return getFor(loader.loaderType).stressImpact::get;
     }
 
     @Nullable
-    @Override
-    public Couple<Integer> getGeneratedRPM(Block block) {
-        return null;
+    public DoubleSupplier getCapacity(Block block) {
+        return () -> 0;
     }
 
     @Override

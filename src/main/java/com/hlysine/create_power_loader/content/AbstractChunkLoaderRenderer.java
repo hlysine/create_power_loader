@@ -1,18 +1,18 @@
 package com.hlysine.create_power_loader.content;
 
 import com.hlysine.create_power_loader.CPLPartialModels;
-import com.jozufozu.flywheel.core.PartialModel;
-import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.content.contraptions.render.ContraptionMatrices;
-import com.simibubi.create.content.contraptions.render.ContraptionRenderDispatcher;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
+import com.simibubi.create.foundation.virtualWorld.VirtualRenderWorld;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -44,13 +44,13 @@ public abstract class AbstractChunkLoaderRenderer extends KineticBlockEntityRend
         VertexConsumer vb = buffer.getBuffer(RenderType.cutoutMipped());
 
         SuperByteBuffer shaftHalf =
-                CachedBufferer.partialFacing(
+                CachedBuffers.partialFacing(
                         attached ? CPLPartialModels.STATION_ATTACHMENT : AllPartialModels.SHAFT_HALF,
                         be.getBlockState(),
                         direction.getOpposite()
                 );
         SuperByteBuffer core =
-                CachedBufferer.partialFacing(
+                CachedBuffers.partialFacing(
                         getCorePartial(attached, active),
                         be.getBlockState(),
                         direction
@@ -75,12 +75,12 @@ public abstract class AbstractChunkLoaderRenderer extends KineticBlockEntityRend
                                     ContraptionMatrices matrices, MultiBufferSource buffer) {
         BlockState state = context.state;
         Direction direction = state.getValue(AbstractChunkLoaderBlock.FACING);
-        int light = ContraptionRenderDispatcher.getContraptionWorldLight(context, renderWorld);
+        int light = LevelRenderer.getLightColor(renderWorld, context.localPos);
 
         boolean shouldFunction = shouldFunctionOnContraption(context);
 
         SuperByteBuffer core =
-                CachedBufferer.partialFacing(
+                CachedBuffers.partialFacing(
                         getCorePartial(false, shouldFunction),
                         state,
                         direction
@@ -92,10 +92,10 @@ public abstract class AbstractChunkLoaderRenderer extends KineticBlockEntityRend
 
         core
                 .transform(matrices.getModel())
-                .centre()
+                .center()
                 .rotateZ(shouldFunction ? angle : 0)
-                .unCentre()
-                .light(matrices.getWorld(), light)
+                .uncenter()
+                .light(light)
                 .renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderType.cutoutMipped()));
     }
 }

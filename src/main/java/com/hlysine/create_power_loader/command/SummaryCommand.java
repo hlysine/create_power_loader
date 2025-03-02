@@ -6,7 +6,6 @@ import com.hlysine.create_power_loader.content.trains.StationChunkLoader;
 import com.hlysine.create_power_loader.content.trains.TrainChunkLoader;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import com.simibubi.create.foundation.utility.Components;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -32,7 +31,7 @@ public class SummaryCommand {
                         .executes(ctx -> {
                             CommandSourceStack source = ctx.getSource();
                             fillReport(ctx.getArgument("dimension", ResourceLocation.class),
-                                    (s, f) -> source.sendSuccess(() -> Components.literal(s).withStyle(st -> st.withColor(f)), false),
+                                    (s, f) -> source.sendSuccess(() -> Component.literal(s).withStyle(st -> st.withColor(f)), false),
                                     (c) -> source.sendSuccess(() -> c, false));
                             return Command.SINGLE_SUCCESS;
                         })
@@ -40,7 +39,7 @@ public class SummaryCommand {
                 .executes(ctx -> {
                     CommandSourceStack source = ctx.getSource();
                     fillReport(null,
-                            (s, f) -> source.sendSuccess(() -> Components.literal(s).withStyle(st -> st.withColor(f)), false),
+                            (s, f) -> source.sendSuccess(() -> Component.literal(s).withStyle(st -> st.withColor(f)), false),
                             (c) -> source.sendSuccess(() -> c, false));
                     return Command.SINGLE_SUCCESS;
                 });
@@ -192,7 +191,7 @@ public class SummaryCommand {
     }
 
     private static MutableComponent text(String text, int color) {
-        return Components.literal(text).withStyle(style -> style.withColor(color));
+        return Component.literal(text).withStyle(style -> style.withColor(color));
     }
 
     private static MutableComponent line(String label, Object value) {

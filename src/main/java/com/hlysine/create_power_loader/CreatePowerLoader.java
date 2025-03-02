@@ -9,6 +9,7 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
+import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,7 +37,7 @@ public class CreatePowerLoader {
 
     static {
         REGISTRATE.setTooltipModifierFactory(item -> {
-            return new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
+            return new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
                     .andThen(TooltipModifier.mapNull(KineticStats.create(item)));
         });
     }

@@ -3,7 +3,7 @@ package com.hlysine.create_power_loader.content;
 import com.hlysine.create_power_loader.CPLBlockEntityTypes;
 import com.hlysine.create_power_loader.CreatePowerLoader;
 import com.mojang.logging.LogUtils;
-import com.simibubi.create.foundation.utility.Pair;
+import net.createmod.catnip.data.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;

@@ -1,6 +1,7 @@
 package com.hlysine.create_power_loader;
 
 
+import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -12,7 +13,8 @@ public class CreatePowerLoaderClient {
         CPLPartialModels.register();
         modEventBus.addListener(CreatePowerLoaderClient::init);
     }
+
     public static void init(final FMLClientSetupEvent event) {
-        CPLPonders.register();
+        PonderIndex.addPlugin(new CPLPonders());
     }
 }

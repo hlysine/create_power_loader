@@ -3,7 +3,6 @@ package com.hlysine.create_power_loader.content.brasschunkloader;
 
 import com.hlysine.create_power_loader.CPLIcons;
 import com.hlysine.create_power_loader.CreatePowerLoader;
-import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.AbstractChunkLoaderBlockEntity;
 import com.hlysine.create_power_loader.content.AbstractChunkLoaderBlock;
 import com.hlysine.create_power_loader.content.LoaderType;
@@ -12,13 +11,14 @@ import com.simibubi.create.foundation.blockEntity.behaviour.CenteredSideValueBox
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.INamedIconOptions;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollOptionBehaviour;
 import com.simibubi.create.foundation.gui.AllIcons;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.VecHelper;
+import net.createmod.catnip.lang.Lang;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -75,12 +75,11 @@ public class BrassChunkLoaderBlockEntity extends AbstractChunkLoaderBlockEntity 
         }
 
         @Override
-        public Vec3 getLocalOffset(BlockState state) {
+        public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
             Direction facing = state.getValue(AbstractChunkLoaderBlock.FACING);
-            return super.getLocalOffset(state).add(Vec3.atLowerCornerOf(facing.getNormal())
+            return super.getLocalOffset(level, pos, state).add(Vec3.atLowerCornerOf(facing.getNormal())
                     .scale(-4 / 16f));
         }
-
 
         @Override
         public float getScale() {

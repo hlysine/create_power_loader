@@ -90,8 +90,8 @@ minecraft {
             //Allows for reloading the project during runtime with compatible java
             jvmArg "-XX:+AllowEnhancedClassRedefinition"
 
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            property "mixin.env.remapRefMap", "true"
+            property "mixin.env.refMapRemappingFile", "${projectDir}/build/createSrgToMcp/output.srg"
 
             arg '-mixin.config=create_power_loader.mixins.json'
 
@@ -138,8 +138,16 @@ repositories {
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
 
     maven {
-        name = 'tterrag maven'
-        url = 'https://maven.tterrag.com/'
+        // Create, Ponder, Flywheel
+        url = "https://maven.createmod.net"
+    }
+    maven {
+        // Registrate
+        url = "https://maven.tterrag.com"
+    }
+    maven {
+        // ForgeConfigAPIPort
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
     }
     maven {
         // location of the maven that hosts JEI files before January 2023
@@ -175,9 +183,11 @@ dependencies {
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
-    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
-    implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
+    implementation(fg.deobf("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false })
+    implementation(fg.deobf("net.createmod.ponder:Ponder-Forge-${minecraft_version}:${ponder_version}"))
+    compileOnly(fg.deobf("dev.engine-room.flywheel:flywheel-forge-api-${flywheel_minecraft_version}:${flywheel_version}"))
+    runtimeOnly(fg.deobf("dev.engine-room.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}"))
+    implementation(fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}"))
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -204,7 +214,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    annotationProcessor 'org.spongepowered:mixin:0.8.7:processor'
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

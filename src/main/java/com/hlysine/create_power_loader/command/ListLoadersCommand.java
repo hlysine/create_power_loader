@@ -10,8 +10,7 @@ import com.hlysine.create_power_loader.content.trains.TrainChunkLoader;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import com.simibubi.create.foundation.utility.Components;
-import com.simibubi.create.foundation.utility.Pair;
+import net.createmod.catnip.data.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -81,7 +80,7 @@ public class ListLoadersCommand {
                     hasMode ? ctx.getArgument("type", LoaderMode.class) : null,
                     hasLimit ? ctx.getArgument("limit", Integer.class) : 20,
                     activeOnly,
-                    (s, f) -> source.sendSuccess(() -> Components.literal(s).withStyle(st -> st.withColor(f)), false),
+                    (s, f) -> source.sendSuccess(() -> Component.literal(s).withStyle(st -> st.withColor(f)), false),
                     (c) -> source.sendSuccess(() -> c, false));
             return Command.SINGLE_SUCCESS;
         };
@@ -202,15 +201,15 @@ public class ListLoadersCommand {
     }
 
     private static MutableComponent text(String text, int color) {
-        return Components.literal(text).withStyle(style -> style.withColor(color));
+        return Component.literal(text).withStyle(style -> style.withColor(color));
     }
 
     private static MutableComponent createTpButton(ResourceLocation origin, ResourceLocation dimension, BlockPos blockPos, int color) {
         String teleport = "/execute in " + dimension.toString() + " run tp @s " + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ();
-        return Components.literal("[" + blockPos.toShortString() + "]" + (!origin.equals(dimension) ? " in " + shortString(dimension) : "")).withStyle((style) -> style
+        return Component.literal("[" + blockPos.toShortString() + "]" + (!origin.equals(dimension) ? " in " + shortString(dimension) : "")).withStyle((style) -> style
                 .withColor(color)
                 .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, teleport))
-                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Components.literal("Click to teleport")))
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to teleport")))
                 .withInsertion(teleport));
     }
 
