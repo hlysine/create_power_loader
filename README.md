@@ -18,7 +18,9 @@ A Create mod add-on adding immersive andesite and brass chunk loaders to Minecra
 
 ## Create 6 and Minecraft 1.21
 
-**Current status: ⏳ Not started** (ETA Apr/May 2025
+**Minecraft 1.20.1: ⏳ In progress**
+
+**Minecraft 1.21.1: ⏳ Not started** (ETA Apr/May 2025)
 
 This mod will be ported to Create 6 on Minecraft 1.20/1.21, dropping support for Create 0.5 and Minecraft 1.18/1.19.
 
