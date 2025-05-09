@@ -64,7 +64,6 @@ public class CreatePowerLoader {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             Mods.JEI.executeIfInstalled(() -> CPLRecipes::register);
-            //FIXME ForcedChunkManager.setForcedChunkLoadingCallback(MODID, ChunkLoadManager::validateAllForcedChunks);
         });
     }
 
