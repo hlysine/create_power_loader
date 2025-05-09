@@ -9,6 +9,7 @@ import com.simibubi.create.content.trains.station.StationBlockEntity;
 import net.createmod.catnip.data.Pair;
 import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -211,15 +212,15 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
     }
 
     @Override
-    protected void read(CompoundTag compound, boolean clientPacket) {
-        super.read(compound, clientPacket);
+    protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(compound, registries, clientPacket);
         isLoaderActive = compound.getBoolean("CoreActive");
     }
 
     @Override
-    protected void write(CompoundTag compound, boolean clientPacket) {
+    protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         compound.putBoolean("CoreActive", isLoaderActive);
-        super.write(compound, clientPacket);
+        super.write(compound, registries, clientPacket);
     }
 
     public abstract int getLoadingRange();
