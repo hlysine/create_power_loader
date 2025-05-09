@@ -1,5 +1,6 @@
 {
   "credit": "Made with Blockbench",
+  "render_type": "minecraft:cutout_mipped",
   "textures": {
     "1": "create:block/funnel/andesite_funnel_frame",
     "2": "create_power_loader:block/andesite_chunk_loader_side",

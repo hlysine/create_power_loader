@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout_mipped",
 	"textures": {
 		"1": "create:block/funnel/brass_funnel_frame",
 		"2": "create_power_loader:block/brass_chunk_loader_side",
