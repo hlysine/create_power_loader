@@ -15,6 +15,8 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.world.ForgeChunkManager;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.LogicalSide;
+import net.neoforged.neoforge.common.world.chunk.ForcedChunkManager;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -42,13 +44,13 @@ public class ChunkLoadManager {
         allLoaders.computeIfAbsent(mode, $ -> new WeakCollection<>()).remove(loader);
     }
 
-    public static void onServerWorldTick(TickEvent.LevelTickEvent event) {
+    public static void onServerWorldTick(LevelTickEvent event) {
         if (event.phase == TickEvent.Phase.END)
             return;
         if (event.side == LogicalSide.CLIENT)
             return;
 
-        MinecraftServer server = event.level.getServer();
+        MinecraftServer server = event.getLevel().getServer();
         if (savedChunksDiscardCountdown == 0) {
             for (Map.Entry<UUID, Set<LoadedChunkPos>> entry : savedForcedChunks.entrySet()) {
                 unforceAllChunks(server, entry.getKey(), entry.getValue());
@@ -124,9 +126,10 @@ public class ChunkLoadManager {
         ServerLevel targetLevel = server.getLevel(ResourceKey.create(Registries.DIMENSION, dimension));
         assert targetLevel != null;
         if (owner instanceof BlockPos) {
-            ForgeChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (BlockPos) owner, chunkX, chunkZ, add, true);
+            ForcedChunkManager.writeModForcedChunks()
+            ForcedChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (BlockPos) owner, chunkX, chunkZ, add, true);
         } else {
-            ForgeChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (UUID) owner, chunkX, chunkZ, add, true);
+            ForcedChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (UUID) owner, chunkX, chunkZ, add, true);
         }
     }
 

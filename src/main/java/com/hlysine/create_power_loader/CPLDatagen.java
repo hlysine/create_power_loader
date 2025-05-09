@@ -3,9 +3,9 @@ package com.hlysine.create_power_loader;
 import com.tterrag.registrate.providers.ProviderType;
 import net.minecraft.tags.TagEntry;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.data.event.GatherDataEvent;
 import com.tterrag.registrate.providers.RegistrateTagsProvider;
 import com.hlysine.create_power_loader.CPLTags.AllEntityTags;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 public class CPLDatagen {
     public static void gatherData(GatherDataEvent event) {

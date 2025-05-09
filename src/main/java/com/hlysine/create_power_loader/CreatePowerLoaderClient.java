@@ -2,14 +2,17 @@ package com.hlysine.create_power_loader;
 
 
 import net.createmod.ponder.foundation.PonderIndex;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.loading.FMLLoader;
 
-@Mod.EventBusSubscriber(Dist.CLIENT)
+@EventBusSubscriber(Dist.CLIENT)
 public class CreatePowerLoaderClient {
     public static void onCtorClient(IEventBus modEventBus, IEventBus forgeEventBus) {
+        if (FMLLoader.getDist() != Dist.CLIENT) return;
+
         CPLPartialModels.register();
         modEventBus.addListener(CreatePowerLoaderClient::init);
     }

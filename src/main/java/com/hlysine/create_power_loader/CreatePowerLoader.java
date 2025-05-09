@@ -7,21 +7,19 @@ import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
-import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.world.ForgeChunkManager;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.world.chunk.ForcedChunkManager;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
@@ -42,9 +40,9 @@ public class CreatePowerLoader {
         });
     }
 
-    public CreatePowerLoader() {
-        modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
+    public CreatePowerLoader(IEventBus eventBus, ModContainer modContainer) {
+        modEventBus = modContainer.getEventBus();
+        IEventBus forgeEventBus = NeoForge.EVENT_BUS;
         REGISTRATE.registerEventListeners(modEventBus);
 
         // Register the commonSetup method for mod loading
@@ -52,7 +50,7 @@ public class CreatePowerLoader {
         forgeEventBus.addListener(this::registerCommands);
 
         // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(this);
 
         REGISTRATE.setCreativeTab(CPLCreativeTabs.MAIN);
         CPLTags.register();
@@ -64,13 +62,13 @@ public class CreatePowerLoader {
 
         modEventBus.addListener(EventPriority.LOWEST, CPLDatagen::gatherData);
         forgeEventBus.addListener(ChunkLoadManager::onServerWorldTick);
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreatePowerLoaderClient.onCtorClient(modEventBus, forgeEventBus));
+        CreatePowerLoaderClient.onCtorClient(modEventBus, forgeEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             Mods.JEI.executeIfInstalled(() -> CPLRecipes::register);
-            ForgeChunkManager.setForcedChunkLoadingCallback(MODID, ChunkLoadManager::validateAllForcedChunks);
+            ForcedChunkManager.setForcedChunkLoadingCallback(MODID, ChunkLoadManager::validateAllForcedChunks);
         });
     }
 
@@ -83,6 +81,6 @@ public class CreatePowerLoader {
     }
 
     public static ResourceLocation asResource(String path) {
-        return new ResourceLocation(MODID, path);
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 }

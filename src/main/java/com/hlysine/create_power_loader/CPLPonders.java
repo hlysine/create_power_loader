@@ -42,7 +42,7 @@ public class CPLPonders implements PonderPlugin {
     }
 
     public static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        PonderSceneRegistrationHelper<ItemProviderEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
+        PonderSceneRegistrationHelper<ItemProviderEntry<?, ?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
 
         HELPER.forComponents(CPLBlocks.ANDESITE_CHUNK_LOADER)
                 .addStoryBoard("andesite_chunk_loader/basic_usage", AndesiteChunkLoaderScenes::basicUsage, AllCreatePonderTags.KINETIC_APPLIANCES)
@@ -58,7 +58,7 @@ public class CPLPonders implements PonderPlugin {
     }
 
     public static void register(PonderTagRegistrationHelper<ResourceLocation> helper) {
-        PonderTagRegistrationHelper<RegistryEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
+        PonderTagRegistrationHelper<RegistryEntry<?, ?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
 
         HELPER.addToTag(AllCreatePonderTags.KINETIC_APPLIANCES)
                 .add(CPLBlocks.ANDESITE_CHUNK_LOADER)
