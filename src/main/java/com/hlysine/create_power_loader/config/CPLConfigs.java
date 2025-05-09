@@ -2,12 +2,12 @@ package com.hlysine.create_power_loader.config;
 
 import com.simibubi.create.api.stress.BlockStressValues;
 import net.createmod.catnip.config.ConfigBase;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.ApiStatus;
@@ -18,14 +18,14 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class CPLConfigs {
 
-    public static void register(ModLoadingContext context) {
+    public static void register(ModContainer container) {
         server = register(CServer::new, ModConfig.Type.SERVER);
 
         for (Map.Entry<ModConfig.Type, ConfigBase> pair : CPLConfigs.CONFIGS.entrySet())
-            context.registerConfig(pair.getKey(), pair.getValue().specification);
+            container.registerConfig(pair.getKey(), pair.getValue().specification);
 
         CServer stress = server();
         BlockStressValues.IMPACTS.registerProvider(stress::getImpact);
@@ -61,7 +61,7 @@ public class CPLConfigs {
     }
 
     private static <T extends ConfigBase> T register(Supplier<T> factory, ModConfig.Type side) {
-        Pair<T, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(builder -> {
+        Pair<T, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(builder -> {
             T config = factory.get();
             config.registerAll(builder);
             return config;
