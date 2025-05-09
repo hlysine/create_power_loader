@@ -137,7 +137,7 @@ public class StationChunkLoader implements ChunkLoader {
         public static AttachedLoader read(CompoundTag nbt) {
             return new AttachedLoader(
                     NBTHelper.readEnum(nbt, "Type", LoaderType.class),
-                    NbtUtils.readBlockPos(nbt.getCompound("Pos"))
+                    NbtUtils.readBlockPos(nbt.getCompound("Pos"), "Pos").orElseThrow()
             );
         }
 
