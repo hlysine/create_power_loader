@@ -164,8 +164,9 @@ dependencies {
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.
 // When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
 // See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
-tasks.named('processResources', ProcessResources).configure {
+processResources {
     duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    filteringCharset = 'UTF-8'
 
     var replaceProperties = [
             minecraft_version      : minecraft_version,
@@ -183,13 +184,13 @@ tasks.named('processResources', ProcessResources).configure {
     ]
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
         expand replaceProperties + [project: project]
     }
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
-tasks.named('jar', Jar).configure {
+jar {
     duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 
     manifest {
