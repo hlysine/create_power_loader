@@ -1,7 +1,6 @@
 package com.hlysine.create_power_loader.content;
 
 import com.hlysine.create_power_loader.CPLBlockEntityTypes;
-import com.hlysine.create_power_loader.CreatePowerLoader;
 import com.mojang.logging.LogUtils;
 import net.createmod.catnip.data.Pair;
 import net.minecraft.core.BlockPos;
@@ -12,10 +11,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.world.ForgeChunkManager;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.LogicalSide;
-import net.neoforged.neoforge.common.world.chunk.ForcedChunkManager;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -45,6 +40,8 @@ public class ChunkLoadManager {
     }
 
     public static void onServerWorldTick(LevelTickEvent event) {
+        return;
+        /*FIXME
         if (event.phase == TickEvent.Phase.END)
             return;
         if (event.side == LogicalSide.CLIENT)
@@ -64,7 +61,7 @@ public class ChunkLoadManager {
                 unforceAllChunks(server, pair.getFirst(), pair.getSecond());
             }
             unforceQueue.clear();
-        }
+        }*/
     }
 
     public static <T extends Comparable<? super T>> void updateForcedChunks(MinecraftServer server, LoadedChunkPos center, T owner, int loadingRange, Set<LoadedChunkPos> forcedChunks) {
@@ -126,10 +123,9 @@ public class ChunkLoadManager {
         ServerLevel targetLevel = server.getLevel(ResourceKey.create(Registries.DIMENSION, dimension));
         assert targetLevel != null;
         if (owner instanceof BlockPos) {
-            ForcedChunkManager.writeModForcedChunks()
-            ForcedChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (BlockPos) owner, chunkX, chunkZ, add, true);
+            //FIXME ForcedChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (BlockPos) owner, chunkX, chunkZ, add, true);
         } else {
-            ForcedChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (UUID) owner, chunkX, chunkZ, add, true);
+            //FIXME ForcedChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (UUID) owner, chunkX, chunkZ, add, true);
         }
     }
 
@@ -137,8 +133,8 @@ public class ChunkLoadManager {
         return savedForcedChunks.remove(entityUUID);
     }
 
-    public static void validateAllForcedChunks(ServerLevel level, ForgeChunkManager.TicketHelper helper) {
-        helper.getBlockTickets().forEach((blockPos, tickets) -> {
+    public static void validateAllForcedChunks(ServerLevel level) { //FIXME , ForgeChunkManager.TicketHelper helper) {
+        /*FIXME helper.getBlockTickets().forEach((blockPos, tickets) -> {
             LOGGER.debug("CPL: Inspecting level {} position {} which has {} non-ticking tickets and {} ticking tickets.",
                     level.dimension().location(),
                     blockPos.toShortString(),
@@ -188,7 +184,7 @@ public class ChunkLoadManager {
                     tickets.getFirst().size(),
                     tickets.getSecond().size());
         });
-        savedChunksDiscardCountdown = SAVED_CHUNKS_DISCARD_TICKS;
+        savedChunksDiscardCountdown = SAVED_CHUNKS_DISCARD_TICKS;*/
     }
 
     public static void reclaimChunks(Level level, UUID owner, Map<ResourceKey<Level>, Set<LoadedChunkPos>> reclaimedChunks) {

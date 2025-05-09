@@ -10,11 +10,9 @@ import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.fml.common.Mod;
@@ -58,7 +56,7 @@ public class CreatePowerLoader {
         CPLBlockEntityTypes.register();
         CPLCreativeTabs.register(modEventBus);
 
-        CPLConfigs.register(ModLoadingContext.get());
+        CPLConfigs.register(modContainer);
 
         modEventBus.addListener(EventPriority.LOWEST, CPLDatagen::gatherData);
         forgeEventBus.addListener(ChunkLoadManager::onServerWorldTick);
@@ -68,7 +66,7 @@ public class CreatePowerLoader {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             Mods.JEI.executeIfInstalled(() -> CPLRecipes::register);
-            ForcedChunkManager.setForcedChunkLoadingCallback(MODID, ChunkLoadManager::validateAllForcedChunks);
+            //FIXME ForcedChunkManager.setForcedChunkLoadingCallback(MODID, ChunkLoadManager::validateAllForcedChunks);
         });
     }
 
