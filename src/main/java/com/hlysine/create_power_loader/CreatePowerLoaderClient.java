@@ -8,7 +8,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLLoader;
 
-@EventBusSubscriber(Dist.CLIENT)
 public class CreatePowerLoaderClient {
     public static void onCtorClient(IEventBus modEventBus, IEventBus forgeEventBus) {
         if (FMLLoader.getDist() != Dist.CLIENT) return;

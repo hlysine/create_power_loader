@@ -12,6 +12,7 @@ import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -46,9 +47,6 @@ public class CreatePowerLoader {
         // Register the commonSetup method for mod loading
         modEventBus.addListener(this::commonSetup);
         forgeEventBus.addListener(this::registerCommands);
-
-        // Register ourselves for server and other game events we are interested in
-        NeoForge.EVENT_BUS.register(this);
 
         REGISTRATE.setCreativeTab(CPLCreativeTabs.MAIN);
         CPLTags.register();

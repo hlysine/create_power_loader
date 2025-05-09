@@ -39,7 +39,7 @@ public class ChunkLoadManager {
         allLoaders.computeIfAbsent(mode, $ -> new WeakCollection<>()).remove(loader);
     }
 
-    public static void onServerWorldTick(LevelTickEvent event) {
+    public static void onServerWorldTick(LevelTickEvent.Pre event) {
         return;
         /*FIXME
         if (event.phase == TickEvent.Phase.END)
