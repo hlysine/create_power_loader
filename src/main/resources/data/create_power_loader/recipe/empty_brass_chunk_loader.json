@@ -1,9 +1,10 @@
 {
   "type": "create:mechanical_crafting",
-  "acceptMirrored": false,
+  "neoforge:conditions": [{"type": "neoforge:true"}],
+  "accept_mirrored": false,
   "key": {
     "G": {
-      "tag": "forge:glass"
+      "tag": "c:glass_blocks"
     },
     "R": {
       "item": "minecraft:respawn_anchor"
@@ -26,6 +27,6 @@
     "CCSCC"
   ],
   "result": {
-    "item": "create_power_loader:empty_brass_chunk_loader"
+    "id": "create_power_loader:empty_brass_chunk_loader"
   }
 }

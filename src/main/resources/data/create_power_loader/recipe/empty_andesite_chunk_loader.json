@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "neoforge:conditions": [{"type": "neoforge:true"}],
   "pattern": [
     "GGG",
     "GRG",
@@ -7,7 +8,7 @@
   ],
   "key": {
     "G": {
-      "tag": "forge:glass"
+      "tag": "c:glass_blocks"
     },
     "R": {
       "item": "minecraft:respawn_anchor"
@@ -20,6 +21,6 @@
     }
   },
   "result": {
-    "item": "create_power_loader:empty_andesite_chunk_loader"
+    "id": "create_power_loader:empty_andesite_chunk_loader"
   }
 }
