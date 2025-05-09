@@ -12,6 +12,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
 import net.neoforged.neoforge.common.world.chunk.TicketController;
 import net.neoforged.neoforge.common.world.chunk.TicketHelper;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
@@ -220,6 +221,10 @@ public class ChunkLoadManager {
                 }
             }
         }
+    }
+
+    public static void registerTicketControllers(RegisterTicketControllersEvent event) {
+        event.register(TICKET_CONTROLLER);
     }
 
     public record LoadedChunkPos(@NotNull ResourceLocation dimension, @NotNull ChunkPos chunkPos) {
