@@ -37,27 +37,26 @@ public class CreatePowerLoader {
         });
     }
 
-    public CreatePowerLoader(IEventBus eventBus, ModContainer modContainer) {
-        modEventBus = modContainer.getEventBus();
-        IEventBus forgeEventBus = NeoForge.EVENT_BUS;
-        REGISTRATE.registerEventListeners(modEventBus);
+    public CreatePowerLoader(IEventBus modBus, ModContainer container) {
+        modEventBus = modBus;
+        IEventBus neoforgeBus = NeoForge.EVENT_BUS;
+        REGISTRATE.registerEventListeners(modBus);
 
         // Register the commonSetup method for mod loading
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(ChunkLoadManager::registerTicketControllers);
-        forgeEventBus.addListener(this::registerCommands);
+        neoforgeBus.addListener(this::registerCommands);
 
         REGISTRATE.setCreativeTab(CPLCreativeTabs.MAIN);
         CPLTags.register();
         CPLBlocks.register();
         CPLBlockEntityTypes.register();
         CPLCreativeTabs.register(modEventBus);
+        ChunkLoadManager.register(modEventBus);
 
-        CPLConfigs.register(modContainer);
+        CPLConfigs.register(container);
 
         modEventBus.addListener(EventPriority.LOWEST, CPLDatagen::gatherData);
-        forgeEventBus.addListener(ChunkLoadManager::onServerWorldTick);
-        CreatePowerLoaderClient.onCtorClient(modEventBus, forgeEventBus);
+        neoforgeBus.addListener(ChunkLoadManager::onServerWorldTick);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

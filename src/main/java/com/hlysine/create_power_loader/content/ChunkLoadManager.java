@@ -12,6 +12,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
 import net.neoforged.neoforge.common.world.chunk.TicketController;
 import net.neoforged.neoforge.common.world.chunk.TicketHelper;
@@ -23,7 +24,7 @@ import java.util.*;
 
 public class ChunkLoadManager {
     private static final TicketController TICKET_CONTROLLER = new TicketController(
-            ResourceLocation.fromNamespaceAndPath(CreatePowerLoader.MODID, "chunk_loader_chunks"),
+            CreatePowerLoader.asResource("chunk_load_manager"),
             ChunkLoadManager::validateTickets
     );
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -223,8 +224,12 @@ public class ChunkLoadManager {
         }
     }
 
-    public static void registerTicketControllers(RegisterTicketControllersEvent event) {
+    private static void registerTicketControllers(RegisterTicketControllersEvent event) {
         event.register(TICKET_CONTROLLER);
+    }
+
+    public static void register(IEventBus modBus) {
+        modBus.addListener(ChunkLoadManager::registerTicketControllers);
     }
 
     public record LoadedChunkPos(@NotNull ResourceLocation dimension, @NotNull ChunkPos chunkPos) {
