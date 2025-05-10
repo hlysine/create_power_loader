@@ -1,6 +1,7 @@
 {
   "homepage": "https://github.com/hlysine/create_power_loader/",
   "promos": {
+    "1.21.1-recommended": "2.0.0-mc1.21.1",
     "1.20.1-recommended": "2.0.0-mc1.20.1",
     "1.19.2-recommended": "1.5.0-mc1.19.2",
     "1.18.2-recommended": "1.5.0-mc1.18.2"

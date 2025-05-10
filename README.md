@@ -20,7 +20,7 @@ A Create mod add-on adding immersive andesite and brass chunk loaders to Minecra
 
 **Minecraft 1.20.1: ✅ Available**
 
-**Minecraft 1.21.1: ⏳ Not started** (ETA Apr/May 2025)
+**Minecraft 1.21.1: ✅ Available**
 
 ## What's new in 2.0.0
 
