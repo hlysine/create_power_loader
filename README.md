@@ -80,6 +80,10 @@ If you would like to offer more direct support, you can [![ko-fi](https://ko-fi.
 
 ## Credits
 
+**Source code**
+
+- [AyOhEe](https://github.com/AyOhEe) - Neoforge 1.21.1 port
+
 **Translation**
 
 - [Huantanhua](https://github.com/Huantanhua) for Simplified Chinese translations
