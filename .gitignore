@@ -19,9 +19,6 @@ build
 
 # other
 eclipse
-run
-run-server
-run-data
 .cache
 
 # Files from Forge MDK
@@ -29,3 +26,5 @@ forge*changelog.txt
 
 secrets.properties
 /runs
+/run
+/run-*

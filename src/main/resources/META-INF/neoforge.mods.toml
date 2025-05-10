@@ -17,7 +17,7 @@ issueTrackerURL="https://github.com/hlysine/create_power_loader/issues"
 [[dependencies.${mod_id}]]
     modId="neoforge"
     mandatory=true
-    versionRange="${neo_version_range}"
+    versionRange="${neoforge_version_range}"
     ordering="NONE"
     side="BOTH"
 
@@ -36,4 +36,4 @@ issueTrackerURL="https://github.com/hlysine/create_power_loader/issues"
     side="BOTH"
 
 [[mixins]]
-config = "create_power_loader.mixins.json"
+    config = "create_power_loader.mixins.json"

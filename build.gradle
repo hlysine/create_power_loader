@@ -1,10 +1,18 @@
 plugins {
-    id 'java-library'
-    id 'eclipse'
     id 'idea'
+    id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.170'
+    id 'net.neoforged.moddev' version '2.0.86'
+    id 'me.modmuss50.mod-publish-plugin' version '0.4.5'
 }
+
+def secrets = new Properties()
+if (file("./secrets.properties").exists()) {
+    file("./secrets.properties").withInputStream {
+        stream -> secrets.load(stream)
+    }
+}
+
 version = mod_version
 group = mod_group_id
 
@@ -12,71 +20,90 @@ base {
     archivesName = mod_id
 }
 
-
-// Mojang ships Java 21 to end users in 1.21+, so your mod should target Java 21.
+// Mojang ships Java 21 to end users starting in 1.20.5, so mods should target Java 21.
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-// Default run configurations.
-// These can be tweaked, removed, or duplicated as needed.
-runs {
-    // applies to all the run configs below
-    configureEach {
-        // Recommended logging data for a userdev environment
-        // The markers can be added/remove as needed separated by commas.
-        // "SCAN": For mods scan.
-        // "REGISTRIES": For firing of registry events.
-        // "REGISTRYDUMP": For getting the contents of all registries.
-        systemProperty 'forge.logging.markers', 'REGISTRIES'
+neoForge {
+    version = neoforge_version
 
-        // Recommended logging level for the console
-        // You can set various levels here.
-        // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-        systemProperty 'forge.logging.console.level', 'debug'
+    validateAccessTransformers = true
 
-        modSource project.sourceSets.main
+    parchment {
+        mappingsVersion = parchment_version
+        minecraftVersion = parchment_minecraft_version
     }
 
-    client {
-        // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+    runs {
+        // applies to all the run configs below
+        configureEach {
+            gameDirectory = project.file('run')
+
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+
+            logLevel = org.slf4j.event.Level.DEBUG
+
+            //Allows for reloading the project during runtime with compatible jvm
+            jvmArgument "-XX:+AllowEnhancedClassRedefinition"
+
+            systemProperty "mixin.env.remapRefMap", "true"
+            systemProperty "mixin.env.refMapRemappingFile", "${projectDir}/build/createSrgToMcp/output.srg"
+        }
+
+        client {
+            client()
+
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        server {
+            server()
+
+            gameDirectory = project.file('run-server')
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            data()
+
+            gameDirectory = project.file('run-data')
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing-mod', 'create'
+        }
     }
 
-    server {
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-        argument '--nogui'
-    }
-
-    // This run config launches GameTestServer and runs all registered gametests, then exits.
-    // By default, the server will crash when no gametests are provided.
-    // The gametest system is also enabled by default for other run configs under the /test command.
-    gameTestServer {
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-    }
-
-    data {
-        // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
-        // workingDirectory project.file('run-data')
-
-        // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-        arguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
     }
 }
 
 // Include resources generated by data generators.
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
 repositories {
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
-
     maven {
         // Create, Ponder, Flywheel
         url = "https://maven.createmod.net"
     }
     maven {
         // Registrate
-        url = "https://mvn.devos.one/snapshots/"
+        url = "https://maven.tterrag.com"
     }
     maven {
         // ForgeConfigAPIPort
@@ -108,6 +135,12 @@ repositories {
     maven {
         url "https://cursemaven.com"
     }
+    maven {
+        url = "https://mvn.devos.one/snapshots/"
+    }
+    maven {
+        url = "https://mvn.devos.one/releases/"
+    }
 
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:flat_dir_resolver
@@ -117,53 +150,31 @@ repositories {
 }
 
 dependencies {
-    // Specify the version of Minecraft to use.
-    // Any artifact can be supplied so long as it has a "userdev" classifier artifact and is a compatible patcher artifact.
-    // The "userdev" classifier will be requested and setup by ForgeGradle.
-    // If the group id is "net.minecraft" and the artifact id is one of ["client", "server", "joined"],
-    // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
-    implementation "net.neoforged:neoforge:${neo_version}"
-
-    implementation("com.simibubi.create:create-${minecraft_version}:${create_version}") { transitive = false }
+    implementation "net.neoforged:neoforge:${neoforge_version}"
+    implementation("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") {
+        transitive = false
+    }
     implementation("net.createmod.ponder:Ponder-NeoForge-${minecraft_version}:${ponder_version}")
-    implementation("dev.engine-room.flywheel:flywheel-neoforge-api-${flywheel_minecraft_version}:${flywheel_version}")
     implementation("dev.engine-room.flywheel:flywheel-neoforge-${flywheel_minecraft_version}:${flywheel_version}")
+    compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${flywheel_minecraft_version}:${flywheel_version}")
     implementation("com.tterrag.registrate:Registrate:${registrate_version}")
 
-    // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
-    // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
-    // compile against the JEI API but do not include it at runtime
     compileOnly("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
     compileOnly("mezz.jei:jei-${jei_minecraft_version}-neoforge-api:${jei_version}")
     // at runtime, use the full JEI jar for Forge
     runtimeOnly("mezz.jei:jei-${jei_minecraft_version}-neoforge:${jei_version}")
 
     // references to other mods to debug compatibility
-//    implementation fg.deobf("curse.maven:create-steam-n-rails-688231:5331300")
-//    implementation fg.deobf("curse.maven:botarium-704113:5118353")
-//    implementation fg.deobf("curse.maven:create-new-age-905861:5080957")
-//    implementation fg.deobf("curse.maven:cloth-config-348521:4973441")
-//    implementation fg.deobf("curse.maven:appleskin-248787:4770828")
-//    implementation fg.deobf("curse.maven:betterf3-401648:4863626")
+//    implementation ("curse.maven:create-steam-n-rails-688231:5331300")
+//    implementation ("curse.maven:botarium-704113:5118353")
+//    implementation ("curse.maven:create-new-age-905861:5080957")
+//    implementation ("curse.maven:cloth-config-348521:4973441")
+//    implementation ("curse.maven:appleskin-248787:4770828")
+//    implementation ("curse.maven:betterf3-401648:4863626")
 
-    // Example mod dependency using a mod jar from ./libs with a flat dir repository
-    // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
-    // The group id is ignored when searching -- in this case, it is "blank"
-    // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
-
-    // For more info:
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
-    compileOnly("com.tterrag.registrate:Registrate:${registrate_version}")
-
-    implementation "net.neoforged.gradle:userdev:7.0.163"
+    implementation(jarJar("io.github.llamalad7:mixinextras-neoforge:0.4.1"))
 }
 
-// This block of code expands all declared replace properties in the specified resource targets.
-// A missing property will result in an error. Properties are expanded using ${} Groovy notation.
-// When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
-// See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
 processResources {
     duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
     filteringCharset = 'UTF-8'
@@ -171,8 +182,8 @@ processResources {
     var replaceProperties = [
             minecraft_version      : minecraft_version,
             minecraft_version_range: minecraft_version_range,
-            neo_version            : neo_version,
-            neo_version_range      : neo_version_range,
+            neoforge_version       : neoforge_version,
+            neoforge_version_range : neoforge_version_range,
             loader_version_range   : loader_version_range,
             create_version_range   : create_version_range,
             mod_id                 : mod_id,
@@ -206,11 +217,6 @@ jar {
     }
 }
 
-// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing:
-// tasks.named('publish').configure {
-//     dependsOn 'reobfJar'
-// }
-
 // Example configuration to allow publishing using the maven-publish plugin
 publishing {
     publications {
@@ -225,15 +231,50 @@ publishing {
     }
 }
 
-configurations {
-    runtimeClasspath.extendsFrom localRuntime
-}
-
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
 }
 
 wrapper {
     gradleVersion = '8.10.1'
     distributionType = Wrapper.DistributionType.BIN
+}
+
+publishMods {
+    changelog = "## NOTE: Create: Power Loader 2.0.0 or above only works with Create 6.0.0 or above!\n\nCheck out the detailed changelog at https://github.com/hlysine/create_power_loader/blob/main/CHANGELOG.md"
+    type = STABLE
+    file = jar.archiveFile
+    modLoaders.add("neoforge")
+
+    github {
+        accessToken = secrets.GITHUB_TOKEN
+        repository = "hlysine/create_power_loader"
+        commitish = "main"
+    }
+
+    modrinth {
+        accessToken = secrets.MODRINTH_TOKEN
+        projectId = "wPQ6GgFE"
+        minecraftVersions.add(minecraft_version)
+
+        requires {
+            id = "LNytGWDc"
+        }
+        optional {
+            id = "u6dRKJwZ"
+        }
+    }
+
+    curseforge {
+        accessToken = secrets.CURSEFORGE_TOKEN
+        projectId = "936020"
+        minecraftVersions.add(minecraft_version)
+    }
 }
