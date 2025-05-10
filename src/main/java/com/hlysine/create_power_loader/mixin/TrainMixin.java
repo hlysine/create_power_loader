@@ -5,6 +5,7 @@ import com.hlysine.create_power_loader.content.trains.TrainChunkLoader;
 import com.simibubi.create.content.trains.entity.Train;
 import com.simibubi.create.content.trains.graph.DimensionPalette;
 import com.simibubi.create.content.trains.graph.TrackGraph;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -38,10 +39,10 @@ public class TrainMixin implements CPLTrain {
 
     @Inject(
             at = @At("RETURN"),
-            method = "write(Lcom/simibubi/create/content/trains/graph/DimensionPalette;)Lnet/minecraft/nbt/CompoundTag;",
+            method = "write(Lcom/simibubi/create/content/trains/graph/DimensionPalette;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/nbt/CompoundTag;",
             cancellable = true
     )
-    private void cpl$write(DimensionPalette dimensions, CallbackInfoReturnable<CompoundTag> cir) {
+    private void cpl$write(DimensionPalette dimensions, HolderLookup.Provider registries, CallbackInfoReturnable<CompoundTag> cir) {
         CompoundTag nbt = cir.getReturnValue();
         nbt.put("CPLData", getLoader().write());
         cir.setReturnValue(nbt);
@@ -49,10 +50,10 @@ public class TrainMixin implements CPLTrain {
 
     @Inject(
             at = @At("RETURN"),
-            method = "read(Lnet/minecraft/nbt/CompoundTag;Ljava/util/Map;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)Lcom/simibubi/create/content/trains/entity/Train;",
+            method = "read(Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/core/HolderLookup$Provider;Ljava/util/Map;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)Lcom/simibubi/create/content/trains/entity/Train;",
             cancellable = true
     )
-    private static void cpl$read(CompoundTag tag, Map<UUID, TrackGraph> trackNetworks, DimensionPalette dimensions, CallbackInfoReturnable<Train> cir) {
+    private static void cpl$read(CompoundTag tag, HolderLookup.Provider registries, Map<UUID, TrackGraph> trackNetworks, DimensionPalette dimensions, CallbackInfoReturnable<Train> cir) {
         Train train = cir.getReturnValue();
         ((CPLTrain) train).setLoader(TrainChunkLoader.read(train, tag.getCompound("CPLData")));
         cir.setReturnValue(train);

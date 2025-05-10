@@ -1,9 +1,9 @@
 package com.hlysine.create_power_loader.compat;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.fml.ModList;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -28,11 +28,11 @@ public enum Mods {
     }
 
     public ResourceLocation rl(String path) {
-        return new ResourceLocation(id, path);
+        return ResourceLocation.fromNamespaceAndPath(id, path);
     }
 
     public Block getBlock(String id) {
-        return ForgeRegistries.BLOCKS.getValue(rl(id));
+        return BuiltInRegistries.BLOCK.get(rl(id));
     }
 
     /**

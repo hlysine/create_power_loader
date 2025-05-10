@@ -4,6 +4,7 @@ import com.hlysine.create_power_loader.content.trains.CPLGlobalStation;
 import com.hlysine.create_power_loader.content.trains.StationChunkLoader;
 import com.simibubi.create.content.trains.graph.DimensionPalette;
 import com.simibubi.create.content.trains.station.GlobalStation;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import org.jetbrains.annotations.NotNull;
@@ -34,10 +35,10 @@ public class GlobalStationMixin implements CPLGlobalStation {
 
     @Inject(
             at = @At("RETURN"),
-            method = "read(Lnet/minecraft/nbt/CompoundTag;ZLcom/simibubi/create/content/trains/graph/DimensionPalette;)V",
+            method = "read(Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/core/HolderLookup$Provider;ZLcom/simibubi/create/content/trains/graph/DimensionPalette;)V",
             remap = false
     )
-    private void cpl$read(CompoundTag nbt, boolean migration, DimensionPalette dimensions, CallbackInfo ci) {
+    private void cpl$read(CompoundTag nbt, HolderLookup.Provider registries, boolean migration, DimensionPalette dimensions, CallbackInfo ci) {
         CompoundTag data = nbt.getCompound("CPLData");
         cpl$chunkLoader = StationChunkLoader.read((GlobalStation) (Object) this, data);
     }
@@ -47,17 +48,17 @@ public class GlobalStationMixin implements CPLGlobalStation {
             method = "read(Lnet/minecraft/network/FriendlyByteBuf;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)V"
     )
     private void cpl$read(FriendlyByteBuf buffer, DimensionPalette dimensions, CallbackInfo ci) {
-        CompoundTag nbt = buffer.readAnySizeNbt();
+        CompoundTag nbt = buffer.readNbt();
         if (nbt != null)
             cpl$chunkLoader = StationChunkLoader.read((GlobalStation) (Object) this, nbt);
     }
 
     @Inject(
             at = @At("RETURN"),
-            method = "write(Lnet/minecraft/nbt/CompoundTag;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)V",
+            method = "write(Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/core/HolderLookup$Provider;Lcom/simibubi/create/content/trains/graph/DimensionPalette;)V",
             remap = false
     )
-    private void cpl$write(CompoundTag nbt, DimensionPalette dimensions, CallbackInfo ci) {
+    private void cpl$write(CompoundTag nbt, HolderLookup.Provider registries, DimensionPalette dimensions, CallbackInfo ci) {
         nbt.put("CPLData", getLoader().write());
     }
 

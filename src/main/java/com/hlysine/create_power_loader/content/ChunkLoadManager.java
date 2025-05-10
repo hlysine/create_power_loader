@@ -12,15 +12,20 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.world.ForgeChunkManager;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.LogicalSide;
+import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
+import net.neoforged.neoforge.common.world.chunk.TicketController;
+import net.neoforged.neoforge.common.world.chunk.TicketHelper;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import java.util.*;
 
 public class ChunkLoadManager {
+    private static final TicketController TICKET_CONTROLLER = new TicketController(
+            ResourceLocation.fromNamespaceAndPath(CreatePowerLoader.MODID, "chunk_loader_chunks"),
+            ChunkLoadManager::validateTickets
+    );
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final int SAVED_CHUNKS_DISCARD_TICKS = 100;
 
@@ -42,13 +47,11 @@ public class ChunkLoadManager {
         allLoaders.computeIfAbsent(mode, $ -> new WeakCollection<>()).remove(loader);
     }
 
-    public static void onServerWorldTick(TickEvent.LevelTickEvent event) {
-        if (event.phase == TickEvent.Phase.END)
-            return;
-        if (event.side == LogicalSide.CLIENT)
+    public static void onServerWorldTick(LevelTickEvent.Pre event) {
+        if (event.getLevel().isClientSide())
             return;
 
-        MinecraftServer server = event.level.getServer();
+        MinecraftServer server = event.getLevel().getServer();
         if (savedChunksDiscardCountdown == 0) {
             for (Map.Entry<UUID, Set<LoadedChunkPos>> entry : savedForcedChunks.entrySet()) {
                 unforceAllChunks(server, entry.getKey(), entry.getValue());
@@ -124,9 +127,9 @@ public class ChunkLoadManager {
         ServerLevel targetLevel = server.getLevel(ResourceKey.create(Registries.DIMENSION, dimension));
         assert targetLevel != null;
         if (owner instanceof BlockPos) {
-            ForgeChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (BlockPos) owner, chunkX, chunkZ, add, true);
+            TICKET_CONTROLLER.forceChunk(targetLevel, (BlockPos) owner, chunkX, chunkZ, add, true);
         } else {
-            ForgeChunkManager.forceChunk(targetLevel, CreatePowerLoader.MODID, (UUID) owner, chunkX, chunkZ, add, true);
+            TICKET_CONTROLLER.forceChunk(targetLevel, (UUID) owner, chunkX, chunkZ, add, true);
         }
     }
 
@@ -134,13 +137,13 @@ public class ChunkLoadManager {
         return savedForcedChunks.remove(entityUUID);
     }
 
-    public static void validateAllForcedChunks(ServerLevel level, ForgeChunkManager.TicketHelper helper) {
+    public static void validateTickets(ServerLevel level, TicketHelper helper) {
         helper.getBlockTickets().forEach((blockPos, tickets) -> {
             LOGGER.debug("CPL: Inspecting level {} position {} which has {} non-ticking tickets and {} ticking tickets.",
                     level.dimension().location(),
                     blockPos.toShortString(),
-                    tickets.getFirst().size(),
-                    tickets.getSecond().size());
+                    tickets.nonTicking().size(),
+                    tickets.ticking().size());
             AbstractChunkLoaderBlockEntity blockEntity = level.getBlockEntity(blockPos, CPLBlockEntityTypes.BRASS_CHUNK_LOADER.get()).orElse(null);
             if (blockEntity == null)
                 blockEntity = level.getBlockEntity(blockPos, CPLBlockEntityTypes.ANDESITE_CHUNK_LOADER.get()).orElse(null);
@@ -150,14 +153,14 @@ public class ChunkLoadManager {
                 return;
             }
 
-            for (Long chunk : tickets.getFirst()) {
+            for (Long chunk : tickets.nonTicking()) {
                 ChunkPos chunkPos = new ChunkPos(chunk);
                 helper.removeTicket(blockPos, chunk, false);
                 LOGGER.debug("CPL: level {} position {} unforced non-ticking {}", level.dimension().location(), blockPos.toShortString(), chunkPos);
             }
 
             Set<LoadedChunkPos> forcedChunks = new HashSet<>();
-            for (Long chunk : tickets.getSecond()) {
+            for (Long chunk : tickets.ticking()) {
                 ChunkPos chunkPos = new ChunkPos(chunk);
                 forcedChunks.add(new LoadedChunkPos(level.dimension().location(), chunkPos));
             }
@@ -173,17 +176,17 @@ public class ChunkLoadManager {
             if (savedForcedChunks.containsKey(entityUUID)) {
                 savedChunks = savedForcedChunks.get(entityUUID);
             }
-            for (Long chunk : tickets.getFirst()) {
+            for (Long chunk : tickets.nonTicking()) {
                 savedChunks.add(new LoadedChunkPos(level, chunk));
             }
-            for (Long chunk : tickets.getSecond()) {
+            for (Long chunk : tickets.ticking()) {
                 savedChunks.add(new LoadedChunkPos(level, chunk));
             }
             savedForcedChunks.put(entityUUID, savedChunks);
             LOGGER.debug("CPL: Inspecting entity {} which has {} non-ticking tickets and {} ticking tickets.",
                     entityUUID,
-                    tickets.getFirst().size(),
-                    tickets.getSecond().size());
+                    tickets.nonTicking().size(),
+                    tickets.ticking().size());
         });
         savedChunksDiscardCountdown = SAVED_CHUNKS_DISCARD_TICKS;
     }
@@ -218,6 +221,10 @@ public class ChunkLoadManager {
                 }
             }
         }
+    }
+
+    public static void registerTicketControllers(RegisterTicketControllersEvent event) {
+        event.register(TICKET_CONTROLLER);
     }
 
     public record LoadedChunkPos(@NotNull ResourceLocation dimension, @NotNull ChunkPos chunkPos) {

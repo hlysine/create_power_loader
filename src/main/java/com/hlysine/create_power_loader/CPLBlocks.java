@@ -10,7 +10,6 @@ import com.simibubi.create.AllTags;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MapColor;
 
@@ -30,7 +29,6 @@ public class CPLBlocks {
                     .noOcclusion()
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
-            .addLayer(() -> RenderType::cutoutMipped)
             .item(EmptyChunkLoaderBlockItem::createAndesite)
             .transform(customItemModel())
             .transform(axeOrPickaxe())
@@ -46,7 +44,6 @@ public class CPLBlocks {
                     .lightLevel((state) -> 4)
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
-            .addLayer(() -> RenderType::cutoutMipped)
             .onRegister(movementBehaviour(new ChunkLoaderMovementBehaviour(LoaderType.ANDESITE)))
             .item()
             .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)
@@ -63,7 +60,6 @@ public class CPLBlocks {
                     .noOcclusion()
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
-            .addLayer(() -> RenderType::cutoutMipped)
             .item(EmptyChunkLoaderBlockItem::createBrass)
             .transform(customItemModel())
             .transform(axeOrPickaxe())
@@ -79,7 +75,6 @@ public class CPLBlocks {
                     .lightLevel((state) -> 6)
             )
             .blockstate(BlockStateGen.directionalBlockProvider(true))
-            .addLayer(() -> RenderType::cutoutMipped)
             .onRegister(movementBehaviour(new ChunkLoaderMovementBehaviour(LoaderType.BRASS)))
             .item()
             .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)

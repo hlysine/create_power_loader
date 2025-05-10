@@ -1,7 +1,6 @@
 package com.hlysine.create_power_loader.content.andesitechunkloader;
 
 
-import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.AbstractChunkLoaderBlockEntity;
 import com.hlysine.create_power_loader.content.LoaderType;
 import net.minecraft.MethodsReturnNonnullByDefault;
