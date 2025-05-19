@@ -29,7 +29,6 @@ public class CPLConfigs {
 
         CServer stress = server();
         BlockStressValues.IMPACTS.registerProvider(stress::getImpact);
-        BlockStressValues.CAPACITIES.registerProvider(stress::getCapacity);
     }
 
     @SubscribeEvent
