@@ -1,0 +1,51 @@
+{
+  "itemGroup.create_power_loader.main": "Create: Power Loader",
+  
+  "block.create_power_loader.empty_andesite_chunk_loader": "Boş Andezit Yığın Yükleyici",
+  "block.create_power_loader.andesite_chunk_loader": "Andezit Yığın Yükleyici",
+  
+  "block.create_power_loader.empty_brass_chunk_loader": "Boş Pirinç Yığın Yükleyici",
+  "block.create_power_loader.brass_chunk_loader": "Pirinç Yığın Yükleyici",
+  "create_power_loader.brass_chunk_loader.loading_range": "Yığın Yükleme Çapı",
+  "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1 Kare",
+  "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3 Kare",
+  "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5 Kare",
+  
+  "create_power_loader.ponder.empty_chunk_loader_basic.header": "Boş Yığın Yükleyicilerin Kullanımı",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "Bir boş yığın yükleyici ile bir Ghast'a sağ tıklayarak onu yakalayın",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_2": "Dönme gücüyle, yakalanan Ghast'lar portal çekirdeklerini aydınlatır...",
+  "create_power_loader.ponder.empty_chunk_loader_basic.text_3": "...yığın yükleyicilere hayat verir",
+  
+  "create_power_loader.ponder.andesite_chunk_loader_basic.header": "Andezit Yığın Yükleyicinin Temel Kullanımı",
+  "create_power_loader.ponder.andesite_chunk_loader_basic.text_1": "Yığın yükleyici, dönme gücü verildiğinde mevcut yığını yüklü tutar",
+  "create_power_loader.ponder.andesite_chunk_loader_basic.text_2": "Dönme hızı çok düşük olduğunda çalışmaz",
+  
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.header": "Redstone ve Andezit Yığın Yükleyici",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_1": "Yığın yükleyici aktif olduğunda karşılaştırıcı çıktısı verir",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_2": "Dönme gücü kaybolduğunda, yığının boşaltılmasından önce kısa bir gecikme (yapılandırılabilir) olur",
+  "create_power_loader.ponder.andesite_chunk_loader_redstone.text_3": "Bu gecikme sırasında güç geri gelirse yığın yüklü kalır",
+  
+  "create_power_loader.ponder.brass_chunk_loader_basic.header": "Pirinç Yığın Yükleyicinin Temel Kullanımı",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_1": "Yığın yükleyici, dönme gücü verildiğinde mevcut yığını yüklü tutar",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_2": "Dönme hızı çok düşük olduğunda çalışmaz",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_3": "Yüklenen aralığı değer paneli aracılığıyla yapılandırabilirsiniz...",
+  "create_power_loader.ponder.brass_chunk_loader_basic.text_4": "...ancak daha uzun bir aralık daha yüksek bir dönme hızı gerektirir",
+  
+  "create_power_loader.ponder.brass_chunk_loader_redstone.header": "Redstone ve Pirinç Yığın Yükleyici",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_1": "Yığın yükleyici aktif olduğunda karşılaştırıcı çıktısı verir",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_2": "Dönme gücü kaybolduğunda, yığınların boşaltılmasından önce kısa bir gecikme (yapılandırılabilir) olur",
+  "create_power_loader.ponder.brass_chunk_loader_redstone.text_3": "Bu gecikme sırasında güç geri gelirse yığınlar yüklü kalır",
+  
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.header": "Hareketli Mekanizmaların Etrafındaki Yığınları Yükleme",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_1": "Pirinç yığın yükleyiciler mekanizmalarda da çalışır",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "Her zaman mekanizmanın etrafında 3x3'lük bir yığın alanı yüklerler",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_3": "Monte edildiklerinde çalışmak için dönme gücüne ihtiyaç duymazlar",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_4": "Sabit mekanizmalarda da çalışırlar",
+  
+  "create_power_loader.ponder.brass_chunk_loader_station.header": "Tren İstasyonları İçin Yığın Yükleme",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_1": "Pirinç yığın yükleyiciler Tren İstasyonlarına bağlanabilir",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_2": "Doğru yönde Tren İstasyonlarının yanına yerleştirin",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_3": "Dönme gücü gerektirmezler, ancak normalde aktif değildirler",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "Bir tren, istasyona vardığında, yığın yükleyicinin etrafındaki 3x3'lük bir alan yüklenir",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_5": "Tren ayrıldığında, alanın yüklemesi tekrar kaldırılır"
+}
