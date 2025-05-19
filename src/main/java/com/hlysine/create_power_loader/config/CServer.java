@@ -22,13 +22,8 @@ public class CServer extends ConfigBase {
 
     @Nullable
     public DoubleSupplier getImpact(Block block) {
-        if (!(block instanceof AbstractChunkLoaderBlock loader)) return () -> 0;
+        if (!(block instanceof AbstractChunkLoaderBlock loader)) return null;
         return getFor(loader.loaderType).stressImpact::get;
-    }
-
-    @Nullable
-    public DoubleSupplier getCapacity(Block block) {
-        return () -> 0;
     }
 
     @Override
