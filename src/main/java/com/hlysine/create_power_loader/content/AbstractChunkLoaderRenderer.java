@@ -93,7 +93,7 @@ public abstract class AbstractChunkLoaderRenderer extends KineticBlockEntityRend
         core
                 .transform(matrices.getModel())
                 .center()
-                .rotateZ(shouldFunction ? angle : 0)
+                .rotateZDegrees(shouldFunction ? angle : 0)
                 .uncenter()
                 .light(light)
                 .useLevelLight(context.world, matrices.getWorld())

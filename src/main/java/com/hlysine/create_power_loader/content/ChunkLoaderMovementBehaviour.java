@@ -156,6 +156,11 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
         ContraptionRenderer.renderInContraption(context, renderWorld, matrices, buffer, type);
     }
 
+    @Override
+    public boolean disableBlockEntityRendering() {
+        return true;
+    }
+
     private boolean shouldFunction(MovementContext context) {
         if (context.contraption instanceof CarriageContraption) {
             return false; // train loading is handled with special logic
