@@ -3,7 +3,6 @@ package com.hlysine.create_power_loader;
 import com.hlysine.create_power_loader.ponder.AndesiteChunkLoaderScenes;
 import com.hlysine.create_power_loader.ponder.BrassChunkLoaderScenes;
 import com.hlysine.create_power_loader.ponder.EmptyChunkLoaderScenes;
-import com.simibubi.create.foundation.ponder.PonderWorldBlockEntityFix;
 import com.simibubi.create.infrastructure.ponder.AllCreatePonderTags;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import net.createmod.ponder.api.level.PonderLevel;
@@ -33,9 +32,7 @@ public class CPLPonders implements PonderPlugin {
     }
 
     @Override
-    public void onPonderLevelRestore(PonderLevel ponderLevel) {
-        PonderWorldBlockEntityFix.fixControllerBlockEntities(ponderLevel);
-    }
+    public void onPonderLevelRestore(PonderLevel ponderLevel) {}
 
     @Override
     public void indexExclusions(IndexExclusionHelper helper) {
