@@ -7,9 +7,9 @@
   "block.create_power_loader.empty_brass_chunk_loader": "Chargeur de chunk en laiton vide",
   "block.create_power_loader.brass_chunk_loader": "Chargeur de chunk en laiton",
   "create_power_loader.brass_chunk_loader.loading_range": "Rayon de chargement de chunk",
-  "create.create_power_loader.brass_chunk_loader.load_1x1": "Carré de 1x1",
-  "create.create_power_loader.brass_chunk_loader.load_3x3": "Carré de 3x3",
-  "create.create_power_loader.brass_chunk_loader.load_5x5": "Carré de 5x5 ",
+  "create.create_power_loader.brass_chunk_loader.load_1x1": "Carré de 1×1",
+  "create.create_power_loader.brass_chunk_loader.load_3x3": "Carré de 3×3",
+  "create.create_power_loader.brass_chunk_loader.load_5x5": "Carré de 5×5 ",
 
   "create_power_loader.ponder.empty_chunk_loader_basic.header": "Utilisation des chargeurs de chunk vides",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "Clic droit sur un ghast avec un chargeur de chunk vide pour le capturer",
@@ -38,7 +38,7 @@
 
   "create_power_loader.ponder.brass_chunk_loader_contraptions.header": "Charger des chunks autour de machines en mouvement",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_1": "Les chargeurs de chunk en laiton fonctionnent aussi sur les machines",
-  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "Ils chargent toujours une zone de 3x3 chunks autour de la machine",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "Ils chargent toujours une zone de 3×3 chunks autour de la machine",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_3": "Une fois assemblés, ils n'ont pas besoin de force de rotation pour fonctionner",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_4": "Ils fonctionnent aussi sur les machines immobiles",
 
@@ -46,7 +46,7 @@
   "create_power_loader.ponder.brass_chunk_loader_station.text_1": "Les chargeurs de chunk en laiton peuvent s'attacher aux stations de train",
   "create_power_loader.ponder.brass_chunk_loader_station.text_2": "Placez-les dans la bonne direction à côté d'une station de train",
   "create_power_loader.ponder.brass_chunk_loader_station.text_3": "Ils n'ont pas besoin de force de rotation, mais sont inactifs de base",
-  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "Quand un train arrive à la station, une zone de 3x3 chunks est chargée autour du chargeur",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "Quand un train arrive à la station, une zone de 3×3 chunks est chargée autour du chargeur",
   "create_power_loader.ponder.brass_chunk_loader_station.text_5": "Quand le train repart, la zone est à nouveau déchargée"
 }
 

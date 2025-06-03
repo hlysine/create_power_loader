@@ -7,9 +7,9 @@
   "block.create_power_loader.empty_brass_chunk_loader": "빈 황동 청크 로더",
   "block.create_power_loader.brass_chunk_loader": "황동 청크 로더",
   "create_power_loader.brass_chunk_loader.loading_range": "청크 로딩 반경",
-  "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1",
-  "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3",
-  "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5",
+  "create.create_power_loader.brass_chunk_loader.load_1x1": "1×1",
+  "create.create_power_loader.brass_chunk_loader.load_3x3": "3×3",
+  "create.create_power_loader.brass_chunk_loader.load_5x5": "5×5",
 
   "create_power_loader.ponder.empty_chunk_loader_basic.header": "빈 청크 로더의 사용법",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "가스트를 우클릭하여 청크 로더에 가둡니다",
@@ -38,7 +38,7 @@
 
   "create_power_loader.ponder.brass_chunk_loader_contraptions.header": "움직이는 장치 주변에 청크 로드하기",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_1": "황동 청크 로더는 움직이는 장치에도 작동합니다",
-  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "로더는 항상 장치 주위에 3x3 청크 영역을 로드합니다",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "로더는 항상 장치 주위에 3×3 청크 영역을 로드합니다",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_3": "조립 시 작동하는 데 회전력이 필요하지 않습니다",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_4": "고정 장치에도 작동합니다",
 
@@ -46,6 +46,6 @@
   "create_power_loader.ponder.brass_chunk_loader_station.text_1": "황동 청크 로더는 기차역에 부착 할 수 있습니다",
   "create_power_loader.ponder.brass_chunk_loader_station.text_2": "올바른 방향으로 기차역 옆에 배치하세요.",
   "create_power_loader.ponder.brass_chunk_loader_station.text_3": "회전력이 필요하지 않지만 일반적으로 비활성 상태입니다.",
-  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "열차가 역에 도착하면 청크로더가 3x3으로 활성화 됩니다",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "열차가 역에 도착하면 청크로더가 3×3으로 활성화 됩니다",
   "create_power_loader.ponder.brass_chunk_loader_station.text_5": "열차가 출발하면 청크로더는 비활성화 됩니다."
 }
