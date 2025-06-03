@@ -7,9 +7,9 @@
   "block.create_power_loader.empty_brass_chunk_loader": "Пустой латунный загрузчик чанков",
   "block.create_power_loader.brass_chunk_loader": "Латунный загрузчик чанков",
   "create_power_loader.brass_chunk_loader.loading_range": "Радиус загрузки чанков",
-  "create.create_power_loader.brass_chunk_loader.load_1x1": "Квадрат 1x1",
-  "create.create_power_loader.brass_chunk_loader.load_3x3": "Квадрат 3x3",
-  "create.create_power_loader.brass_chunk_loader.load_5x5": "Квадрат 5x5",
+  "create.create_power_loader.brass_chunk_loader.load_1x1": "Квадрат 1×1",
+  "create.create_power_loader.brass_chunk_loader.load_3x3": "Квадрат 3×3",
+  "create.create_power_loader.brass_chunk_loader.load_5x5": "Квадрат 5×5",
 
   "create_power_loader.ponder.empty_chunk_loader_basic.header": "Поимкой гастов в пустые загрузчики",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "Кликните ПКМ по гасту с пустым загрузчиком, чтобы захватить его",
@@ -38,7 +38,7 @@
 
   "create_power_loader.ponder.brass_chunk_loader_contraptions.header": "Загрузкой чанков вокруг движущихся штуковин",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_1": "Латунные загрузчики чанков также работают на штуковинах",
-  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "Они всегда загружают область 3x3 чанка вокруг штуковины",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "Они всегда загружают область 3×3 чанка вокруг штуковины",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_3": "В собранном виде они не нуждаются во вращении",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_4": "Работают они и на стационарных штуковинах",
 
@@ -46,6 +46,6 @@
   "create_power_loader.ponder.brass_chunk_loader_station.text_1": "Латунные загрузчики могут прикрепляться к железнодорожным станциям",
   "create_power_loader.ponder.brass_chunk_loader_station.text_2": "Разместите их рядом со станциями в правильном направлении",
   "create_power_loader.ponder.brass_chunk_loader_station.text_3": "Они не требуют подачу энергии, но, как правило, неактивны",
-  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "Когда на станцию прибывает поезд, загружается область 3x3 чанка вокруг него",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "Когда на станцию прибывает поезд, загружается область 3×3 чанка вокруг него",
   "create_power_loader.ponder.brass_chunk_loader_station.text_5": "Когда поезд отбывает, чанки снова выгружаются"
 }

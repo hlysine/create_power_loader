@@ -7,9 +7,9 @@
   "block.create_power_loader.empty_brass_chunk_loader": "空の真鍮チャンクローダー",
   "block.create_power_loader.brass_chunk_loader": "真鍮チャンクローダー",
   "create_power_loader.brass_chunk_loader.loading_range": "チャンクの読み込み半径",
-  "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1の四角形",
-  "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3の四角形",
-  "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5の四角形",
+  "create.create_power_loader.brass_chunk_loader.load_1x1": "1×1の四角形",
+  "create.create_power_loader.brass_chunk_loader.load_3x3": "3×3の四角形",
+  "create.create_power_loader.brass_chunk_loader.load_5x5": "5×5の四角形",
 
   "create_power_loader.ponder.empty_chunk_loader_basic.header": "空のチャンクローダーの使い方",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "空のチャンクローダーで右クリックするとガストを捕獲できます",
@@ -38,7 +38,7 @@
 
   "create_power_loader.ponder.brass_chunk_loader_contraptions.header": "動くからくりの周囲でのチャンク読み込み",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_1": "真鍮チャンクローダーはからくりでも動作します",
-  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "常にからくりの周囲3x3チャンクを読み込みます",
+  "create_power_loader.ponder.brass_chunk_loader_contraptions.text_2": "常にからくりの周囲3×3チャンクを読み込みます",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_3": "組み立てた状態では、機能するための回転力は必要ありません",
   "create_power_loader.ponder.brass_chunk_loader_contraptions.text_4": "停止しているからくりでも機能します",
 
@@ -46,6 +46,6 @@
   "create_power_loader.ponder.brass_chunk_loader_station.text_1": "真鍮チャンクローダーは鉄道駅ブロックに取り付けられます",
   "create_power_loader.ponder.brass_chunk_loader_station.text_2": "適切な方向で鉄道駅ブロックの横に設置してください",
   "create_power_loader.ponder.brass_chunk_loader_station.text_3": "回転力は必要ありませんが、通常は稼働していません",
-  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "列車が駅に到着すると、チャンクローダーの周囲3x3チャンクを読み込みます",
+  "create_power_loader.ponder.brass_chunk_loader_station.text_4": "列車が駅に到着すると、チャンクローダーの周囲3×3チャンクを読み込みます",
   "create_power_loader.ponder.brass_chunk_loader_station.text_5": "列車が出発すると、チャンクの読み込みは再び解除されます"
 }
