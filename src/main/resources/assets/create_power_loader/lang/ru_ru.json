@@ -7,9 +7,9 @@
   "block.create_power_loader.empty_brass_chunk_loader": "Пустой латунный загрузчик чанков",
   "block.create_power_loader.brass_chunk_loader": "Латунный загрузчик чанков",
   "create_power_loader.brass_chunk_loader.loading_range": "Радиус загрузки чанков",
-  "create.create_power_loader.brass_chunk_loader.load_1x1": "Квадрат 1x1",
-  "create.create_power_loader.brass_chunk_loader.load_3x3": "Квадрат 3x3",
-  "create.create_power_loader.brass_chunk_loader.load_5x5": "Квадрат 5x5",
+  "create_power_loader.brass_chunk_loader.load_1x1": "Квадрат 1x1",
+  "create_power_loader.brass_chunk_loader.load_3x3": "Квадрат 3x3",
+  "create_power_loader.brass_chunk_loader.load_5x5": "Квадрат 5x5",
 
   "create_power_loader.ponder.empty_chunk_loader_basic.header": "Поимкой гастов в пустые загрузчики",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "Кликните ПКМ по гасту с пустым загрузчиком, чтобы захватить его",

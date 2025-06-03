@@ -7,9 +7,9 @@
   "block.create_power_loader.empty_brass_chunk_loader": "Chargeur de chunk en laiton vide",
   "block.create_power_loader.brass_chunk_loader": "Chargeur de chunk en laiton",
   "create_power_loader.brass_chunk_loader.loading_range": "Rayon de chargement de chunk",
-  "create.create_power_loader.brass_chunk_loader.load_1x1": "Carré de 1x1",
-  "create.create_power_loader.brass_chunk_loader.load_3x3": "Carré de 3x3",
-  "create.create_power_loader.brass_chunk_loader.load_5x5": "Carré de 5x5 ",
+  "create_power_loader.brass_chunk_loader.load_1x1": "Carré de 1x1",
+  "create_power_loader.brass_chunk_loader.load_3x3": "Carré de 3x3",
+  "create_power_loader.brass_chunk_loader.load_5x5": "Carré de 5x5 ",
 
   "create_power_loader.ponder.empty_chunk_loader_basic.header": "Utilisation des chargeurs de chunk vides",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "Clic droit sur un ghast avec un chargeur de chunk vide pour le capturer",

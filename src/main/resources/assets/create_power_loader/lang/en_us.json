@@ -7,9 +7,9 @@
   "block.create_power_loader.empty_brass_chunk_loader": "Empty Brass Chunk Loader",
   "block.create_power_loader.brass_chunk_loader": "Brass Chunk Loader",
   "create_power_loader.brass_chunk_loader.loading_range": "Chunk Loading Radius",
-  "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1 Square",
-  "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3 Square",
-  "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5 Square",
+  "create_power_loader.brass_chunk_loader.load_1x1": "1x1 Square",
+  "create_power_loader.brass_chunk_loader.load_3x3": "3x3 Square",
+  "create_power_loader.brass_chunk_loader.load_5x5": "5x5 Square",
 
   "create_power_loader.ponder.empty_chunk_loader_basic.header": "Usage of Empty Chunk Loaders",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "Right-click a Ghast with an empty chunk loader to capture it",
