@@ -7,9 +7,9 @@
   "block.create_power_loader.empty_brass_chunk_loader": "Boş Pirinç Yığın Yükleyici",
   "block.create_power_loader.brass_chunk_loader": "Pirinç Yığın Yükleyici",
   "create_power_loader.brass_chunk_loader.loading_range": "Yığın Yükleme Çapı",
-  "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1 Kare",
-  "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3 Kare",
-  "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5 Kare",
+  "create_power_loader.brass_chunk_loader.load_1x1": "1x1 Kare",
+  "create_power_loader.brass_chunk_loader.load_3x3": "3x3 Kare",
+  "create_power_loader.brass_chunk_loader.load_5x5": "5x5 Kare",
   
   "create_power_loader.ponder.empty_chunk_loader_basic.header": "Boş Yığın Yükleyicilerin Kullanımı",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "Bir boş yığın yükleyici ile bir Ghast'a sağ tıklayarak onu yakalayın",

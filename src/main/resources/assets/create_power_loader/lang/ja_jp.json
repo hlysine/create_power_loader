@@ -7,9 +7,9 @@
   "block.create_power_loader.empty_brass_chunk_loader": "空の真鍮チャンクローダー",
   "block.create_power_loader.brass_chunk_loader": "真鍮チャンクローダー",
   "create_power_loader.brass_chunk_loader.loading_range": "チャンクの読み込み半径",
-  "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1の四角形",
-  "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3の四角形",
-  "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5の四角形",
+  "create_power_loader.brass_chunk_loader.load_1x1": "1x1の四角形",
+  "create_power_loader.brass_chunk_loader.load_3x3": "3x3の四角形",
+  "create_power_loader.brass_chunk_loader.load_5x5": "5x5の四角形",
 
   "create_power_loader.ponder.empty_chunk_loader_basic.header": "空のチャンクローダーの使い方",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "空のチャンクローダーで右クリックするとガストを捕獲できます",

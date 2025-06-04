@@ -7,9 +7,9 @@
   "block.create_power_loader.empty_brass_chunk_loader": "빈 황동 청크 로더",
   "block.create_power_loader.brass_chunk_loader": "황동 청크 로더",
   "create_power_loader.brass_chunk_loader.loading_range": "청크 로딩 반경",
-  "create.create_power_loader.brass_chunk_loader.load_1x1": "1x1",
-  "create.create_power_loader.brass_chunk_loader.load_3x3": "3x3",
-  "create.create_power_loader.brass_chunk_loader.load_5x5": "5x5",
+  "create_power_loader.brass_chunk_loader.load_1x1": "1x1",
+  "create_power_loader.brass_chunk_loader.load_3x3": "3x3",
+  "create_power_loader.brass_chunk_loader.load_5x5": "5x5",
 
   "create_power_loader.ponder.empty_chunk_loader_basic.header": "빈 청크 로더의 사용법",
   "create_power_loader.ponder.empty_chunk_loader_basic.text_1": "가스트를 우클릭하여 청크 로더에 가둡니다",
