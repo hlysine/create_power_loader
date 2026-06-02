@@ -126,7 +126,6 @@ public class ChunkLoadManager {
 //            }
 //        }
         BlockPos projected = SableCompat.projectOutOfSubLevel(level, center.pos);
-//        if (projected.equals(center.pos)) return ret;
         ChunkPos projectedChunk = new ChunkPos(projected);
         for (int i = projectedChunk.x - radius + 1; i <= projectedChunk.x + radius - 1; i++) {
             for (int j = projectedChunk.z - radius + 1; j <= projectedChunk.z + radius - 1; j++) {

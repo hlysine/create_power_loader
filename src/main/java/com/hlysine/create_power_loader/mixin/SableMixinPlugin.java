@@ -7,18 +7,11 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
-public class MixinPlugin implements IMixinConfigPlugin {
-    private boolean isFrameworkInstalled;
+public class SableMixinPlugin implements IMixinConfigPlugin {
     private boolean isSableInstalled;
 
     @Override
     public void onLoad(String mixinPackage) {
-        try {
-            Class.forName("com.hlysine.create_power_loader.CreatePowerLoader", false, this.getClass().getClassLoader());
-            isFrameworkInstalled = true;
-        } catch (Exception e) {
-            isFrameworkInstalled = false;
-        }
         try {
             Class.forName("dev.ryanhcode.sable.sublevel.system.ticket.PhysicsChunkTicketManager", false, this.getClass().getClassLoader());
             isSableInstalled = true;
@@ -34,15 +27,11 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (!isFrameworkInstalled) return false;
-        // Only apply Sable-targeting mixins when Sable is actually present
-        if (mixinClassName.contains("PhysicsChunkTicketManagerMixin")) return isSableInstalled;
-        return true;
+        return isSableInstalled;
     }
 
     @Override
     public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
-
     }
 
     @Override
@@ -52,11 +41,9 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-
     }
 
     @Override
     public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-
     }
 }
