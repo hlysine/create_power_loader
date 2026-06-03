@@ -1,5 +1,6 @@
 package com.hlysine.create_power_loader.content;
 
+import com.hlysine.create_power_loader.compat.Mods;
 import com.hlysine.create_power_loader.compat.SableCompat;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.hlysine.create_power_loader.content.trains.CPLGlobalStation;
@@ -259,6 +260,8 @@ public abstract class AbstractChunkLoaderBlockEntity extends KineticBlockEntity 
     }
 
     protected BlockPos getProjectedBlockPos() {
-        return SableCompat.projectOutOfSubLevel(getLevel(), getBlockPos());
+        if (Mods.SABLE.isLoaded())
+            return SableCompat.projectOutOfSubLevel(getLevel(), getBlockPos());
+        return getBlockPos();
     }
 }

@@ -37,3 +37,6 @@ issueTrackerURL="https://github.com/hlysine/create_power_loader/issues"
 
 [[mixins]]
     config = "create_power_loader.mixins.json"
+
+[[mixins]]
+    config = "create_power_loader.sable.mixins.json"

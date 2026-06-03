@@ -1,5 +1,7 @@
 package com.hlysine.create_power_loader.content;
 
+import com.hlysine.create_power_loader.compat.Mods;
+import com.hlysine.create_power_loader.compat.SableCompat;
 import com.hlysine.create_power_loader.config.CPLConfigs;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
@@ -50,6 +52,10 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
         savedState.blockPos = null;
 
         context.temporaryData = savedState;
+
+        if (Mods.SABLE.isLoaded() && shouldFunction(context)) {
+            SableCompat.pinSubLevel(context.world, context.contraption.entity.blockPosition());
+        }
     }
 
     @Override
@@ -153,6 +159,10 @@ public class ChunkLoaderMovementBehaviour implements MovementBehaviour {
                     savedState.forcedChunks.size()
             );
         unforceAllChunks(context.world.getServer(), context.contraption.entity.getUUID(), savedState.forcedChunks);
+
+        if (Mods.SABLE.isLoaded() && savedState.blockPos != null) {
+            SableCompat.unpinSubLevel(context.world, savedState.blockPos);
+        }
 
         // remove chunk pos to force a loaded chunk check when this movement context is reused
         // required when the chunk loader travels through a nether portal, then comes out of the same portal later

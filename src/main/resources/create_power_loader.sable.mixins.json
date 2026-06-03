@@ -1,17 +1,12 @@
 {
-  "required": true,
+  "required": false,
   "package": "com.hlysine.create_power_loader.mixin",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "refmap": "create_power_loader.refmap.json",
-  "plugin": "com.hlysine.create_power_loader.mixin.MixinPlugin",
+  "plugin": "com.hlysine.create_power_loader.mixin.SableMixinPlugin",
   "mixins": [
-    "GlobalRailwayManagerMixin",
-    "GlobalStationMixin",
-"TrackEdgePointMixin",
-    "TrainMixin"
-  ],
-  "client": [
+    "PhysicsChunkTicketManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
